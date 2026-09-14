@@ -346,6 +346,10 @@ document.getElementById("ward-picker-go").addEventListener("click", () => {
   const select = document.getElementById("ward-picker-select");
   if (select.value) openWardDetail(select.value);
 });
+document.getElementById("ward-picker-map").addEventListener("click", () => {
+  const select = document.getElementById("ward-picker-select");
+  if (select.value) openPostcodeMap(select.value);
+});
 document.getElementById("ward-detail-back").addEventListener("click", closeWardDetail);
 
 async function init() {

@@ -350,6 +350,14 @@ html, body {
   min-width: 0;
 }
 
+.ward-picker-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 .primary-button {
   background: var(--accent);
   color: #0d1117;

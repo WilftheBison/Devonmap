@@ -11,14 +11,21 @@
 <link rel="stylesheet" href="style.css" />
 <style>
   html, body { height: 100%; margin: 0; }
-  #wp-header {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 1000;
-    background: var(--bg-sidebar); border-bottom: 1px solid var(--border);
-    padding: 10px 16px; display: flex; align-items: center; gap: 14px;
+  #wp-app { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
+  #wp-sidebar {
+    width: 300px; min-width: 300px; background: var(--bg-sidebar);
+    border-right: 1px solid var(--border); display: flex; flex-direction: column;
+    overflow-y: auto;
   }
-  #wp-header h1 { font-size: 16px; margin: 0; color: var(--text-bright); font-weight: 600; }
-  #wp-header .count { color: var(--text-dim); font-size: 13px; }
-  #wp-map { position: absolute; top: 48px; left: 0; right: 0; bottom: 0; }
+  #wp-map { flex: 1; height: 100%; }
+  .wp-head { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+  .wp-head h1 { margin: 0; font-size: 19px; font-weight: 700; color: var(--text-bright); }
+  .wp-head .parent { margin: 4px 0 0; font-size: 13px; color: var(--text-dim); }
+  .wp-panel { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .wp-panel h2 {
+    margin: 0 0 10px; font-size: 12px; font-weight: 600; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
   .leaflet-tooltip.pc-label {
     background: none; border: none; box-shadow: none; padding: 0;
     font-size: 10px; font-weight: 600; color: #fff; pointer-events: none;
@@ -26,22 +33,40 @@
                  -1px 1px 1px rgba(0,0,0,.9), 1px 1px 1px rgba(0,0,0,.9);
   }
   .leaflet-tooltip.pc-label::before { display: none; }
-  #wp-map .pc-label { display: none; }
-  #wp-map.show-pc-labels .pc-label { display: block; }
-  #wp-status {
-    position: absolute; top: 58px; left: 16px; z-index: 1000;
-    color: var(--text-dim); font-size: 13px; background: var(--bg-sidebar);
-    padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);
+  #wp-status { font-size: 13px; color: var(--text-dim); padding: 16px 20px; }
+  @media (max-width: 720px) {
+    #wp-app { flex-direction: column; }
+    #wp-sidebar { width: 100%; min-width: 0; max-height: 45vh; }
   }
 </style>
 </head>
 <body>
-  <div id="wp-header">
-    <h1 id="wp-ward-name">Loading&hellip;</h1>
-    <span class="count" id="wp-count"></span>
-  </div>
-  <div id="wp-map"></div>
-  <div id="wp-status" class="hidden"></div>
+
+<div id="wp-app">
+  <aside id="wp-sidebar">
+    <div class="wp-head">
+      <h1 id="wp-ward-name">Loading&hellip;</h1>
+      <p class="parent" id="wp-ward-parent"></p>
+    </div>
+
+    <section class="wp-panel">
+      <h2>Data <span class="count" id="wp-count"></span></h2>
+      <table id="wp-data-table" class="popup-table"></table>
+    </section>
+
+    <section class="wp-panel">
+      <h2>Colour ward by</h2>
+      <label class="field">
+        <select id="wp-colour-column"></select>
+      </label>
+      <div id="wp-legend" class="legend hidden"></div>
+    </section>
+
+    <div id="wp-status" class="hidden"></div>
+  </aside>
+
+  <main id="wp-map"></main>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="ward-postcodes.js"></script>
