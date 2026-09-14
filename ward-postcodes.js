@@ -1,11 +1,12 @@
-/* Standalone per-ward postcode map, opened in its own window/tab from the
-   main app. Reads ?ward=<name> from the URL, loads that ward's precomputed
-   postcode cells (a Voronoi tessellation of postcode points, clipped to the
-   ward boundary - see README for why: individual postcodes have no
-   official polygon of their own, only a centre point), and renders them.
-   Also reads whatever's currently pinned in the main app (same-origin
-   localStorage, so it carries over automatically) so this page keeps the
-   same "colour by" picker and data table for the ward itself. */
+/* Standalone per-ward postcode map, opened from the main app. Reads
+   ?ward=<name> from the URL, loads that ward's precomputed postcode cells
+   (a Voronoi tessellation of postcode points, clipped to the ward boundary
+   - individual postcodes have no official polygon of their own, only a
+   centre point), and renders them with a label on each. The ward picker
+   at the top lets you jump straight to a different ward (reloads the page
+   with the new ?ward= value - simplest way to keep this page self
+   contained). Data panel reads whatever's currently pinned in the main
+   app (same-origin localStorage, so it carries over automatically). */
 
 const STORAGE_KEY = "devon-map-pinned-data-v1"; // must match app.js
 
@@ -24,24 +25,12 @@ function escapeHtml(s) {
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   }[c]));
 }
-function isNumeric(v) {
-  if (v === null || v === undefined || v === "") return false;
-  return !isNaN(parseFloat(v)) && isFinite(v);
-}
 const FRIENDLY_LABELS = {
   total_residents: "Total residents", pct_aged_50_plus: "% aged 50+",
   pct_AB_equivalent: "% AB-equivalent", pct_routine_manual: "% routine/manual",
   notes: "Notes",
 };
 function friendlyLabel(col) { return FRIENDLY_LABELS[col] || col; }
-function hexToRgb(hex) {
-  const n = parseInt(hex.slice(1), 16);
-  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
-}
-function lerpColor(a, b, t) {
-  const pa = hexToRgb(a), pb = hexToRgb(b);
-  return `rgb(${Math.round(pa.r + (pb.r - pa.r) * t)},${Math.round(pa.g + (pb.g - pa.g) * t)},${Math.round(pa.b + (pb.b - pa.b) * t)})`;
-}
 
 const params = new URLSearchParams(window.location.search);
 const wardName = params.get("ward") || "";
@@ -59,34 +48,29 @@ function showStatus(msg) {
   el.classList.remove("hidden");
 }
 
-/* ---------- pinned data (shared with the main app via localStorage) ---------- */
-
-let pinnedData = null;
-let pinnedColumns = [];
-let numericColumns = [];
-let activeColourColumn = null;
-
-function loadPinnedData() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return;
-  try {
-    const parsed = JSON.parse(raw);
-    pinnedData = parsed.data;
-    pinnedColumns = parsed.columns;
-  } catch (e) {
-    console.warn("Could not read pinned data:", e);
-  }
-}
+/* ---------- pinned data panel (shared with the main app via localStorage) ---------- */
 
 function renderDataTable() {
   const tableEl = document.getElementById("wp-data-table");
-  const rec = pinnedData ? pinnedData[normalizeName(wardName)] : null;
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    tableEl.innerHTML = `<tr><td colspan="2" style="color:var(--text-dim);">No data pinned.</td></tr>`;
+    return;
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    tableEl.innerHTML = `<tr><td colspan="2" style="color:var(--text-dim);">No data pinned.</td></tr>`;
+    return;
+  }
+  const rec = parsed.data ? parsed.data[normalizeName(wardName)] : null;
   if (!rec) {
     tableEl.innerHTML = `<tr><td colspan="2" style="color:var(--text-dim);">No data pinned for this ward.</td></tr>`;
     return;
   }
   let rows = "";
-  for (const col of pinnedColumns) {
+  for (const col of parsed.columns) {
     if (rec[col] !== undefined && rec[col] !== "") {
       rows += `<tr><td>${escapeHtml(friendlyLabel(col))}</td><td>${escapeHtml(rec[col])}</td></tr>`;
     }
@@ -94,104 +78,52 @@ function renderDataTable() {
   tableEl.innerHTML = rows || `<tr><td colspan="2" style="color:var(--text-dim);">No data pinned for this ward.</td></tr>`;
 }
 
-function populateColourPicker() {
-  const select = document.getElementById("wp-colour-column");
-  if (!pinnedData) {
-    select.innerHTML = '<option value="">No pinned data loaded</option>';
-    select.disabled = true;
-    return;
-  }
-  numericColumns = pinnedColumns.filter((col) => {
-    const vals = Object.values(pinnedData).map((r) => r[col]);
-    const sample = vals.filter((v) => v !== undefined && v !== "").slice(0, 20);
-    return sample.length > 0 && sample.every(isNumeric);
-  });
-  select.innerHTML =
-    '<option value="">None</option>' +
-    numericColumns.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(friendlyLabel(c))}</option>`).join("");
+/* ---------- ward picker (jumps to a different ward) ---------- */
+
+function populateWardPicker(slugs) {
+  const select = document.getElementById("wp-ward-select");
+  const names = Object.keys(slugs).sort((a, b) => a.localeCompare(b));
+  select.innerHTML = names.map((n) =>
+    `<option value="${escapeHtml(n)}" ${normalizeName(n) === normalizeName(wardName) ? "selected" : ""}>${escapeHtml(n)}</option>`
+  ).join("");
   select.addEventListener("change", () => {
-    activeColourColumn = select.value || null;
-    applyWardColour();
-    updateLegend();
+    window.location.href = `ward-postcodes.html?ward=${encodeURIComponent(select.value)}`;
   });
-}
-
-function colourForValue(val) {
-  const vals = Object.values(pinnedData)
-    .map((r) => parseFloat(r[activeColourColumn]))
-    .filter((v) => !isNaN(v));
-  const min = Math.min(...vals), max = Math.max(...vals);
-  const t = max > min ? (val - min) / (max - min) : 0.5;
-  return lerpColor("#fff3b0", "#c1121f", t);
-}
-
-function updateLegend() {
-  const legendEl = document.getElementById("wp-legend");
-  if (!activeColourColumn || !pinnedData) {
-    legendEl.classList.add("hidden");
-    return;
-  }
-  const vals = Object.values(pinnedData)
-    .map((r) => parseFloat(r[activeColourColumn]))
-    .filter((v) => !isNaN(v));
-  const min = Math.min(...vals).toFixed(1), max = Math.max(...vals).toFixed(1);
-  legendEl.innerHTML = `
-    <div class="legend-bar" style="background:linear-gradient(90deg,#fff3b0,#c1121f)"></div>
-    <div class="legend-labels"><span>${min}</span><span>${escapeHtml(friendlyLabel(activeColourColumn))}</span><span>${max}</span></div>
-  `;
-  legendEl.classList.remove("hidden");
-}
-
-let outlineLayer = null;
-function applyWardColour() {
-  if (!outlineLayer) return;
-  if (activeColourColumn && pinnedData) {
-    const rec = pinnedData[normalizeName(wardName)];
-    const val = rec ? parseFloat(rec[activeColourColumn]) : NaN;
-    if (!isNaN(val)) {
-      outlineLayer.setStyle({ fillColor: colourForValue(val), fillOpacity: 0.35, fill: true });
-      return;
-    }
-    outlineLayer.setStyle({ fillColor: "#4a4f57", fillOpacity: 0.25, fill: true });
-    return;
-  }
-  outlineLayer.setStyle({ fill: false });
 }
 
 /* ---------- postcode cells ---------- */
 
 async function init() {
-  loadPinnedData();
   renderDataTable();
-  populateColourPicker();
 
-  if (!wardName) {
-    showStatus("Open this page from a ward's popup or the Ward detail page on the main map.");
-    return;
-  }
   try {
-    const slugsRes = await fetch("data/postcode-cells/_slugs.json");
-    if (!slugsRes.ok) throw new Error("slug index missing");
+    const slugsRes = await fetch("data/postcode-cells/slugs.json");
+    if (!slugsRes.ok) throw new Error(`slug index missing (${slugsRes.status})`);
     const slugs = await slugsRes.json();
+    populateWardPicker(slugs);
+
+    if (!wardName) {
+      showStatus("Pick a ward above.");
+      return;
+    }
+
     const key = Object.keys(slugs).find((k) => normalizeName(k) === normalizeName(wardName));
-    if (!key) throw new Error("ward not found");
+    if (!key) throw new Error("ward not found in index");
     const slug = slugs[key];
 
     const res = await fetch(`data/postcode-cells/${slug}.geojson`);
-    if (!res.ok) throw new Error("cell data missing");
+    if (!res.ok) throw new Error(`cell data missing (${res.status})`);
     const geo = await res.json();
 
     const outlineFeature = geo.features.find((f) => f.properties.type === "ward-outline");
     const cellFeatures = geo.features.filter((f) => f.properties.type === "postcode-cell");
 
-    outlineLayer = L.geoJSON(outlineFeature, {
+    L.geoJSON(outlineFeature, {
       style: { color: "#e63946", weight: 3.5, fill: false },
     }).addTo(map);
-    applyWardColour();
-    updateLegend();
 
     let i = 0;
-    L.geoJSON(cellFeatures, {
+    const cellsLayer = L.geoJSON(cellFeatures, {
       style: () => {
         const color = PALETTE[i % PALETTE.length];
         i++;
@@ -208,16 +140,13 @@ async function init() {
       },
     }).addTo(map);
 
-    const dataEl = document.getElementById("wp-ward-parent");
-    dataEl.textContent = `${cellFeatures.length} postcodes`;
-
-    map.fitBounds(outlineLayer.getBounds(), { padding: [20, 20] });
-    document.getElementById("wp-count").textContent = `(${cellFeatures.length})`;
+    document.getElementById("wp-ward-count").textContent = `${cellFeatures.length} postcodes`;
+    map.fitBounds(cellsLayer.getBounds(), { padding: [20, 20] });
   } catch (e) {
     console.error(e);
     showStatus(
-      `Couldn't load postcode data for "${wardName}" - if you opened this file directly, ` +
-      `serve the folder with a local web server instead (browsers block loading local files via fetch()).`
+      `Couldn't load postcode data for "${wardName}" (${e.message}). ` +
+      `If this keeps happening, check data/postcode-cells/slugs.json is reachable directly in the browser.`
     );
   }
 }

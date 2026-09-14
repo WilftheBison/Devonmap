@@ -18,13 +18,22 @@
     overflow-y: auto;
   }
   #wp-map { flex: 1; height: 100%; }
-  .wp-head { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
-  .wp-head h1 { margin: 0; font-size: 19px; font-weight: 700; color: var(--text-bright); }
-  .wp-head .parent { margin: 4px 0 0; font-size: 13px; color: var(--text-dim); }
+  .wp-home {
+    display: flex; align-items: center; gap: 8px;
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    color: var(--text-dim); text-decoration: none; font-size: 13.5px;
+  }
+  .wp-home:hover { color: var(--accent-bright); }
   .wp-panel { padding: 16px 20px; border-bottom: 1px solid var(--border); }
   .wp-panel h2 {
     margin: 0 0 10px; font-size: 12px; font-weight: 600; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .wp-ward-name { margin: 0 0 2px; font-size: 19px; font-weight: 700; color: var(--text-bright); }
+  .wp-ward-count { margin: 0; font-size: 13px; color: var(--text-dim); }
+  #wp-ward-select {
+    width: 100%; background: var(--bg-sidebar-raised); color: var(--text);
+    border: 1px solid var(--border); border-radius: 5px; padding: 8px; font-size: 14px;
   }
   .leaflet-tooltip.pc-label {
     background: none; border: none; box-shadow: none; padding: 0;
@@ -36,7 +45,7 @@
   #wp-status { font-size: 13px; color: var(--text-dim); padding: 16px 20px; }
   @media (max-width: 720px) {
     #wp-app { flex-direction: column; }
-    #wp-sidebar { width: 100%; min-width: 0; max-height: 45vh; }
+    #wp-sidebar { width: 100%; min-width: 0; max-height: 50vh; }
   }
 </style>
 </head>
@@ -44,22 +53,21 @@
 
 <div id="wp-app">
   <aside id="wp-sidebar">
-    <div class="wp-head">
-      <h1 id="wp-ward-name">Loading&hellip;</h1>
-      <p class="parent" id="wp-ward-parent"></p>
-    </div>
+    <a href="index.html" class="wp-home">&larr; Home (map)</a>
 
     <section class="wp-panel">
-      <h2>Data <span class="count" id="wp-count"></span></h2>
-      <table id="wp-data-table" class="popup-table"></table>
+      <h2>Ward</h2>
+      <select id="wp-ward-select"></select>
     </section>
 
     <section class="wp-panel">
-      <h2>Colour ward by</h2>
-      <label class="field">
-        <select id="wp-colour-column"></select>
-      </label>
-      <div id="wp-legend" class="legend hidden"></div>
+      <p class="wp-ward-name" id="wp-ward-name">Loading&hellip;</p>
+      <p class="wp-ward-count" id="wp-ward-count"></p>
+    </section>
+
+    <section class="wp-panel">
+      <h2>Data</h2>
+      <table id="wp-data-table" class="popup-table"></table>
     </section>
 
     <div id="wp-status" class="hidden"></div>
