@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devon Boundaries</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#161b22">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Devon Map">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="120x120" href="icons/icon-120.png">
+<link rel="icon" href="icons/icon-192.png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <aside id="sidebar">
+    <header class="sidebar-head">
+      <h1>Devon Boundaries</h1>
+      <p class="subtitle">County &middot; District &middot; Ward</p>
+    </header>
+
+    <section class="panel">
+      <h2>Boundary system</h2>
+      <div class="mode-switch">
+        <button class="mode-btn active" id="mode-district" data-mode="district">District Councils</button>
+        <button class="mode-btn" id="mode-constituency" data-mode="constituency">Parliamentary Constituencies</button>
+      </div>
+      <p class="hint" id="mode-hint"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Layers</h2>
+      <label class="layer-row">
+        <input type="checkbox" id="toggle-county" checked>
+        <span class="swatch swatch-county"></span>
+        <span class="layer-label">County</span>
+      </label>
+      <label class="layer-row">
+        <input type="checkbox" id="toggle-mid" checked>
+        <span class="swatch swatch-district" id="swatch-mid"></span>
+        <span class="layer-label" id="label-mid">Districts</span>
+      </label>
+      <label class="layer-row">
+        <input type="checkbox" id="toggle-wards">
+        <span class="swatch swatch-ward"></span>
+        <span class="layer-label" id="label-wards">Wards</span>
+        <span class="count" id="ward-count"></span>
+      </label>
+    </section>
+
+    <section class="panel">
+      <h2>Pinned data</h2>
+      <p class="hint">Upload a CSV with a <code>ward</code> column (matching ward names) plus any other columns. Those columns will show in each ward's popup and can be used to colour the map.</p>
+
+      <label class="file-drop" id="file-drop">
+        <input type="file" id="csv-input" accept=".csv" hidden>
+        <span id="file-drop-label">Choose CSV file&hellip;</span>
+      </label>
+
+      <div id="data-controls" class="hidden">
+        <label class="field">
+          <span>Colour wards by</span>
+          <select id="colour-column"></select>
+        </label>
+        <div id="legend" class="legend hidden"></div>
+        <button id="clear-data" class="text-button">Clear pinned data</button>
+      </div>
+
+      <p class="status" id="data-status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Ward detail</h2>
+      <p class="hint">Jump to a full-page view of one ward - its data, and (once loaded) every postcode inside it.</p>
+      <div class="ward-picker">
+        <select id="ward-picker-select"></select>
+        <button id="ward-picker-go" class="primary-button">Open</button>
+      </div>
+    </section>
+
+    <footer class="sidebar-foot">
+      <p>Boundaries: ONS / OS open data, via <a href="https://maps.walkingclub.org.uk/admin/" target="_blank" rel="noopener">walkingclub.org.uk</a>. Base map: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors.</p>
+    </footer>
+  </aside>
+
+  <main id="map"></main>
+
+  <div id="ward-detail" class="hidden">
+    <div class="ward-detail-inner">
+      <button id="ward-detail-back" class="text-button back-button">&larr; Back to map</button>
+      <h1 id="ward-detail-name"></h1>
+      <p id="ward-detail-parent" class="ward-detail-parent"></p>
+
+      <section class="ward-detail-section">
+        <h2>Data</h2>
+        <table id="ward-detail-data" class="popup-table"></table>
+      </section>
+
+      <section class="ward-detail-section">
+        <h2>Postcodes in this ward</h2>
+        <div id="ward-detail-postcodes"></div>
+      </section>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

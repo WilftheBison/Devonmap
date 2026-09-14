@@ -1,0 +1,461 @@
+:root {
+  --bg-sidebar: #161b22;
+  --bg-sidebar-raised: #1c2229;
+  --border: #2d333b;
+  --text: #c9d1d9;
+  --text-dim: #8b949e;
+  --text-bright: #f0f3f6;
+  --accent: #4fb0ae;
+  --accent-bright: #6fd0ce;
+
+  --county: #e63946;
+  --district: #2a9d54;
+  --ward: #3a6fd8;
+  --ward-label: #22d3ee;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+#sidebar {
+  width: 320px;
+  min-width: 320px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+#map {
+  flex: 1;
+  height: 100%;
+}
+
+.sidebar-head {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-head h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.panel {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mode-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.mode-btn {
+  flex: 1;
+  background: var(--bg-sidebar-raised);
+  color: var(--text-dim);
+  border: none;
+  padding: 9px 8px;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mode-btn + .mode-btn {
+  border-left: 1px solid var(--border);
+}
+
+.mode-btn:hover {
+  color: var(--text);
+}
+
+.mode-btn.active {
+  background: var(--accent);
+  color: #0d1117;
+  font-weight: 600;
+}
+
+.mode-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.panel .hint {
+  margin: 0;
+}
+
+.layer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.layer-row input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+
+.swatch-county { border-color: var(--county); }
+.swatch-district { border-color: var(--district); }
+.swatch-ward { border-color: var(--ward); }
+
+.layer-label { flex: 1; }
+
+.count {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.hint {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin: 0 0 12px;
+}
+
+.hint code {
+  background: var(--bg-sidebar-raised);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.file-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.file-drop:hover {
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+.hidden { display: none !important; }
+
+#data-controls {
+  margin-top: 14px;
+}
+
+.field {
+  display: block;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.field span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.field select {
+  width: 100%;
+  background: var(--bg-sidebar-raised);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 7px 8px;
+  font-size: 13px;
+}
+
+.legend {
+  margin-bottom: 12px;
+  padding: 10px;
+  background: var(--bg-sidebar-raised);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.legend-bar {
+  height: 10px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-dim);
+}
+
+.text-button {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.text-button:hover { color: var(--accent-bright); }
+
+.status {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin: 10px 0 0;
+  min-height: 14px;
+}
+
+.status.error { color: #e05a63; }
+.status.ok { color: var(--accent-bright); }
+
+.sidebar-foot {
+  margin-top: auto;
+  padding: 14px 20px 18px;
+}
+
+.sidebar-foot p {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.sidebar-foot a {
+  color: var(--text-dim);
+}
+
+/* Leaflet popup theming */
+.leaflet-popup-content-wrapper {
+  background: #1c2229;
+  color: var(--text);
+  border-radius: 6px;
+}
+.leaflet-popup-tip {
+  background: #1c2229;
+}
+.popup-table {
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.popup-table td {
+  padding: 2px 8px 2px 0;
+  vertical-align: top;
+}
+.popup-table td:first-child {
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.popup-title {
+  font-weight: 600;
+  color: var(--text-bright);
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+/* Permanent boundary labels (Leaflet tooltips) - plain coloured text,
+   no bubble/border/pointer, so they read as map labels rather than popups */
+.leaflet-tooltip.county-label,
+.leaflet-tooltip.mid-label,
+.leaflet-tooltip.ward-label {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow:
+    -1px -1px 2px rgba(0,0,0,0.85), 1px -1px 2px rgba(0,0,0,0.85),
+    -1px  1px 2px rgba(0,0,0,0.85), 1px  1px 2px rgba(0,0,0,0.85);
+}
+.leaflet-tooltip.county-label::before,
+.leaflet-tooltip.mid-label::before,
+.leaflet-tooltip.ward-label::before {
+  display: none; /* remove the default tooltip arrow */
+}
+
+.leaflet-tooltip.county-label { color: var(--county); font-size: 15px; }
+.leaflet-tooltip.mid-label { color: var(--district); font-size: 13px; }
+.leaflet-tooltip.ward-label { color: var(--ward-label); font-size: 11px; }
+
+/* Ward labels only render once zoomed in past the threshold app.js sets,
+   so 168 of them don't overlap into noise at county/district zoom */
+#map .leaflet-tooltip.ward-label { display: none; }
+#map.show-ward-labels .leaflet-tooltip.ward-label { display: block; }
+
+.ward-picker {
+  display: flex;
+  gap: 8px;
+}
+
+.ward-picker select {
+  flex: 1;
+  background: var(--bg-sidebar-raised);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 7px 8px;
+  font-size: 13px;
+  min-width: 0;
+}
+
+.primary-button {
+  background: var(--accent);
+  color: #0d1117;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:hover { background: var(--accent-bright); }
+
+#ward-detail {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-sidebar);
+  z-index: 2000;
+  overflow-y: auto;
+}
+
+.ward-detail-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.back-button {
+  font-size: 13px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+#ward-detail-name {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: -0.01em;
+}
+
+.ward-detail-parent {
+  margin: 0 0 28px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.ward-detail-section {
+  margin-bottom: 32px;
+}
+
+.ward-detail-section h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+#ward-detail-data {
+  font-size: 14px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#ward-detail-data td {
+  padding: 6px 12px 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+#ward-detail-data td:first-child {
+  color: var(--text-dim);
+  width: 40%;
+}
+
+.postcode-pending {
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.postcode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 6px;
+}
+
+.postcode-chip {
+  background: var(--bg-sidebar-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 12.5px;
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  #app { flex-direction: column; }
+  #sidebar {
+    width: 100%;
+    min-width: 0;
+    max-height: 45vh;
+  }
+  #map { flex: 1; }
+}
