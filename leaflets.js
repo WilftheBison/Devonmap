@@ -324,17 +324,24 @@ async function printSheets(ids) {
     const b = batchById(id); if (!b) return;
     const pts = b.uprns.map((u) => { const m = markers[u]; const ll = m.m.getLatLng(); return { u, ll, pc: m.pc }; });
     const page = document.createElement("div"); page.className = "pp";
-    page.innerHTML = `<div class="pp-h"><b>Batch ${b.id}</b> &nbsp; ${esc(data.ward)} &middot; ${pts.length} leaflets &middot; route about ${routeKm(b).toFixed(1)} km in a straight line &middot; ${today}</div>
-      <div class="pp-map"></div>
-      <div class="pp-list">${pts.map((p, i) => `<div class="pp-r"><span class="n">${i + 1}</span><span class="pc">${esc(p.pc)}</span><span class="bx"></span></div>`).join("")}</div>
-      <div class="pp-f">Number order = suggested route (green 1 = start, red = last). Tick each box when delivered. Mark any not delivered / not a house. Volunteer: ______________ &nbsp; Back at: ________</div>`;
+    page.innerHTML = `<div class="pp-tag">Batch ${b.id} &middot; ${esc(data.ward)} &middot; ${pts.length} leaflets</div><div class="pp-map"></div>`;
     host.appendChild(page);
     const pm = L.map(page.querySelector(".pp-map"), { zoomControl: false, attributionControl: false, preferCanvas: false, fadeAnimation: false, zoomAnimation: false });
     const tl = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, maxNativeZoom: 19, crossOrigin: true }).addTo(pm);
     waits.push(new Promise((res) => { tl.on("load", res); setTimeout(res, 9000); }));
-    L.polyline(pts.map((p) => p.ll), { color: "#1f4fd8", weight: 2.5, opacity: 0.8, dashArray: "5 5" }).addTo(pm);
-    pts.forEach((p, i) => L.marker(p.ll, { icon: L.divIcon({ className: "pp-dot" + (i === 0 ? " first" : i === pts.length - 1 ? " last" : ""), html: `<span>${i + 1}</span>`, iconSize: [22, 22] }) }).addTo(pm));
-    pm.fitBounds(L.latLngBounds(pts.map((p) => p.ll)), { padding: [28, 28], maxZoom: 19 });
+    pm.fitBounds(L.latLngBounds(pts.map((p) => p.ll)), { padding: [60, 60], maxZoom: 19 });
+    // nudge overlapping dots (flats share one point) apart so every number is readable
+    const placed = [];
+    const px = pts.map((p) => {
+      let c = pm.latLngToContainerPoint(p.ll), k = 0;
+      const clash = (q) => placed.some((o) => Math.hypot(o.x - q.x, o.y - q.y) < 27);
+      const base = c;
+      while (clash(c) && k < 60) { k++; const ang = k * 2.4, r = 14 + 4.5 * k; c = L.point(base.x + r * Math.cos(ang), base.y + r * Math.sin(ang)); }
+      placed.push(c); return c;
+    });
+    const lls = px.map((c) => pm.containerPointToLatLng(c));
+    L.polyline(lls, { color: "#1f4fd8", weight: 2.5, opacity: 0.8, dashArray: "5 5" }).addTo(pm);
+    lls.forEach((ll, i) => L.marker(ll, { icon: L.divIcon({ className: "pp-dot" + (i === 0 ? " first" : i === pts.length - 1 ? " last" : ""), html: `<span>${i + 1}</span>`, iconSize: [26, 26] }) }).addTo(pm));
   });
   await Promise.all(waits);
   await new Promise((r) => setTimeout(r, 400));
