@@ -32,6 +32,38 @@
   .lf-key i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
   #lf-status { font-size: 13px; color: var(--text-dim); padding: 12px 20px; }
   details summary { cursor: pointer; font-size: 13px; color: var(--text-dim); }
+  .lf-num { background: none; border: none; box-shadow: none; padding: 0; font: 700 11px/1 sans-serif; color: #000; pointer-events: none; }
+  .lf-num::before { display: none; }
+  #lf-batches button.b { display: block; width: 100%; text-align: left; margin-bottom: 6px; padding: 11px 10px; font-size: 13.5px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-sidebar-raised); color: var(--text); }
+  #lf-batches button.b.on { border-color: #4da3ff; background: #12294a; color: #fff; }
+  #lf-batches button.b.full { opacity: .6; }
+  #lf-check { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 10px 0; }
+  #lf-check button { padding: 11px 0; font-size: 14px; font-weight: 700; border-radius: 6px; border: 1px solid var(--border); background: #ffd23f; color: #000; }
+  #lf-check button.d { background: #2ecc71; } #lf-check button.s { background: #8d99a6; }
+  button.accent { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+  button.armed { outline: 3px solid #ffd23f; }
+  /* printable sheets */
+  #lf-print { position: absolute; left: -10000px; top: 0; width: 718px; background: #fff; color: #000; font-family: -apple-system, Helvetica, Arial, sans-serif; }
+  .pp { width: 718px; height: 1030px; box-sizing: border-box; overflow: hidden; }
+  .pp-h { font-size: 15px; padding: 2px 0 8px; border-bottom: 2px solid #000; margin-bottom: 6px; }
+  .pp-h b { font-size: 22px; }
+  .pp-map { width: 718px; height: 520px; border: 1px solid #000; }
+  .pp-list { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(13, 28px); grid-auto-flow: column; column-gap: 24px; margin-top: 8px; }
+  .pp-r { display: flex; align-items: center; gap: 10px; height: 28px; border-bottom: 1px solid #bbb; font-size: 14px; }
+  .pp-r .n { width: 26px; font-weight: 700; text-align: right; }
+  .pp-r .pc { flex: 1; }
+  .pp-r .bx { width: 20px; height: 20px; border: 2px solid #000; }
+  .pp-f { margin-top: 8px; font-size: 13px; }
+  .pp-dot span { display: block; width: 22px; height: 22px; border-radius: 50%; background: #ffd23f; border: 2px solid #000; font: 700 12px/18px sans-serif; text-align: center; color: #000; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .pp-dot.first span { background: #2ecc71; } .pp-dot.last span { background: #ff6b6b; }
+  @media print {
+    @page { size: A4; margin: 10mm; }
+    html, body { height: auto !important; overflow: visible !important; background: #fff !important; }
+    #lf-app { display: none !important; }
+    #lf-print { position: static !important; left: auto !important; }
+    .pp { page-break-after: always; }
+    .pp, .pp * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
   @media (max-width: 720px) { #lf-app { flex-direction: column; } #lf-sidebar { width: 100%; min-width: 0; max-height: 52vh; } }
 </style>
 </head>
@@ -53,6 +85,27 @@
       <div class="lf-bar"><div id="lf-barfill"></div></div>
       <p class="lf-sub" id="lf-detail"></p>
       <p class="lf-sub" id="lf-ward-detail"></p>
+    </section>
+
+    <section class="lf-panel">
+      <h2>Plan a round</h2>
+      <select id="lf-count"></select>
+      <div class="lf-row"><button id="lf-setstart">Set start on map</button><button id="lf-make" class="accent">Make batches</button></div>
+      <p class="lf-sub" id="lf-plan-note" style="margin-top:8px"></p>
+    </section>
+
+    <section class="lf-panel">
+      <h2>Batches</h2>
+      <div id="lf-batches"></div>
+      <div id="lf-check"></div>
+      <div class="lf-row">
+        <button id="lf-print-one">Print this batch</button>
+        <button id="lf-print-all">Print all open</button>
+      </div>
+      <div class="lf-row" style="margin-top:6px">
+        <button id="lf-b-done">Mark batch delivered</button>
+        <button id="lf-b-del">Delete batch</button>
+      </div>
     </section>
 
     <section class="lf-panel">
@@ -89,6 +142,7 @@
   </aside>
   <main id="lf-map"></main>
 </div>
+<div id="lf-print"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="leaflets.js"></script>
 </body>
