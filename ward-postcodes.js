@@ -94,6 +94,8 @@ function populateWardPicker(slugs) {
 /* ---------- postcode cells ---------- */
 
 async function init() {
+  const lf = document.getElementById("wp-leaflets");
+  if (lf) lf.href = `leaflets.html?ward=${encodeURIComponent(wardName)}`;
   renderDataTable();
 
   try {
