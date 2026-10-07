@@ -265,7 +265,9 @@ function makeBatches() {
   for (let i = 0; i < path.length; i += 25) {
     const pre = prefixFor(wardName);
     batches.n = batches.n || {};
-    const num = batches.n[wardName] = (batches.n[wardName] || 0) + 1;
+    // next number = highest number still in use for this ward + 1 (so it restarts at 1 once all are deleted)
+    const num = 1 + batches.list.filter((x) => x.ward === wardName).reduce((m, x) => Math.max(m, parseInt(String(x.id).split("-")[1], 10) || 0), 0);
+    batches.n[wardName] = num;
     const b = { id: pre + "-" + num, ward: wardName, uprns: path.slice(i, i + 25).map((a) => a.u), made: new Date().toISOString() };
     batches.list.push(b); made.push(b);
   }
