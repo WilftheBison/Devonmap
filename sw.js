@@ -7,7 +7,7 @@
    a connection the boundaries, labels, popups, pinned data and postcode
    lookups all still work, just the base map tiles won't load. */
 
-const SHELL_CACHE = "devon-map-shell-v3";
+const SHELL_CACHE = "devon-map-shell-v4";
 const DATA_CACHE = "devon-map-data-v2";
 
 const SHELL_FILES = [
@@ -71,8 +71,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // app shell: cache-first, falling back to network
+  // app shell: network-first so updates always arrive, cache as the offline fallback
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    fetch(event.request)
+      .then((res) => {
+        if (res && res.ok) { const copy = res.clone(); caches.open(SHELL_CACHE).then((c) => c.put(event.request, copy)); }
+        return res;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
