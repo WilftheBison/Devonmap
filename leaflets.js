@@ -24,6 +24,24 @@ let startMarker = null, routeLayer = null;
 try { state = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch (e) { state = {}; }
 try { const b = JSON.parse(localStorage.getItem(BATCH_KEY) || "null"); if (b && b.list) batches = b; } catch (e) {}
 function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); localStorage.setItem(BATCH_KEY, JSON.stringify(batches)); } catch (e) {} }
+let wardNames = [];
+const STOP = new Set(["and", "of", "the", "&"]);
+function wardPrefixes(names) {
+  const used = new Set(), out = {};
+  for (const n of names.slice().sort((a, b) => a.localeCompare(b))) {
+    const words = n.toUpperCase().replace(/[^A-Z0-9 ]/g, "").split(/\s+/).filter((w) => w && !STOP.has(w.toLowerCase()));
+    const letters = words.join("");
+    const cands = [];
+    if (words.length > 1) cands.push(words[0][0] + words[1][0]);
+    for (let i = 1; i < letters.length; i++) cands.push(letters[0] + letters[i]);
+    for (let i = 0; i < letters.length - 1; i++) cands.push(letters[i] + letters[i + 1]);
+    let p = cands.find((c) => c.length === 2 && !used.has(c));
+    if (!p) { for (const a of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") { for (const b of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") if (!used.has(a + b)) { p = a + b; break; } if (p) break; } }
+    used.add(p); out[n] = p;
+  }
+  return out;
+}
+const prefixFor = (ward) => wardPrefixes(wardNames)[ward] || ward.slice(0, 2).toUpperCase();
 const batchById = (id) => batches.list.find((b) => b.id === id);
 const myBatches = () => batches.list.filter((b) => b.ward === wardName);
 const allocated = () => { const s = new Set(); batches.list.forEach((b) => b.uprns.forEach((u) => s.add(u))); return s; };
@@ -137,6 +155,7 @@ async function init() {
   try {
     const slugs = await (await fetch("data/postcode-cells/slugs.json")).json();
     const names = Object.keys(slugs).sort((a, b) => a.localeCompare(b));
+    wardNames = names;
     $("lf-ward").innerHTML = `<option value="">Pick a ward&hellip;</option>` + names.map((n) => `<option value="${esc(n)}">${esc(n)}</option>`).join("");
     $("lf-ward").onchange = () => { if ($("lf-ward").value) location.href = `leaflets.html?ward=${encodeURIComponent($("lf-ward").value)}`; };
     if (!wardName) { status("Pick a ward above."); return; }
@@ -210,7 +229,7 @@ function orderRoute(pts, startP) {
   let improved = true, passes = 0;
   while (improved && passes++ < 40) {
     improved = false;
-    for (let i = 0; i < n - 1; i++) for (let k = i + 1; k < n; k++) {
+    for (let i = 1; i < n - 1; i++) for (let k = i + 1; k < n; k++) {
       const a = i > 0 ? path[i - 1].p : null, b = path[i].p, c = path[k].p, d = k < n - 1 ? path[k + 1].p : null;
       const before = (a ? dist(a, b) : 0) + (d ? dist(c, d) : 0);
       const after = (a ? dist(a, c) : 0) + (d ? dist(b, d) : 0);
@@ -244,7 +263,10 @@ function makeBatches() {
   const path = orderRoute(chosen, spP);
   const made = [];
   for (let i = 0; i < path.length; i += 25) {
-    const b = { id: batches.next++, ward: wardName, uprns: path.slice(i, i + 25).map((a) => a.u), made: new Date().toISOString() };
+    const pre = prefixFor(wardName);
+    batches.n = batches.n || {};
+    const num = batches.n[wardName] = (batches.n[wardName] || 0) + 1;
+    const b = { id: pre + "-" + num, ward: wardName, uprns: path.slice(i, i + 25).map((a) => a.u), made: new Date().toISOString() };
     batches.list.push(b); made.push(b);
   }
   save();
@@ -280,7 +302,7 @@ function renderBatchUI() {
     const done = b.uprns.filter((u) => state[u]).length;
     return `<button class="b ${b.id === activeBatch ? "on" : ""} ${done === b.uprns.length ? "full" : ""}" data-id="${b.id}">Batch ${b.id} &middot; ${b.uprns.length} dots &middot; ${done}/${b.uprns.length} done${done === b.uprns.length ? " \u2713" : ""}</button>`;
   }).join("") : '<p class="lf-sub">No batches yet. Pick a number above and tap Make batches.</p>';
-  box.querySelectorAll("button.b").forEach((bt) => { bt.onclick = () => showBatch(+bt.dataset.id); });
+  box.querySelectorAll("button.b").forEach((bt) => { bt.onclick = () => showBatch(bt.dataset.id); });
   const ab = activeBatch && batchById(activeBatch);
   $("lf-check").innerHTML = ab ? ab.uprns.map((u, i) => `<button data-u="${u}" class="${state[u] === 1 ? "d" : state[u] === 2 ? "s" : ""}">${i + 1}</button>`).join("") : "";
   $("lf-check").querySelectorAll("button").forEach((bt) => { bt.onclick = () => { const u = +bt.dataset.u, cur = state[u] || 0; setState(u, cur === mode ? 0 : mode); }; });
@@ -289,7 +311,19 @@ function renderBatchUI() {
   if (!settingStart && !$("lf-plan-note").textContent.startsWith("Made")) $("lf-plan-note").textContent = `${av} dots available (not delivered or already in a batch).`;
 }
 
+function migrateBatchIds() {
+  // older batches had one app-wide number; renumber per ward with the ward prefix
+  if (!batches.list.some((b) => typeof b.id === "number")) return;
+  const pre = wardPrefixes(wardNames); batches.n = batches.n || {};
+  for (const b of batches.list.filter((x) => typeof x.id === "number").sort((a, c) => a.id - c.id)) {
+    batches.n[b.ward] = (batches.n[b.ward] || 0) + 1;
+    b.id = (pre[b.ward] || b.ward.slice(0, 2).toUpperCase()) + "-" + batches.n[b.ward];
+  }
+  save();
+}
+
 function initPlanner() {
+  migrateBatchIds();
   lat0 = Object.values(data.pc)[0][0][1]; cosl = Math.cos(lat0 * Math.PI / 180);
   const sel = $("lf-count");
   sel.innerHTML = Array.from({ length: 20 }, (_, i) => (i + 1) * 25).map((n) => `<option value="${n}" ${n === 125 ? "selected" : ""}>${n} leaflets (${n / 25} batch${n > 25 ? "es" : ""})</option>`).join("");
