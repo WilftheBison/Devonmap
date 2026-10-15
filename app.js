@@ -162,7 +162,7 @@ function wardPopup(feature) {
 
   const tt = topTenData && topTenData[normalizeName(name)];
   if (tt) {
-    rows += `<tr><td>Top ten</td><td>${tt.ranks.map((r) => `#${r.rank} in ${escapeHtml(r.constituency)}`).join("<br>")}</td></tr>
+    rows += `<tr><td>Target rank</td><td>${tt.ranks.map((r) => `#${r.rank} in ${escapeHtml(r.constituency)}`).join("<br>")}</td></tr>
              <tr><td>% routine/manual</td><td>${tt.rm}%</td></tr>
              <tr><td>% AB-equivalent</td><td>${tt.ab}%</td></tr>
              <tr><td>% aged 50+</td><td>${tt.a50}%</td></tr>
