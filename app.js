@@ -39,7 +39,27 @@ const MODES = {
   },
 };
 
+MODES.topten = {
+  label: "Top Ten Wards",
+  midLabel: "Districts",
+  midParentLabel: "District",
+  wardLabel: "Wards",
+  midFile: "data/districts.geojson",
+  wardFile: "data/wards.geojson",
+  wardParentProp: "district",
+  bundledCsv: null,
+  topTen: true,
+};
+
 let currentMode = "district";
+let topTenData = null; // normalizedName -> {ward, district, rm, ab, a50, residents, seats, ranks:[{constituency, rank}]}
+const isTopTen = () => !!MODES[currentMode].topTen;
+async function loadTopTen() {
+  try {
+    const res = await fetch("data/top-wards.json");
+    if (res.ok) topTenData = await res.json();
+  } catch (e) { /* optional */ }
+}
 
 const map = L.map("map", {
   zoomControl: true,
@@ -80,12 +100,17 @@ function updateWardLabelVisibility() {
   const show = map.getZoom() >= WARD_LABEL_MIN_ZOOM;
   document.getElementById("map").classList.toggle("show-ward-labels", show);
 }
+const TOPTEN_STATS_MIN_ZOOM = 13;
+function updateTopTenStatsVisibility() {
+  document.getElementById("map").classList.toggle("show-topten-stats", map.getZoom() >= TOPTEN_STATS_MIN_ZOOM);
+}
 map.on("zoomend", updateWardLabelVisibility);
+map.on("zoomend", updateTopTenStatsVisibility);
 let midLayer = null;        // currently-shown "districts" or "constituencies" layer
 let wardLayer = null;       // currently-shown wards layer, whichever system
 
 // cached, parsed data per mode so switching modes doesn't re-fetch
-const cache = { district: {}, constituency: {} };
+const cache = { district: {}, constituency: {}, topten: {} };
 
 /* ---------- helpers ---------- */
 
@@ -135,7 +160,17 @@ function wardPopup(feature) {
   let rows = `<tr><td>Ward</td><td>${escapeHtml(name)}</td></tr>
               <tr><td>${escapeHtml(parentLabel)}</td><td>${escapeHtml(parentValue)}</td></tr>`;
 
-  if (pinnedData) {
+  const tt = topTenData && topTenData[normalizeName(name)];
+  if (tt) {
+    rows += `<tr><td>Top ten</td><td>${tt.ranks.map((r) => `#${r.rank} in ${escapeHtml(r.constituency)}`).join("<br>")}</td></tr>
+             <tr><td>% routine/manual</td><td>${tt.rm}%</td></tr>
+             <tr><td>% AB-equivalent</td><td>${tt.ab}%</td></tr>
+             <tr><td>% aged 50+</td><td>${tt.a50}%</td></tr>
+             <tr><td>Residents</td><td>${tt.residents.toLocaleString()}</td></tr>
+             <tr><td>Councillors</td><td>${tt.seats}</td></tr>`;
+  }
+
+  if (pinnedData && !tt) {
     const rec = pinnedData[normalizeName(name)];
     if (rec) {
       for (const col of pinnedColumns) {
@@ -171,6 +206,7 @@ async function ensureModeLoaded(mode) {
   if (c.loaded) return c.available;
   const cfg = MODES[mode];
   try {
+    if (cfg.topTen && !topTenData) await loadTopTen();
     const [midGeo, wardGeo] = await Promise.all([
       loadLayer(cfg.midFile),
       loadLayer(cfg.wardFile),
@@ -204,9 +240,18 @@ function buildWardLayer(mode) {
     style: wardStyle,
     onEachFeature: (feature, layer) => {
       layer.bindPopup(() => wardPopup(feature));
-      layer.bindTooltip(feature.properties.name, {
-        permanent: true, direction: "center", className: "ward-label",
-      });
+      const tt = MODES[mode].topTen && topTenData && topTenData[normalizeName(feature.properties.name)];
+      if (tt) {
+        const ranks = tt.ranks.map((r) => `#${r.rank} ${escapeHtml(r.constituency)}`).join(" &middot; ");
+        layer.bindTooltip(
+          `<b>${escapeHtml(feature.properties.name)}</b>` +
+          `<span class="tt-stats"><br>${ranks}<br>Routine/manual ${tt.rm}%<br>AB ${tt.ab}% &middot; 50+ ${tt.a50}%<br>${tt.residents.toLocaleString()} residents</span>`,
+          { permanent: true, direction: "center", className: "ward-label topten-label" });
+      } else {
+        layer.bindTooltip(feature.properties.name, {
+          permanent: true, direction: "center", className: "ward-label",
+        });
+      }
     },
   });
 }
@@ -234,7 +279,7 @@ async function switchMode(mode) {
   document.getElementById("label-wards").textContent = MODES[mode].wardLabel;
 
   const midWasOn = midLayer ? map.hasLayer(midLayer) : true;
-  const wardWasOn = wardLayer ? map.hasLayer(wardLayer) : false;
+  const wardWasOn = MODES[mode].topTen ? true : (wardLayer ? map.hasLayer(wardLayer) : false);
 
   if (midLayer) map.removeLayer(midLayer);
   if (wardLayer) map.removeLayer(wardLayer);
@@ -248,6 +293,14 @@ async function switchMode(mode) {
   document.getElementById("toggle-wards").checked = wardWasOn;
   document.getElementById("ward-count").textContent =
     `${cache[mode].wardGeo.features.length}`;
+
+  const legend = document.getElementById("legend");
+  if (legend) legend.style.display = MODES[mode].topTen ? "none" : "";
+  document.getElementById("map").classList.toggle("topten-mode", !!MODES[mode].topTen);
+  hintEl.textContent = MODES[mode].topTen
+    ? `${Object.keys(topTenData || {}).length} wards shaded red: the top ten per constituency, ranked by % routine/manual (2021 Census). Zoom in for the figures.`
+    : "";
+  updateTopTenStatsVisibility();
 
   // re-apply/refresh whatever's pinned against the new ward layer
   wardLayer.setStyle(wardStyle);
@@ -390,6 +443,7 @@ async function init() {
       await loadBundledCsv();
     }
     await loadPostcodeData();
+    await loadTopTen();
     populateWardPicker();
     updateLayerOrder();
     updateWardLabelVisibility();
@@ -405,6 +459,12 @@ async function init() {
 
 function wardStyle(feature) {
   const base = { color: COLORS.ward, weight: WEIGHTS.ward };
+  if (isTopTen()) {
+    const hit = topTenData && topTenData[normalizeName(feature.properties.name)];
+    return hit
+      ? { color: "#b3202c", weight: 2, fillColor: "#e63946", fillOpacity: 0.5, fill: true }
+      : { ...base, fill: false };
+  }
   if (activeColourColumn && pinnedData) {
     const rec = pinnedData[normalizeName(feature.properties.name)];
     const val = rec ? parseFloat(rec[activeColourColumn]) : NaN;
