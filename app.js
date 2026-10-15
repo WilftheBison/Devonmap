@@ -41,8 +41,43 @@ const MODES = {
 
 let currentMode = "district";
 let topTenData = null; // normalizedName -> {ward, district, rm, ab, a50, residents, seats, ranks:[{constituency, rank}]}
-const TOPFIVE = "__topfive__";   // special "Colour wards by" choice
-const topFiveOn = () => activeColourColumn === TOPFIVE;
+/* Special "Colour wards by" choices built from data/top-wards.json:
+   share = top five per constituency by % routine/manual, seat = top five by fewest residents per councillor,
+   dual  = wards in the top ten on both measures (the spreadsheet's "dual-criteria" flag). */
+const TOP_OPTIONS = {
+  "__top_dual__": { label: "Wards strong on both measures" },
+};
+const topFiveOn = () => !!TOP_OPTIONS[activeColourColumn];
+function qualifies(rec, opt) {
+  if (!rec) return false;
+  if (opt === "__top_dual__") return !!rec.dual;
+  return false;
+}
+const topCount = (opt) => Object.values(topTenData || {}).filter((r) => qualifies(r, opt)).length;
+const fmtPct = (v) => (v === null || v === undefined ? "n/a" : v + "%");
+const rankList = (list) => list.map((r) => `#${r.rank} ${escapeHtml(r.constituency)}`).join(" &middot; ");
+
+function wardLabelHtml(name, rec) {
+  const rankLine = `Class #${Math.min(...rec.share.map((r) => r.rank))} &middot; Seat #${Math.min(...rec.seat.map((r) => r.rank))}`;
+  return `<b>${escapeHtml(name)}</b><span class="tt-stats"><br>${rankLine}` +
+    `<br>R/M ${fmtPct(rec.rm)} &middot; AB ${fmtPct(rec.ab)} &middot; 50+ ${fmtPct(rec.a50)}` +
+    `<br>${Number(rec.rps).toLocaleString()} residents/seat</span>`;
+}
+
+/** (Re)build each ward's permanent label: plain name normally, name + figures for wards the chosen option highlights. */
+function bindWardLabel(layer) {
+  const name = layer.feature.properties.name;
+  const rec = topTenData && topTenData[normalizeName(name)];
+  layer.unbindTooltip();
+  if (topFiveOn() && qualifies(rec, activeColourColumn)) {
+    layer.bindTooltip(wardLabelHtml(name, rec), { permanent: true, direction: "center", className: "ward-label topten-label" });
+  } else {
+    layer.bindTooltip(name, { permanent: true, direction: "center", className: "ward-label" });
+  }
+}
+function refreshWardLabels() {
+  if (wardLayer) wardLayer.eachLayer(bindWardLabel);
+}
 async function loadTopTen() {
   try {
     const res = await fetch("data/top-wards.json");
@@ -151,18 +186,22 @@ function wardPopup(feature) {
 
   const tt = topTenData && topTenData[normalizeName(name)];
   if (tt) {
-    rows += `<tr><td>Target rank</td><td>${tt.ranks.map((r) => `#${r.rank} in ${escapeHtml(r.constituency)}`).join("<br>")}</td></tr>
-             <tr><td>% routine/manual</td><td>${tt.rm}%</td></tr>
-             <tr><td>% AB-equivalent</td><td>${tt.ab}%</td></tr>
-             <tr><td>% aged 50+</td><td>${tt.a50}%</td></tr>
-             <tr><td>Residents</td><td>${tt.residents.toLocaleString()}</td></tr>
-             <tr><td>Councillors</td><td>${tt.seats}</td></tr>`;
+    rows += `<tr><td>Working-class share</td><td>${rankList(tt.share)}</td></tr>
+             <tr><td>Cheapest seat</td><td>${rankList(tt.seat)}</td></tr>`
+          + (tt.dual ? `<tr><td>Both measures</td><td>Yes (top ten on both)</td></tr>` : "")
+          + `<tr><td>% routine/manual</td><td>${fmtPct(tt.rm)}</td></tr>
+             <tr><td>% AB-equivalent</td><td>${fmtPct(tt.ab)}</td></tr>
+             <tr><td>% aged 50+</td><td>${fmtPct(tt.a50)}</td></tr>
+             <tr><td>Residents</td><td>${Number(tt.residents).toLocaleString()}</td></tr>
+             <tr><td>Councillors</td><td>${tt.seats}</td></tr>
+             <tr><td>Residents per seat</td><td>${Number(tt.rps).toLocaleString()}</td></tr>`;
   }
 
-  if (pinnedData && !tt) {
+  if (pinnedData) {
     const rec = pinnedData[normalizeName(name)];
     if (rec) {
       for (const col of pinnedColumns) {
+        if (tt && FRIENDLY_LABELS[col] && col !== "notes") continue; // census figures already shown above
         if (rec[col] !== undefined && rec[col] !== "") {
           rows += `<tr><td>${escapeHtml(friendlyLabel(col))}</td><td>${escapeHtml(rec[col])}</td></tr>`;
         }
@@ -227,19 +266,9 @@ function buildWardLayer(mode) {
   return L.geoJSON(geo, {
     style: wardStyle,
     onEachFeature: (feature, layer) => {
+      layer.feature = feature;
       layer.bindPopup(() => wardPopup(feature));
-      const tt = topTenData && topTenData[normalizeName(feature.properties.name)];
-      if (tt) {
-        const ranks = tt.ranks.map((r) => `#${r.rank} ${escapeHtml(r.constituency)}`).join(" &middot; ");
-        layer.bindTooltip(
-          `<b>${escapeHtml(feature.properties.name)}</b>` +
-          `<span class="tt-stats"><br>${ranks}<br>Routine/manual ${tt.rm}%<br>AB ${tt.ab}% &middot; 50+ ${tt.a50}%<br>${tt.residents.toLocaleString()} residents</span>`,
-          { permanent: true, direction: "center", className: "ward-label topten-label" });
-      } else {
-        layer.bindTooltip(feature.properties.name, {
-          permanent: true, direction: "center", className: "ward-label",
-        });
-      }
+      bindWardLabel(layer);
     },
   });
 }
@@ -442,7 +471,7 @@ async function init() {
 function wardStyle(feature) {
   const base = { color: COLORS.ward, weight: WEIGHTS.ward };
   if (topFiveOn()) {
-    const hit = topTenData && topTenData[normalizeName(feature.properties.name)];
+    const hit = qualifies(topTenData && topTenData[normalizeName(feature.properties.name)], activeColourColumn);
     return hit
       ? { color: "#b3202c", weight: 2, fillColor: "#e63946", fillOpacity: 0.5, fill: true }
       : { ...base, fill: false };
@@ -547,7 +576,7 @@ function refreshDataControls() {
 
   colourSelect.innerHTML =
     '<option value="">None (outline only)</option>' +
-    (topTenData ? `<option value="${TOPFIVE}">Top five wards per constituency</option>` : "") +
+    (topTenData ? Object.entries(TOP_OPTIONS).map(([k, o]) => `<option value="${k}">${o.label}</option>`).join("") : "") +
     numericColumns.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(friendlyLabel(c))}</option>`).join("");
   if (activeColourColumn) colourSelect.value = activeColourColumn;
 
@@ -558,6 +587,12 @@ function refreshDataControls() {
 colourSelect.addEventListener("change", () => {
   activeColourColumn = colourSelect.value || null;
   document.getElementById("map").classList.toggle("topfive-on", topFiveOn());
+  refreshWardLabels();
+  if (topFiveOn() && wardLayer && !map.hasLayer(wardLayer)) {   // the shading lives on the wards layer
+    wardLayer.addTo(map);
+    document.getElementById("toggle-wards").checked = true;
+    updateLayerOrder();
+  }
   if (wardLayer) wardLayer.setStyle(wardStyle);
   updateLegend();
 });
@@ -567,6 +602,8 @@ document.getElementById("clear-data").addEventListener("click", () => {
   pinnedColumns = [];
   numericColumns = [];
   activeColourColumn = null;
+  document.getElementById("map").classList.remove("topfive-on");
+  refreshWardLabels();
   localStorage.removeItem(STORAGE_KEY);
   dataControls.classList.add("hidden");
   legendEl.classList.add("hidden");
@@ -615,10 +652,13 @@ function updateLegend() {
     return;
   }
   if (topFiveOn()) {
+    const n = topCount(activeColourColumn);
+    const text = `Strong on both measures (${n} wards)`;
+    const note = "Top ten in its constituency for both working-class share (% routine/manual, 2021 Census) and cheapest seat (fewest residents per councillor).";
     legendEl.innerHTML = `<div style="display:flex;align-items:center;gap:8px;">
-        <span style="width:14px;height:14px;background:rgba(230,57,70,.5);border:2px solid #b3202c;border-radius:2px;display:inline-block;"></span>
-        <span>Top five wards per constituency (${Object.keys(topTenData || {}).length})</span></div>
-      <p style="margin:8px 0 0;color:var(--text-dim);font-size:12px;">Ranked by % routine/manual (2021 Census). Zoom in for each ward's figures.</p>`;
+        <span style="flex:none;width:14px;height:14px;background:rgba(230,57,70,.5);border:2px solid #b3202c;border-radius:2px;display:inline-block;"></span>
+        <span>${text}</span></div>
+      <p style="margin:8px 0 0;color:var(--text-dim);font-size:12px;">${note} Zoom in for each ward's figures.</p>`;
     legendEl.classList.remove("hidden");
     return;
   }
