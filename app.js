@@ -40,17 +40,19 @@ const MODES = {
 };
 
 let currentMode = "district";
-let topTenData = null; // normalizedName -> {ward, district, rm, ab, a50, residents, seats, ranks:[{constituency, rank}]}
+let topTenData = null; // normalizedName -> {ward, rm, ab, a50, residents, seats, rps, share:[], seat:[], both:[{constituency, crank, share, seat}]}
 /* Special "Colour wards by" choices built from data/top-wards.json:
-   share = top five per constituency by % routine/manual, seat = top five by fewest residents per councillor,
-   dual  = wards in the top ten on both measures (the spreadsheet's "dual-criteria" flag). */
+   Wards in the top ten on BOTH measures (working-class share, cheapest seat) are ranked within their
+   constituency by the sum of their two ranks (crank); "top five" and "top one" pick crank <= 5 / == 1. */
 const TOP_OPTIONS = {
-  "__top_dual__": { label: "Wards strong on both measures" },
+  "__top5_both__": { label: "Top five wards per constituency (both measures)" },
+  "__top1_both__": { label: "Top ward in each constituency (both measures)" },
 };
 const topFiveOn = () => !!TOP_OPTIONS[activeColourColumn];
 function qualifies(rec, opt) {
   if (!rec) return false;
-  if (opt === "__top_dual__") return !!rec.dual;
+  if (opt === "__top5_both__") return rec.both.some((b) => b.crank <= 5);
+  if (opt === "__top1_both__") return rec.both.some((b) => b.crank === 1);
   return false;
 }
 const topCount = (opt) => Object.values(topTenData || {}).filter((r) => qualifies(r, opt)).length;
@@ -58,10 +60,11 @@ const fmtPct = (v) => (v === null || v === undefined ? "n/a" : v + "%");
 const rankList = (list) => list.map((r) => `#${r.rank} ${escapeHtml(r.constituency)}`).join(" &middot; ");
 
 function wardLabelHtml(name, rec) {
-  const rankLine = `Class #${Math.min(...rec.share.map((r) => r.rank))} &middot; Seat #${Math.min(...rec.seat.map((r) => r.rank))}`;
-  return `<b>${escapeHtml(name)}</b><span class="tt-stats"><br>${rankLine}` +
-    `<br>R/M ${fmtPct(rec.rm)} &middot; AB ${fmtPct(rec.ab)} &middot; 50+ ${fmtPct(rec.a50)}` +
-    `<br>${Number(rec.rps).toLocaleString()} residents/seat</span>`;
+  const limit = activeColourColumn === "__top1_both__" ? 1 : 5;
+  const best = rec.both.filter((b) => b.crank <= limit).sort((x, y) => x.crank - y.crank)[0];
+  return `<b>${escapeHtml(name)}</b><span class="tt-stats"><br>#${best.crank} in ${escapeHtml(best.constituency)}` +
+    `<br>Class #${best.share} &middot; Seat #${best.seat} &middot; ${Number(rec.rps).toLocaleString()}/seat` +
+    `<br>R/M ${fmtPct(rec.rm)} &middot; AB ${fmtPct(rec.ab)} &middot; 50+ ${fmtPct(rec.a50)}</span>`;
 }
 
 /** (Re)build each ward's permanent label: plain name normally, name + figures for wards the chosen option highlights. */
@@ -188,7 +191,7 @@ function wardPopup(feature) {
   if (tt) {
     rows += `<tr><td>Working-class share</td><td>${rankList(tt.share)}</td></tr>
              <tr><td>Cheapest seat</td><td>${rankList(tt.seat)}</td></tr>`
-          + (tt.dual ? `<tr><td>Both measures</td><td>Yes (top ten on both)</td></tr>` : "")
+          + (tt.both.length ? `<tr><td>Both measures</td><td>${tt.both.map((b) => `#${b.crank} in ${escapeHtml(b.constituency)} (class #${b.share}, seat #${b.seat})`).join("<br>")}</td></tr>` : "")
           + `<tr><td>% routine/manual</td><td>${fmtPct(tt.rm)}</td></tr>
              <tr><td>% AB-equivalent</td><td>${fmtPct(tt.ab)}</td></tr>
              <tr><td>% aged 50+</td><td>${fmtPct(tt.a50)}</td></tr>
@@ -653,8 +656,9 @@ function updateLegend() {
   }
   if (topFiveOn()) {
     const n = topCount(activeColourColumn);
-    const text = `Strong on both measures (${n} wards)`;
-    const note = "Top ten in its constituency for both working-class share (% routine/manual, 2021 Census) and cheapest seat (fewest residents per councillor).";
+    const one = activeColourColumn === "__top1_both__";
+    const text = one ? `Top ward in each constituency (${n} wards)` : `Top five per constituency (${n} wards)`;
+    const note = "Ranked on both measures together: working-class share (% routine/manual, 2021 Census) plus cheapest seat (fewest residents per councillor). Only wards in the top ten on both are eligible, so some constituencies have fewer than five.";
     legendEl.innerHTML = `<div style="display:flex;align-items:center;gap:8px;">
         <span style="flex:none;width:14px;height:14px;background:rgba(230,57,70,.5);border:2px solid #b3202c;border-radius:2px;display:inline-block;"></span>
         <span>${text}</span></div>
