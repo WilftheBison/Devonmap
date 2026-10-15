@@ -40,7 +40,7 @@ const MODES = {
 };
 
 MODES.topten = {
-  label: "Top Ten Wards",
+  label: "Top Five Wards",
   midLabel: "Districts",
   midParentLabel: "District",
   wardLabel: "Wards",
@@ -298,7 +298,7 @@ async function switchMode(mode) {
   if (legend) legend.style.display = MODES[mode].topTen ? "none" : "";
   document.getElementById("map").classList.toggle("topten-mode", !!MODES[mode].topTen);
   hintEl.textContent = MODES[mode].topTen
-    ? `${Object.keys(topTenData || {}).length} wards shaded red: the top ten per constituency, ranked by % routine/manual (2021 Census). Zoom in for the figures.`
+    ? `${Object.keys(topTenData || {}).length} wards shaded red: the top five per constituency, ranked by % routine/manual (2021 Census). Zoom in for the figures.`
     : "";
   updateTopTenStatsVisibility();
 
