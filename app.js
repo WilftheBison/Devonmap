@@ -39,21 +39,10 @@ const MODES = {
   },
 };
 
-MODES.topten = {
-  label: "Top Five Wards",
-  midLabel: "Districts",
-  midParentLabel: "District",
-  wardLabel: "Wards",
-  midFile: "data/districts.geojson",
-  wardFile: "data/wards.geojson",
-  wardParentProp: "district",
-  bundledCsv: null,
-  topTen: true,
-};
-
 let currentMode = "district";
 let topTenData = null; // normalizedName -> {ward, district, rm, ab, a50, residents, seats, ranks:[{constituency, rank}]}
-const isTopTen = () => !!MODES[currentMode].topTen;
+const TOPFIVE = "__topfive__";   // special "Colour wards by" choice
+const topFiveOn = () => activeColourColumn === TOPFIVE;
 async function loadTopTen() {
   try {
     const res = await fetch("data/top-wards.json");
@@ -110,7 +99,7 @@ let midLayer = null;        // currently-shown "districts" or "constituencies" l
 let wardLayer = null;       // currently-shown wards layer, whichever system
 
 // cached, parsed data per mode so switching modes doesn't re-fetch
-const cache = { district: {}, constituency: {}, topten: {} };
+const cache = { district: {}, constituency: {} };
 
 /* ---------- helpers ---------- */
 
@@ -206,7 +195,6 @@ async function ensureModeLoaded(mode) {
   if (c.loaded) return c.available;
   const cfg = MODES[mode];
   try {
-    if (cfg.topTen && !topTenData) await loadTopTen();
     const [midGeo, wardGeo] = await Promise.all([
       loadLayer(cfg.midFile),
       loadLayer(cfg.wardFile),
@@ -240,7 +228,7 @@ function buildWardLayer(mode) {
     style: wardStyle,
     onEachFeature: (feature, layer) => {
       layer.bindPopup(() => wardPopup(feature));
-      const tt = MODES[mode].topTen && topTenData && topTenData[normalizeName(feature.properties.name)];
+      const tt = topTenData && topTenData[normalizeName(feature.properties.name)];
       if (tt) {
         const ranks = tt.ranks.map((r) => `#${r.rank} ${escapeHtml(r.constituency)}`).join(" &middot; ");
         layer.bindTooltip(
@@ -279,7 +267,7 @@ async function switchMode(mode) {
   document.getElementById("label-wards").textContent = MODES[mode].wardLabel;
 
   const midWasOn = midLayer ? map.hasLayer(midLayer) : true;
-  const wardWasOn = MODES[mode].topTen ? true : (wardLayer ? map.hasLayer(wardLayer) : false);
+  const wardWasOn = wardLayer ? map.hasLayer(wardLayer) : false;
 
   if (midLayer) map.removeLayer(midLayer);
   if (wardLayer) map.removeLayer(wardLayer);
@@ -294,12 +282,6 @@ async function switchMode(mode) {
   document.getElementById("ward-count").textContent =
     `${cache[mode].wardGeo.features.length}`;
 
-  const legend = document.getElementById("legend");
-  if (legend) legend.style.display = MODES[mode].topTen ? "none" : "";
-  document.getElementById("map").classList.toggle("topten-mode", !!MODES[mode].topTen);
-  hintEl.textContent = MODES[mode].topTen
-    ? `${Object.keys(topTenData || {}).length} wards shaded red: the top five per constituency, ranked by % routine/manual (2021 Census). Zoom in for the figures.`
-    : "";
   updateTopTenStatsVisibility();
 
   // re-apply/refresh whatever's pinned against the new ward layer
@@ -425,6 +407,7 @@ async function init() {
     const available = await ensureModeLoaded("district");
     if (!available) throw new Error("district boundary data missing");
 
+    await loadTopTen();
     midLayer = buildMidLayer("district").addTo(map);
     wardLayer = buildWardLayer("district");
     // wards start off, so 168+ shapes aren't dumped on screen immediately
@@ -443,7 +426,6 @@ async function init() {
       await loadBundledCsv();
     }
     await loadPostcodeData();
-    await loadTopTen();
     populateWardPicker();
     updateLayerOrder();
     updateWardLabelVisibility();
@@ -459,7 +441,7 @@ async function init() {
 
 function wardStyle(feature) {
   const base = { color: COLORS.ward, weight: WEIGHTS.ward };
-  if (isTopTen()) {
+  if (topFiveOn()) {
     const hit = topTenData && topTenData[normalizeName(feature.properties.name)];
     return hit
       ? { color: "#b3202c", weight: 2, fillColor: "#e63946", fillOpacity: 0.5, fill: true }
@@ -565,7 +547,9 @@ function refreshDataControls() {
 
   colourSelect.innerHTML =
     '<option value="">None (outline only)</option>' +
+    (topTenData ? `<option value="${TOPFIVE}">Top five wards per constituency</option>` : "") +
     numericColumns.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(friendlyLabel(c))}</option>`).join("");
+  if (activeColourColumn) colourSelect.value = activeColourColumn;
 
   dataControls.classList.remove("hidden");
   fileDropLabel.textContent = "Replace CSV\u2026";
@@ -573,6 +557,7 @@ function refreshDataControls() {
 
 colourSelect.addEventListener("change", () => {
   activeColourColumn = colourSelect.value || null;
+  document.getElementById("map").classList.toggle("topfive-on", topFiveOn());
   if (wardLayer) wardLayer.setStyle(wardStyle);
   updateLegend();
 });
@@ -627,6 +612,14 @@ function hexToRgb(hex) {
 function updateLegend() {
   if (!activeColourColumn) {
     legendEl.classList.add("hidden");
+    return;
+  }
+  if (topFiveOn()) {
+    legendEl.innerHTML = `<div style="display:flex;align-items:center;gap:8px;">
+        <span style="width:14px;height:14px;background:rgba(230,57,70,.5);border:2px solid #b3202c;border-radius:2px;display:inline-block;"></span>
+        <span>Top five wards per constituency (${Object.keys(topTenData || {}).length})</span></div>
+      <p style="margin:8px 0 0;color:var(--text-dim);font-size:12px;">Ranked by % routine/manual (2021 Census). Zoom in for each ward's figures.</p>`;
+    legendEl.classList.remove("hidden");
     return;
   }
   const vals = Object.values(pinnedData)

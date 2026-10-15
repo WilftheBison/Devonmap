@@ -80,7 +80,6 @@ html, body {
 
 .mode-switch {
   display: flex;
-  flex-wrap: wrap;
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
@@ -88,7 +87,7 @@ html, body {
 }
 
 .mode-btn {
-  flex: 1 1 auto;
+  flex: 1;
   background: var(--bg-sidebar-raised);
   color: var(--text-dim);
   border: none;
@@ -469,8 +468,8 @@ html, body {
   #map { flex: 1; }
 }
 
-/* Top Ten Wards view: stats label sits under the ward name once zoomed in far enough */
-.leaflet-tooltip.topten-label { color: #fff; text-align: center; line-height: 1.25; }
-.leaflet-tooltip.topten-label b { font-size: 12px; }
+/* "Top five wards" colour option: stats label sits under the ward name once zoomed in far enough */
+#map.topfive-on .leaflet-tooltip.topten-label { color: #fff; text-align: center; line-height: 1.25; }
+#map.topfive-on .leaflet-tooltip.topten-label b { font-size: 12px; }
 .leaflet-tooltip.topten-label .tt-stats { display: none; font-size: 10.5px; font-weight: 500; }
-#map.show-topten-stats .leaflet-tooltip.topten-label .tt-stats { display: inline; }
+#map.topfive-on.show-topten-stats .leaflet-tooltip.topten-label .tt-stats { display: inline; }
