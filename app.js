@@ -48,6 +48,30 @@ const TOP_OPTIONS = {
   "__top5_both__": { label: "Top five wards per constituency (both measures)" },
   "__top1_both__": { label: "Top ward in each constituency (both measures)" },
 };
+/* 2011 Rural-Urban Classification, blended into wards via postcode sectors (data/ruc11-wards.json) */
+let rucData = null; // normalizedName -> {n, mix:{classCode: % of addresses}}
+let rucClasses = {};
+const RUC_COLOURS = { A1: "#08306b", B1: "#2171b5", C1: "#6baed6", C2: "#9ecae1", D1: "#fdae61", D2: "#f46d43", E1: "#a6d96a", E2: "#66bd63", F1: "#1a9850", F2: "#006837" };
+const RUC_OPTIONS = {
+  "__ruc_class__": { label: "Rural-urban class (2011)" },
+  "__ruc_rural__": { label: "% rural (2011 classification)" },
+};
+const rucOn = () => !!RUC_OPTIONS[activeColourColumn];
+const rucRec = (name) => rucData && rucData[normalizeName(name)];
+const rucDominant = (rec) => rec ? Object.entries(rec.mix).sort((a, b) => b[1] - a[1])[0][0] : null;
+const rucRural = (rec) => rec ? Object.entries(rec.mix).filter(([k]) => !"ABC".includes(k[0])).reduce((t, [, v]) => t + v, 0) : null;
+async function loadRuc() {
+  try {
+    const res = await fetch("data/ruc11-wards.json");
+    if (res.ok) {
+      const j = await res.json();
+      rucClasses = j.classes; rucData = {};
+      for (const [w, r] of Object.entries(j.wards)) rucData[normalizeName(w)] = r;
+    }
+  } catch (e) { /* optional */ }
+}
+const rucMixHtml = (rec) => Object.entries(rec.mix).filter(([, v]) => v >= 0.5)
+  .map(([k, v]) => `${escapeHtml(rucClasses[k] || k)}: ${Math.round(v)}%`).join("<br>");
 const topFiveOn = () => !!TOP_OPTIONS[activeColourColumn];
 function qualifies(rec, opt) {
   if (!rec) return false;
@@ -187,6 +211,10 @@ function wardPopup(feature) {
   let rows = `<tr><td>Ward</td><td>${escapeHtml(name)}</td></tr>
               <tr><td>${escapeHtml(parentLabel)}</td><td>${escapeHtml(parentValue)}</td></tr>`;
 
+  const rr = rucRec(name);
+  if (rr) {
+    rows += `<tr><td>Rural-urban (2011)</td><td>${rucMixHtml(rr)}</td></tr>`;
+  }
   const tt = topTenData && topTenData[normalizeName(name)];
   if (tt) {
     rows += `<tr><td>Working-class share</td><td>${rankList(tt.share)}</td></tr>
@@ -440,6 +468,7 @@ async function init() {
     if (!available) throw new Error("district boundary data missing");
 
     await loadTopTen();
+    await loadRuc();
     midLayer = buildMidLayer("district").addTo(map);
     wardLayer = buildWardLayer("district");
     // wards start off, so 168+ shapes aren't dumped on screen immediately
@@ -473,6 +502,12 @@ async function init() {
 
 function wardStyle(feature) {
   const base = { color: COLORS.ward, weight: WEIGHTS.ward };
+  if (rucOn()) {
+    const rec = rucRec(feature.properties.name);
+    if (!rec) return { ...base, fillColor: "#4a4f57", fillOpacity: 0.35, fill: true };
+    if (activeColourColumn === "__ruc_class__") return { ...base, fillColor: RUC_COLOURS[rucDominant(rec)], fillOpacity: 0.6, fill: true };
+    return { ...base, fillColor: lerpColor("#fff3b0", "#c1121f", rucRural(rec) / 100), fillOpacity: 0.55, fill: true };
+  }
   if (topFiveOn()) {
     const hit = qualifies(topTenData && topTenData[normalizeName(feature.properties.name)], activeColourColumn);
     return hit
@@ -580,6 +615,7 @@ function refreshDataControls() {
   colourSelect.innerHTML =
     '<option value="">None (outline only)</option>' +
     (topTenData ? Object.entries(TOP_OPTIONS).map(([k, o]) => `<option value="${k}">${o.label}</option>`).join("") : "") +
+    (rucData ? Object.entries(RUC_OPTIONS).map(([k, o]) => `<option value="${k}">${o.label}</option>`).join("") : "") +
     numericColumns.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(friendlyLabel(c))}</option>`).join("");
   if (activeColourColumn) colourSelect.value = activeColourColumn;
 
@@ -591,7 +627,7 @@ colourSelect.addEventListener("change", () => {
   activeColourColumn = colourSelect.value || null;
   document.getElementById("map").classList.toggle("topfive-on", topFiveOn());
   refreshWardLabels();
-  if (topFiveOn() && wardLayer && !map.hasLayer(wardLayer)) {   // the shading lives on the wards layer
+  if ((topFiveOn() || rucOn()) && wardLayer && !map.hasLayer(wardLayer)) {   // the shading lives on the wards layer
     wardLayer.addTo(map);
     document.getElementById("toggle-wards").checked = true;
     updateLayerOrder();
@@ -652,6 +688,19 @@ function hexToRgb(hex) {
 function updateLegend() {
   if (!activeColourColumn) {
     legendEl.classList.add("hidden");
+    return;
+  }
+  if (rucOn()) {
+    const note = "2011 Rural-Urban Classification. Each ward is a best-fit blend of the classes of the postcode sectors its addresses sit in, so wards spanning town and country show a mix (see the ward popup). Newer estates built after 2011 take the class of the nearest older addresses.";
+    let body;
+    if (activeColourColumn === "__ruc_class__") {
+      const present = [...new Set(Object.values(rucData).map(rucDominant))].sort();
+      body = present.map((k) => `<div style="display:flex;align-items:center;gap:8px;margin:2px 0;"><span style="flex:none;width:14px;height:14px;background:${RUC_COLOURS[k]};opacity:.8;border-radius:2px;display:inline-block;"></span><span>${escapeHtml(rucClasses[k] || k)}</span></div>`).join("");
+    } else {
+      body = `<div class="legend-bar" style="background:linear-gradient(90deg,#fff3b0,#c1121f)"></div><div class="legend-labels"><span>0%</span><span>% of addresses rural</span><span>100%</span></div>`;
+    }
+    legendEl.innerHTML = `${body}<p style="margin:8px 0 0;color:var(--text-dim);font-size:12px;">${note}</p>`;
+    legendEl.classList.remove("hidden");
     return;
   }
   if (topFiveOn()) {
