@@ -691,7 +691,7 @@ function updateLegend() {
     return;
   }
   if (rucOn()) {
-    const note = "2011 Rural-Urban Classification. Each ward is a best-fit blend of the classes of the postcode sectors its addresses sit in, so wards spanning town and country show a mix (see the ward popup). Newer estates built after 2011 take the class of the nearest older addresses.";
+    const note = "2011 Rural-Urban Classification. Every current address is matched, through its postcode, to the 2011 output area it sits in and that area's class; each ward shows the mix of its addresses (see the ward popup). Estates built since 2011 take the class of the 2011 area they stand on, so they may still read as countryside.";
     let body;
     if (activeColourColumn === "__ruc_class__") {
       const present = [...new Set(Object.values(rucData).map(rucDominant))].sort();
