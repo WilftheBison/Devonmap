@@ -691,7 +691,7 @@ function updateLegend() {
     return;
   }
   if (rucOn()) {
-    const note = "2011 Rural-Urban Classification. Every current address is matched, through its postcode, to the 2011 output area it sits in and that area's class; each ward shows the mix of its addresses (see the ward popup). Estates built since 2011 take the class of the 2011 area they stand on, so they may still read as countryside.";
+    const note = "2011 Rural-Urban Classification. Every current address is matched, through its postcode, to the 2011 output area it sits in and that area's class; each ward shows the mix of its addresses (see the ward popup). Estates built since 2011 that the 2021 classification treats as urban (e.g. Cranbrook) are counted as urban city and town.";
     let body;
     if (activeColourColumn === "__ruc_class__") {
       const present = [...new Set(Object.values(rucData).map(rucDominant))].sort();
