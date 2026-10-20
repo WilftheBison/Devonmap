@@ -100,3 +100,5 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 }
 .sc-bar span { display: block; height: 100%; }
 .sc-options .sc-row:first-of-type { align-items: center; }
+.sc-tomap { float: right; display: none; background: var(--bg); color: var(--accent); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; padding: 3px 8px; margin-right: 8px; cursor: pointer; }
+@media (max-width: 1000px) { .sc-tomap { display: inline-block; } }

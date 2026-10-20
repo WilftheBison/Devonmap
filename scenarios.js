@@ -172,7 +172,7 @@ function renderDetail(k, r) {
   const rows = shares.slice().sort((a, b) => b.s - a.s).map(({ t, s }) =>
     `<tr><td><span class="sc-dot" style="display:inline-block;background:${t.colour}"></span> ${esc(t.name)}</td><td class="num">${s.toFixed(0)}%</td><td class="num">${appeal[t.id] > 0 ? "+" : ""}${appeal[t.id]}</td></tr>`).join("");
   const f = w.facts;
-  box.innerHTML = `<button class="sc-close" aria-label="Close">&times;</button>
+  box.innerHTML = `<button class="sc-close" aria-label="Close">&times;</button><button class="sc-tomap">&uarr; Map</button>
     <h3>${esc(w.name)}${w.target ? " ★" : ""}</h3>
     <div class="sc-dim">${esc(w.district)} &middot; ${w.seats} seat${w.seats > 1 ? "s" : ""} &middot; ${Number(f.residents).toLocaleString()} residents &middot; ${f.town}% town</div>
     <div class="sc-dim">${r ? `Rank #${r.rank} in ${esc(area.replace("District: ", ""))}, score ${r.score.toFixed(2)}` : "Outside the selected area"}</div>
@@ -180,6 +180,7 @@ function renderDetail(k, r) {
     <table class="sc-mix"><tr class="sc-dim"><td>Estimated tribe mix (adults)</td><td class="num">Share</td><td class="num">Appeal</td></tr>${rows}</table>
     <div class="sc-dim" style="margin-top:8px">Census: aged 16&ndash;29 ${f.y}%, 65+ ${f.o65}%, graduates ${f.grad}%, routine/manual ${f.rm}%, own-account ${f.own}%, renting ${f.rent}%. 2016 Leave (estimate) ${f.leave}%, ${f.lean >= 0 ? f.lean + " pts more" : -f.lean + " pts less"} than its make-up predicts.</div>`;
   box.classList.remove("hidden");
+  box.querySelector(".sc-tomap").addEventListener("click", () => document.getElementById("sc-map").scrollIntoView({ block: "start", behavior: "smooth" }));
   box.querySelector(".sc-close").addEventListener("click", () => { selected = null; box.classList.add("hidden"); update(); });
 }
 
@@ -198,7 +199,9 @@ function selectWard(k, zoom) {
   selected = k;
   update();
   if (zoom && layersByWard[k]) map.fitBounds(layersByWard[k].getBounds(), { maxZoom: 12, padding: [30, 30] });
-  document.querySelectorAll("#sc-table tr.sel").forEach((tr) => tr.scrollIntoView({ block: "nearest" }));
+  // show the ward's detail panel (just below the "Ranking" heading), not its table row
+  const det = document.getElementById("sc-detail");
+  if (det && !det.classList.contains("hidden")) document.querySelector(".sc-right-head").scrollIntoView({ block: "start", behavior: "smooth" });
 }
 function fitArea() {
   const b = L.latLngBounds([]);
