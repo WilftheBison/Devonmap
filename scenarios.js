@@ -201,7 +201,7 @@ function selectWard(k, zoom) {
   if (zoom && layersByWard[k]) map.fitBounds(layersByWard[k].getBounds(), { maxZoom: 12, padding: [30, 30] });
   // show the ward's detail panel (just below the "Ranking" heading), not its table row
   const det = document.getElementById("sc-detail");
-  if (det && !det.classList.contains("hidden")) document.querySelector(".sc-right-head").scrollIntoView({ block: "start", behavior: "smooth" });
+  if (det && !det.classList.contains("hidden")) det.scrollIntoView({ block: "end", behavior: "smooth" }); // scroll just far enough to show the whole panel
 }
 function fitArea() {
   const b = L.latLngBounds([]);
