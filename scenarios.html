@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voter Tribes &middot; Scenarios</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#161b22">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="stylesheet" href="scenarios.css?v=2" />
+</head>
+<body>
+<div id="sc-app">
+
+  <aside id="sc-left">
+    <header class="sc-head">
+      <a href="index.html" class="sc-back">&larr; Map</a>
+      <h1>Voter tribes</h1>
+      <p class="sc-sub">Set how strongly our message appeals to each tribe. Every Devon ward is re-scored and re-ranked as you move the sliders.</p>
+    </header>
+
+    <section class="sc-panel sc-options">
+      <h2>Options</h2>
+      <div class="sc-row">
+        <label class="sc-check"><input type="checkbox" id="sc-turnout" checked> Count only likely voters <span class="sc-dim">(older tribes turn out more)</span></label>
+        <button id="sc-reset" class="sc-btn sc-btn-inline" title="Put the sliders back to the Current offer">Reset sliders</button>
+      </div>
+      <div class="sc-row">
+        <label class="sc-field"><span>Area</span><select id="sc-area"></select></label>
+        <button id="sc-share" class="sc-btn sc-btn-inline">Copy link</button>
+      </div>
+      <p id="sc-share-msg" class="sc-dim"></p>
+    </section>
+
+    <section class="sc-panel">
+      <h2>Starting points</h2>
+      <div id="sc-presets" class="sc-presets"></div>
+    </section>
+
+    <section class="sc-panel">
+      <h2>Appeal to each tribe</h2>
+      <div class="sc-scale"><span>Puts off</span><span>Neutral</span><span>Core</span></div>
+      <div id="sc-sliders"></div>
+    </section>
+
+
+  </aside>
+
+  <main id="sc-map"></main>
+
+  <aside id="sc-right">
+    <section class="sc-panel sc-notes">
+      <h2>How to read this</h2>
+      <p>Tribe sizes in each ward are <b>estimates</b> built from the 2021 Census (age, occupation, qualifications, housing), the rural-urban mix and how far each ward's estimated 2016 Leave vote ran above or below what its make-up predicts. Nobody counts tribes, so treat them as a way to compare strategies, not as a vote forecast.</p>
+      <p>A ward's <b>score</b> is the average appeal across its likely voters, from &minus;2 to +3. The ranking ignores incumbents, candidates and Reform; those are for the group to weigh.</p>
+      <p><b>Change</b> compares each ward's rank with the &ldquo;Current offer&rdquo; starting point.</p>
+    </section>
+    <div class="sc-right-head">
+      <h2 id="sc-rank-title">Ranking</h2>
+      <p class="sc-dim" id="sc-rank-sub"></p>
+    </div>
+    <div id="sc-detail" class="hidden"></div>
+    <table id="sc-table">
+      <thead><tr><th>#</th><th>Ward</th><th class="num">Score</th><th class="num">Change</th><th class="num">Seats</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </aside>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="scenarios.js?v=4"></script>
+</body>
+</html>
