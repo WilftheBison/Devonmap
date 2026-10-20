@@ -61,6 +61,12 @@ def g(d, k):
 
 
 rows = list(csv.DictReader(open(sys.argv[4])))
+# Optional: Electoral Calculus ward-level 2016 Leave estimates (wardcode, leaveshare)
+leave = {}
+if len(sys.argv) > 5:
+    for e in csv.DictReader(open(sys.argv[5])):
+        leave[e["wardcode"]] = float(e["leaveshare"])
+mean_leave = sum(leave.values()) / len(leave) if leave else 0.5
 raw, facts, meta = {}, {}, {}
 for r in rows:
     code, name = r["Ward code"], r["Ward"]
@@ -87,17 +93,19 @@ for r in rows:
     urb = sum(v for k, v in mix.items() if k[0] in "ABCD") / 100.0
     rur = 1 - urb
     working = ns[5] + ns[6] + ns[7] + ns[8]
+    lv = leave.get(code, mean_leave)
+    lf, rf = lv / mean_leave, (1 - lv) / (1 - mean_leave)  # Leave / Remain lean relative to the Devon average
     raw[norm(name)] = {
-        "mtw": urb * working * (1 - o65) * (0.6 + rent),
-        "lt": rur * (ns[4] + working) * (1 - o65) + urb * ns[4] * 0.4,
-        "sp": o65 * (1 - grad),
+        "mtw": urb * working * (1 - o65) * (0.6 + rent) * lf ** 0.5,
+        "lt": (rur * (ns[4] + working) * (1 - o65) + urb * ns[4] * 0.4) * lf ** 0.5,
+        "sp": o65 * (1 - grad) * lf,
         "wf": mid * (ns[3] + ns[5] + 0.5 * ns[2]) * (0.6 + mort) * (1 - 0.5 * grad),
         "yf": max(0.0, y - ns[9] * ntot / p16) * (1 - grad),
-        "tp": urb * grad * (1 - o65) * (0.7 + rent) + urb * ns[9] * ntot / p16 * 0.8,
-        "cs": ab * rur * 0.8 + o65 * grad + ab * urb * 0.25,
+        "tp": rf ** 0.5 * urb * grad * (1 - o65) * (0.7 + rent) + urb * ns[9] * ntot / p16 * 0.8,
+        "cs": (ab * rur * 0.8 + o65 * grad + ab * urb * 0.25) * rf,
     }
     facts[norm(name)] = dict(residents=int(u16 + p16), town=round(urb * 100), y=round(y * 100, 1), o65=round(o65 * 100, 1),
-                             grad=round(grad * 100, 1), rm=round(rm * 100, 1), own=round(ns[4] * 100, 1), rent=round(rent * 100, 1), noq=round(noq * 100, 1))
+                             grad=round(grad * 100, 1), rm=round(rm * 100, 1), own=round(ns[4] * 100, 1), rent=round(rent * 100, 1), noq=round(noq * 100, 1), leave=round(lv * 100, 1))
     cons = r["Parliamentary constituency (2024 boundaries)"].replace(" (split ward)", "").split(" / ")
     meta[norm(name)] = dict(name=name, code=code, district=r["District"], constituencies=cons, seats=int(float(r["Councillors elected"])))
 
@@ -118,6 +126,6 @@ for k in raw:
     wards[k] = dict(meta[k], target=k in TARGETS, shares={i: round(shares[k][i], 1) for i in ids}, facts=facts[k])
 
 json.dump(dict(
-    note="Estimated voter-tribe mix per Devon district ward. Built from 2021 Census (ONS API: age, highest qualification, NS-SeC, household tenure; Mid Devon summed from Output Areas to 2023 wards) and the 2011 rural-urban classification. Estimates for comparing strategies, not measurements.",
+    note="Estimated voter-tribe mix per Devon district ward. Built from 2021 Census (ONS API: age, highest qualification, NS-SeC, household tenure; Mid Devon summed from Output Areas to 2023 wards) the 2011 rural-urban classification, and Electoral Calculus ward-level estimates of the 2016 Leave vote. Estimates for comparing strategies, not measurements.",
     tribes=TRIBES, presets=PRESETS, target_split=TARGET_SPLIT, wards=wards), open(out_path, "w"), indent=0)
 print("wards", len(wards))

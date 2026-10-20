@@ -197,12 +197,12 @@ measurement: built by `tools/build_tribes.py` from 2021 Census counts per
 ward (`data/ward-census-2021-detail.json`: age bands, highest
 qualification, NS-SeC, household tenure, pulled from the ONS Census API;
 Mid Devon's 22 wards summed from Output Areas onto the 2023 boundaries) and
-the rural-urban mix in `data/ruc11-wards.json`. County-wide tribe shares are
+the rural-urban mix in `data/ruc11-wards.json`, plus Electoral Calculus's ward-level estimate of the 2016 Leave vote (Settled Patriots, Land and Trades and Market Town Workers lean up where Leave was higher; Comfortable Shires and Town Progressives where Remain was). County-wide tribe shares are
 calibrated to a rough split set in the script (`TARGET_SPLIT`); turnout
 weights and the presets are also set there. Edit and re-run:
 
 ```
-python3 tools/build_tribes.py data/ward-census-2021-detail.json data/ruc11-wards.json data/tribes.json <ward list csv>
+python3 tools/build_tribes.py data/ward-census-2021-detail.json data/ruc11-wards.json data/tribes.json <ward list csv> <electoralcalculus_wards26_devon.csv>
 ```
 
 (the ward list CSV is the "Ward data" sheet of the ward-level census

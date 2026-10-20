@@ -1,5 +1,5 @@
 {
-"note": "Estimated voter-tribe mix per Devon district ward. Built from 2021 Census (ONS API: age, highest qualification, NS-SeC, household tenure; Mid Devon summed from Output Areas to 2023 wards) and the 2011 rural-urban classification. Estimates for comparing strategies, not measurements.",
+"note": "Estimated voter-tribe mix per Devon district ward. Built from 2021 Census (ONS API: age, highest qualification, NS-SeC, household tenure; Mid Devon summed from Output Areas to 2023 wards) the 2011 rural-urban classification, and Electoral Calculus ward-level estimates of the 2016 Leave vote. Estimates for comparing strategies, not measurements.",
 "tribes": [
 {
 "id": "mtw",
@@ -157,13 +157,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 23.3,
-"lt": 7.2,
-"sp": 21.4,
-"wf": 12.8,
-"yf": 11.5,
-"tp": 12.5,
-"cs": 11.2
+"mtw": 24.1,
+"lt": 7.5,
+"sp": 23.2,
+"wf": 12.7,
+"yf": 11.4,
+"tp": 11.6,
+"cs": 9.5
 },
 "facts": {
 "residents": 8125,
@@ -174,7 +174,8 @@
 "rm": 28.1,
 "own": 15.3,
 "rent": 32.7,
-"noq": 18.2
+"noq": 18.2,
+"leave": 58.5
 }
 },
 "beer and branscombe": {
@@ -187,13 +188,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 14.3,
-"lt": 10.0,
-"sp": 27.7,
+"mtw": 14.4,
+"lt": 10.2,
+"sp": 28.2,
 "wf": 10.4,
-"yf": 6.9,
-"tp": 11.5,
-"cs": 19.1
+"yf": 7.0,
+"tp": 11.4,
+"cs": 18.3
 },
 "facts": {
 "residents": 2353,
@@ -204,7 +205,8 @@
 "rm": 21.5,
 "own": 19.5,
 "rent": 30.1,
-"noq": 16.2
+"noq": 16.2,
+"leave": 54.0
 }
 },
 "broadclyst": {
@@ -217,13 +219,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 13.0,
-"lt": 11.4,
-"sp": 10.9,
-"wf": 20.7,
-"yf": 14.1,
-"tp": 13.6,
-"cs": 16.2
+"mtw": 13.1,
+"lt": 11.6,
+"sp": 11.1,
+"wf": 20.8,
+"yf": 14.2,
+"tp": 13.5,
+"cs": 15.6
 },
 "facts": {
 "residents": 7083,
@@ -234,7 +236,8 @@
 "rm": 18.2,
 "own": 13.7,
 "rent": 29.2,
-"noq": 11.3
+"noq": 11.3,
+"leave": 53.8
 }
 },
 "budleigh and raleigh": {
@@ -247,13 +250,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 9.6,
-"lt": 8.6,
-"sp": 28.1,
-"wf": 10.7,
-"yf": 6.3,
-"tp": 11.8,
-"cs": 24.9
+"mtw": 9.3,
+"lt": 8.4,
+"sp": 26.4,
+"wf": 10.8,
+"yf": 6.4,
+"tp": 12.2,
+"cs": 26.4
 },
 "facts": {
 "residents": 7671,
@@ -264,7 +267,8 @@
 "rm": 17.6,
 "own": 15.3,
 "rent": 23.5,
-"noq": 13.8
+"noq": 13.8,
+"leave": 49.4
 }
 },
 "clyst valley": {
@@ -278,12 +282,12 @@
 "target": false,
 "shares": {
 "mtw": 0.6,
-"lt": 19.3,
-"sp": 22.9,
-"wf": 16.7,
-"yf": 8.6,
+"lt": 18.9,
+"sp": 21.5,
+"wf": 16.9,
+"yf": 8.7,
 "tp": 0.7,
-"cs": 31.2
+"cs": 32.7
 },
 "facts": {
 "residents": 2435,
@@ -294,7 +298,8 @@
 "rm": 17.2,
 "own": 16.0,
 "rent": 15.9,
-"noq": 15.9
+"noq": 15.9,
+"leave": 49.8
 }
 },
 "coly valley": {
@@ -307,13 +312,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 6.2,
-"lt": 16.1,
-"sp": 27.0,
-"wf": 12.0,
-"yf": 9.4,
+"mtw": 6.3,
+"lt": 16.4,
+"sp": 27.4,
+"wf": 12.1,
+"yf": 9.5,
 "tp": 5.8,
-"cs": 23.6
+"cs": 22.7
 },
 "facts": {
 "residents": 4711,
@@ -324,7 +329,8 @@
 "rm": 19.1,
 "own": 22.3,
 "rent": 23.5,
-"noq": 15.6
+"noq": 15.6,
+"leave": 53.8
 }
 },
 "cranbrook": {
@@ -337,13 +343,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 23.3,
-"lt": 2.9,
+"mtw": 23.2,
+"lt": 3.0,
 "sp": 2.8,
-"wf": 25.3,
-"yf": 16.6,
+"wf": 25.4,
+"yf": 16.7,
 "tp": 22.2,
-"cs": 6.9
+"cs": 6.7
 },
 "facts": {
 "residents": 6745,
@@ -354,7 +360,8 @@
 "rm": 20.7,
 "own": 9.2,
 "rent": 28.8,
-"noq": 7.5
+"noq": 7.5,
+"leave": 52.9
 }
 },
 "dunkeswell and otterhead": {
@@ -367,13 +374,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 2.9,
-"lt": 22.4,
-"sp": 23.4,
+"mtw": 3.0,
+"lt": 23.3,
+"sp": 25.1,
 "wf": 14.5,
 "yf": 9.3,
-"tp": 2.7,
-"cs": 24.8
+"tp": 2.6,
+"cs": 22.1
 },
 "facts": {
 "residents": 5778,
@@ -384,7 +391,8 @@
 "rm": 18.3,
 "own": 24.1,
 "rent": 21.2,
-"noq": 16.7
+"noq": 16.7,
+"leave": 56.9
 }
 },
 "exe valley": {
@@ -398,12 +406,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 23.8,
-"sp": 18.9,
-"wf": 16.0,
-"yf": 10.4,
+"lt": 22.8,
+"sp": 17.0,
+"wf": 16.2,
+"yf": 10.5,
 "tp": 0.1,
-"cs": 30.6
+"cs": 33.3
 },
 "facts": {
 "residents": 2464,
@@ -414,7 +422,8 @@
 "rm": 18.1,
 "own": 16.9,
 "rent": 25.3,
-"noq": 13.7
+"noq": 13.7,
+"leave": 47.7
 }
 },
 "exmouth brixington": {
@@ -427,13 +436,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 24.1,
-"lt": 3.3,
-"sp": 22.2,
-"wf": 16.6,
-"yf": 10.5,
-"tp": 13.3,
-"cs": 9.9
+"mtw": 24.9,
+"lt": 3.4,
+"sp": 24.1,
+"wf": 16.4,
+"yf": 10.4,
+"tp": 12.4,
+"cs": 8.4
 },
 "facts": {
 "residents": 7640,
@@ -444,7 +453,8 @@
 "rm": 25.5,
 "own": 12.7,
 "rent": 23.9,
-"noq": 18.1
+"noq": 18.1,
+"leave": 58.7
 }
 },
 "exmouth halsdon": {
@@ -457,13 +467,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 20.0,
-"lt": 3.4,
-"sp": 23.2,
+"mtw": 20.4,
+"lt": 3.5,
+"sp": 24.4,
 "wf": 16.0,
 "yf": 9.5,
-"tp": 15.4,
-"cs": 12.4
+"tp": 14.9,
+"cs": 11.3
 },
 "facts": {
 "residents": 7409,
@@ -474,7 +484,8 @@
 "rm": 23.7,
 "own": 12.9,
 "rent": 19.7,
-"noq": 14.4
+"noq": 14.4,
+"leave": 56.0
 }
 },
 "exmouth littleham": {
@@ -487,13 +498,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 19.7,
-"lt": 3.3,
-"sp": 27.5,
+"mtw": 19.9,
+"lt": 3.4,
+"sp": 28.4,
 "wf": 11.4,
 "yf": 7.2,
-"tp": 15.8,
-"cs": 15.1
+"tp": 15.4,
+"cs": 14.1
 },
 "facts": {
 "residents": 8070,
@@ -504,7 +515,8 @@
 "rm": 22.2,
 "own": 12.5,
 "rent": 27.7,
-"noq": 18.9
+"noq": 18.9,
+"leave": 54.9
 }
 },
 "exmouth town": {
@@ -517,13 +529,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 32.4,
-"lt": 3.0,
-"sp": 12.9,
+"mtw": 33.0,
+"lt": 3.1,
+"sp": 13.5,
 "wf": 12.8,
 "yf": 12.2,
-"tp": 18.7,
-"cs": 7.9
+"tp": 18.1,
+"cs": 7.3
 },
 "facts": {
 "residents": 7306,
@@ -534,7 +546,8 @@
 "rm": 29.1,
 "own": 13.5,
 "rent": 45.1,
-"noq": 15.0
+"noq": 15.0,
+"leave": 55.6
 }
 },
 "exmouth withycombe raleigh": {
@@ -547,13 +560,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 29.0,
-"lt": 2.9,
-"sp": 16.0,
-"wf": 16.2,
+"mtw": 29.9,
+"lt": 3.0,
+"sp": 17.3,
+"wf": 16.1,
 "yf": 12.0,
-"tp": 15.7,
-"cs": 8.1
+"tp": 14.7,
+"cs": 7.0
 },
 "facts": {
 "residents": 5073,
@@ -564,7 +577,8 @@
 "rm": 28.5,
 "own": 12.3,
 "rent": 33.8,
-"noq": 16.5
+"noq": 16.5,
+"leave": 58.1
 }
 },
 "feniton": {
@@ -577,13 +591,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 14.4,
-"lt": 11.5,
-"sp": 17.5,
-"wf": 17.8,
-"yf": 12.9,
-"tp": 10.4,
-"cs": 15.4
+"mtw": 14.7,
+"lt": 11.9,
+"sp": 18.3,
+"wf": 17.9,
+"yf": 13.0,
+"tp": 10.1,
+"cs": 14.1
 },
 "facts": {
 "residents": 2720,
@@ -594,7 +608,8 @@
 "rm": 21.6,
 "own": 14.6,
 "rent": 20.7,
-"noq": 14.1
+"noq": 14.1,
+"leave": 55.6
 }
 },
 "honiton st michael's": {
@@ -607,13 +622,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 28.3,
-"lt": 2.9,
-"sp": 20.9,
-"wf": 13.8,
-"yf": 12.2,
-"tp": 13.3,
-"cs": 8.6
+"mtw": 29.6,
+"lt": 3.1,
+"sp": 23.8,
+"wf": 13.4,
+"yf": 11.8,
+"tp": 11.7,
+"cs": 6.5
 },
 "facts": {
 "residents": 6807,
@@ -624,7 +639,8 @@
 "rm": 30.9,
 "own": 11.9,
 "rent": 30.7,
-"noq": 19.6
+"noq": 19.6,
+"leave": 62.5
 }
 },
 "honiton st paul's": {
@@ -637,13 +653,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 26.0,
-"lt": 3.4,
-"sp": 23.9,
-"wf": 12.3,
-"yf": 11.2,
-"tp": 13.1,
-"cs": 10.0
+"mtw": 27.0,
+"lt": 3.6,
+"sp": 26.6,
+"wf": 12.0,
+"yf": 11.0,
+"tp": 11.8,
+"cs": 8.0
 },
 "facts": {
 "residents": 4855,
@@ -654,7 +670,8 @@
 "rm": 27.9,
 "own": 13.1,
 "rent": 33.4,
-"noq": 21.2
+"noq": 21.2,
+"leave": 60.6
 }
 },
 "newbridges": {
@@ -668,12 +685,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 22.0,
-"sp": 28.2,
-"wf": 12.1,
-"yf": 8.6,
+"lt": 21.9,
+"sp": 27.3,
+"wf": 12.3,
+"yf": 8.8,
 "tp": 0.0,
-"cs": 29.1
+"cs": 29.8
 },
 "facts": {
 "residents": 2533,
@@ -684,7 +701,8 @@
 "rm": 18.4,
 "own": 21.3,
 "rent": 22.0,
-"noq": 15.3
+"noq": 15.3,
+"leave": 51.0
 }
 },
 "newton poppleford and harpford": {
@@ -697,13 +715,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 11.5,
-"lt": 10.5,
-"sp": 23.5,
-"wf": 15.5,
-"yf": 8.8,
-"tp": 10.5,
-"cs": 19.6
+"mtw": 11.3,
+"lt": 10.4,
+"sp": 22.5,
+"wf": 15.7,
+"yf": 9.0,
+"tp": 10.8,
+"cs": 20.3
 },
 "facts": {
 "residents": 2301,
@@ -714,7 +732,8 @@
 "rm": 21.2,
 "own": 14.6,
 "rent": 20.7,
-"noq": 13.8
+"noq": 13.8,
+"leave": 50.5
 }
 },
 "ottery st mary": {
@@ -727,13 +746,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 14.8,
+"mtw": 14.6,
 "lt": 8.8,
-"sp": 19.3,
-"wf": 15.6,
-"yf": 9.6,
-"tp": 14.8,
-"cs": 17.2
+"sp": 18.8,
+"wf": 15.7,
+"yf": 9.7,
+"tp": 15.0,
+"cs": 17.3
 },
 "facts": {
 "residents": 7985,
@@ -744,7 +763,8 @@
 "rm": 20.4,
 "own": 14.8,
 "rent": 25.3,
-"noq": 13.8
+"noq": 13.8,
+"leave": 51.5
 }
 },
 "seaton": {
@@ -757,13 +777,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 20.5,
-"lt": 4.0,
-"sp": 31.5,
-"wf": 10.9,
-"yf": 8.1,
-"tp": 11.9,
-"cs": 13.2
+"mtw": 21.0,
+"lt": 4.1,
+"sp": 33.9,
+"wf": 10.8,
+"yf": 7.9,
+"tp": 11.0,
+"cs": 11.2
 },
 "facts": {
 "residents": 7128,
@@ -774,7 +794,8 @@
 "rm": 26.8,
 "own": 14.9,
 "rent": 26.6,
-"noq": 19.2
+"noq": 19.2,
+"leave": 58.4
 }
 },
 "sidmouth rural": {
@@ -787,13 +808,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 4.1,
-"lt": 11.1,
-"sp": 28.3,
+"mtw": 3.9,
+"lt": 10.7,
+"sp": 25.6,
 "wf": 10.7,
 "yf": 5.2,
-"tp": 6.9,
-"cs": 33.8
+"tp": 7.2,
+"cs": 36.5
 },
 "facts": {
 "residents": 2101,
@@ -804,7 +825,8 @@
 "rm": 12.9,
 "own": 18.4,
 "rent": 18.1,
-"noq": 12.1
+"noq": 12.1,
+"leave": 48.0
 }
 },
 "sidmouth sidford": {
@@ -817,13 +839,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 19.5,
-"lt": 3.8,
-"sp": 27.1,
+"mtw": 19.9,
+"lt": 3.9,
+"sp": 28.4,
 "wf": 12.6,
 "yf": 7.5,
-"tp": 15.5,
-"cs": 14.0
+"tp": 15.0,
+"cs": 12.7
 },
 "facts": {
 "residents": 7864,
@@ -834,7 +856,8 @@
 "rm": 23.5,
 "own": 14.1,
 "rent": 25.4,
-"noq": 14.8
+"noq": 14.8,
+"leave": 56.0
 }
 },
 "sidmouth town": {
@@ -847,13 +870,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 13.0,
-"lt": 4.3,
-"sp": 31.6,
-"wf": 9.0,
-"yf": 4.7,
-"tp": 15.4,
-"cs": 21.9
+"mtw": 12.5,
+"lt": 4.2,
+"sp": 28.9,
+"wf": 9.2,
+"yf": 4.8,
+"tp": 16.3,
+"cs": 24.1
 },
 "facts": {
 "residents": 4413,
@@ -864,7 +887,8 @@
 "rm": 18.1,
 "own": 15.2,
 "rent": 23.9,
-"noq": 13.8
+"noq": 13.8,
+"leave": 47.8
 }
 },
 "tale vale": {
@@ -878,12 +902,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 23.0,
-"sp": 19.6,
-"wf": 16.6,
-"yf": 7.1,
+"lt": 22.4,
+"sp": 18.2,
+"wf": 16.7,
+"yf": 7.2,
 "tp": 0.0,
-"cs": 33.7
+"cs": 35.5
 },
 "facts": {
 "residents": 2476,
@@ -894,7 +918,8 @@
 "rm": 14.4,
 "own": 19.9,
 "rent": 22.9,
-"noq": 12.2
+"noq": 12.2,
+"leave": 49.3
 }
 },
 "trinity": {
@@ -907,13 +932,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 2.0,
-"lt": 19.0,
-"sp": 23.4,
-"wf": 12.7,
+"mtw": 1.9,
+"lt": 18.5,
+"sp": 21.7,
+"wf": 12.8,
 "yf": 7.1,
-"tp": 2.7,
-"cs": 33.0
+"tp": 2.8,
+"cs": 35.1
 },
 "facts": {
 "residents": 2549,
@@ -924,7 +949,8 @@
 "rm": 15.0,
 "own": 20.6,
 "rent": 17.7,
-"noq": 11.2
+"noq": 11.2,
+"leave": 49.0
 }
 },
 "west hill and aylesbeare": {
@@ -937,13 +963,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 3.6,
-"lt": 11.2,
-"sp": 21.0,
-"wf": 14.6,
+"mtw": 3.1,
+"lt": 9.9,
+"sp": 16.3,
+"wf": 14.4,
 "yf": 5.2,
-"tp": 8.4,
-"cs": 35.9
+"tp": 9.0,
+"cs": 42.3
 },
 "facts": {
 "residents": 2691,
@@ -954,7 +980,8 @@
 "rm": 11.4,
 "own": 14.5,
 "rent": 11.4,
-"noq": 10.0
+"noq": 10.0,
+"leave": 42.0
 }
 },
 "whimple and rockbeare": {
@@ -968,12 +995,12 @@
 "target": false,
 "shares": {
 "mtw": 3.6,
-"lt": 17.1,
-"sp": 20.1,
-"wf": 17.5,
-"yf": 8.6,
-"tp": 4.8,
-"cs": 28.4
+"lt": 16.8,
+"sp": 19.1,
+"wf": 17.6,
+"yf": 8.7,
+"tp": 4.9,
+"cs": 29.3
 },
 "facts": {
 "residents": 3012,
@@ -984,7 +1011,8 @@
 "rm": 15.7,
 "own": 16.6,
 "rent": 20.6,
-"noq": 11.5
+"noq": 11.5,
+"leave": 50.5
 }
 },
 "woodbury and lympstone": {
@@ -997,13 +1025,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 9.8,
-"lt": 10.5,
-"sp": 14.7,
+"mtw": 9.0,
+"lt": 9.8,
+"sp": 12.6,
 "wf": 12.8,
 "yf": 15.9,
-"tp": 13.3,
-"cs": 23.0
+"tp": 14.1,
+"cs": 25.7
 },
 "facts": {
 "residents": 6005,
@@ -1014,7 +1042,8 @@
 "rm": 16.4,
 "own": 12.4,
 "rent": 26.2,
-"noq": 9.5
+"noq": 9.5,
+"leave": 46.0
 }
 },
 "yarty": {
@@ -1029,11 +1058,11 @@
 "shares": {
 "mtw": 0.0,
 "lt": 21.9,
-"sp": 26.5,
-"wf": 13.1,
-"yf": 7.5,
+"sp": 25.9,
+"wf": 13.2,
+"yf": 7.6,
 "tp": 0.0,
-"cs": 31.0
+"cs": 31.4
 },
 "facts": {
 "residents": 2525,
@@ -1044,7 +1073,8 @@
 "rm": 16.1,
 "own": 24.9,
 "rent": 18.0,
-"noq": 13.4
+"noq": 13.4,
+"leave": 51.5
 }
 },
 "alphington": {
@@ -1057,12 +1087,12 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 25.0,
+"mtw": 24.8,
 "lt": 2.8,
-"sp": 17.0,
-"wf": 17.3,
-"yf": 11.6,
-"tp": 16.8,
+"sp": 16.8,
+"wf": 17.4,
+"yf": 11.7,
+"tp": 16.9,
 "cs": 9.6
 },
 "facts": {
@@ -1074,7 +1104,8 @@
 "rm": 24.9,
 "own": 11.0,
 "rent": 26.5,
-"noq": 17.2
+"noq": 17.2,
+"leave": 52.3
 }
 },
 "duryard and st james": {
@@ -1087,13 +1118,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 15.4,
-"lt": 1.0,
-"sp": 6.9,
+"mtw": 12.5,
+"lt": 0.8,
+"sp": 4.5,
 "wf": 1.6,
-"yf": 5.4,
-"tp": 65.6,
-"cs": 4.0
+"yf": 5.5,
+"tp": 69.6,
+"cs": 5.5
 },
 "facts": {
 "residents": 15147,
@@ -1104,7 +1135,8 @@
 "rm": 7.2,
 "own": 3.7,
 "rent": 56.6,
-"noq": 5.0
+"noq": 5.0,
+"leave": 34.8
 }
 },
 "exwick": {
@@ -1117,13 +1149,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 34.0,
+"mtw": 33.6,
 "lt": 2.3,
-"sp": 11.1,
-"wf": 15.3,
-"yf": 13.4,
-"tp": 17.7,
-"cs": 6.3
+"sp": 10.9,
+"wf": 15.4,
+"yf": 13.5,
+"tp": 17.9,
+"cs": 6.4
 },
 "facts": {
 "residents": 9766,
@@ -1134,7 +1166,8 @@
 "rm": 30.4,
 "own": 10.2,
 "rent": 40.7,
-"noq": 17.6
+"noq": 17.6,
+"leave": 51.8
 }
 },
 "heavitree": {
@@ -1147,13 +1180,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 22.2,
-"lt": 1.7,
-"sp": 11.0,
+"mtw": 18.8,
+"lt": 1.5,
+"sp": 7.9,
 "wf": 12.2,
-"yf": 9.6,
-"tp": 32.2,
-"cs": 11.1
+"yf": 9.7,
+"tp": 35.7,
+"cs": 14.2
 },
 "facts": {
 "residents": 9247,
@@ -1164,7 +1197,8 @@
 "rm": 19.0,
 "own": 6.9,
 "rent": 33.3,
-"noq": 12.8
+"noq": 12.8,
+"leave": 38.3
 }
 },
 "mincinglake and whipton": {
@@ -1177,13 +1211,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 36.9,
-"lt": 2.0,
-"sp": 12.9,
+"mtw": 37.5,
+"lt": 2.1,
+"sp": 13.4,
 "wf": 12.4,
 "yf": 12.5,
-"tp": 16.9,
-"cs": 6.3
+"tp": 16.4,
+"cs": 5.8
 },
 "facts": {
 "residents": 8793,
@@ -1194,7 +1228,8 @@
 "rm": 33.0,
 "own": 9.2,
 "rent": 45.6,
-"noq": 21.9
+"noq": 21.9,
+"leave": 55.5
 }
 },
 "newtown and st leonard's": {
@@ -1207,13 +1242,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 22.7,
-"lt": 1.5,
-"sp": 7.0,
-"wf": 6.2,
-"yf": 7.4,
-"tp": 46.6,
-"cs": 8.6
+"mtw": 16.6,
+"lt": 1.1,
+"sp": 3.8,
+"wf": 6.1,
+"yf": 7.3,
+"tp": 52.6,
+"cs": 12.4
 },
 "facts": {
 "residents": 10852,
@@ -1224,7 +1259,8 @@
 "rm": 15.2,
 "own": 6.2,
 "rent": 55.3,
-"noq": 9.1
+"noq": 9.1,
+"leave": 29.5
 }
 },
 "pennsylvania": {
@@ -1237,13 +1273,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 23.8,
-"lt": 1.7,
-"sp": 9.0,
-"wf": 8.8,
-"yf": 8.6,
-"tp": 40.0,
-"cs": 8.1
+"mtw": 20.3,
+"lt": 1.5,
+"sp": 6.6,
+"wf": 8.9,
+"yf": 8.7,
+"tp": 43.7,
+"cs": 10.4
 },
 "facts": {
 "residents": 10533,
@@ -1254,7 +1290,8 @@
 "rm": 17.2,
 "own": 6.9,
 "rent": 44.7,
-"noq": 10.6
+"noq": 10.6,
+"leave": 38.7
 }
 },
 "pinhoe": {
@@ -1267,13 +1304,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 25.3,
+"mtw": 25.0,
 "lt": 2.4,
-"sp": 12.7,
-"wf": 18.0,
-"yf": 12.4,
-"tp": 19.7,
-"cs": 9.5
+"sp": 12.4,
+"wf": 18.2,
+"yf": 12.5,
+"tp": 20.0,
+"cs": 9.6
 },
 "facts": {
 "residents": 9588,
@@ -1284,7 +1321,8 @@
 "rm": 23.8,
 "own": 9.6,
 "rent": 26.5,
-"noq": 15.3
+"noq": 15.3,
+"leave": 51.7
 }
 },
 "priory": {
@@ -1297,13 +1335,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 34.3,
+"mtw": 33.8,
 "lt": 2.0,
-"sp": 12.2,
-"wf": 12.4,
-"yf": 10.7,
-"tp": 20.5,
-"cs": 8.0
+"sp": 11.8,
+"wf": 12.5,
+"yf": 10.8,
+"tp": 20.9,
+"cs": 8.2
 },
 "facts": {
 "residents": 8717,
@@ -1314,7 +1352,8 @@
 "rm": 30.2,
 "own": 9.1,
 "rent": 44.3,
-"noq": 22.1
+"noq": 22.1,
+"leave": 51.0
 }
 },
 "st david's": {
@@ -1327,13 +1366,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 27.7,
-"lt": 1.3,
-"sp": 5.8,
+"mtw": 21.6,
+"lt": 1.0,
+"sp": 3.5,
 "wf": 5.2,
-"yf": 10.0,
-"tp": 43.6,
-"cs": 6.4
+"yf": 10.1,
+"tp": 49.5,
+"cs": 9.0
 },
 "facts": {
 "residents": 10530,
@@ -1344,7 +1383,8 @@
 "rm": 17.7,
 "own": 6.1,
 "rent": 66.9,
-"noq": 10.4
+"noq": 10.4,
+"leave": 32.2
 }
 },
 "st loyes": {
@@ -1358,12 +1398,12 @@
 "target": false,
 "shares": {
 "mtw": 26.4,
-"lt": 2.1,
+"lt": 2.2,
 "sp": 11.8,
-"wf": 17.7,
-"yf": 12.5,
+"wf": 17.8,
+"yf": 12.6,
 "tp": 20.5,
-"cs": 9.0
+"cs": 8.8
 },
 "facts": {
 "residents": 9387,
@@ -1374,7 +1414,8 @@
 "rm": 23.9,
 "own": 9.0,
 "rent": 31.5,
-"noq": 14.9
+"noq": 14.9,
+"leave": 53.2
 }
 },
 "st thomas": {
@@ -1387,13 +1428,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 29.8,
-"lt": 2.4,
-"sp": 12.1,
-"wf": 15.1,
-"yf": 11.7,
-"tp": 20.4,
-"cs": 8.5
+"mtw": 28.9,
+"lt": 2.3,
+"sp": 11.3,
+"wf": 15.3,
+"yf": 11.9,
+"tp": 21.3,
+"cs": 9.1
 },
 "facts": {
 "residents": 9844,
@@ -1404,7 +1445,8 @@
 "rm": 28.1,
 "own": 10.0,
 "rent": 34.4,
-"noq": 17.3
+"noq": 17.3,
+"leave": 48.9
 }
 },
 "topsham": {
@@ -1417,13 +1459,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 21.2,
-"lt": 3.4,
-"sp": 14.2,
-"wf": 14.1,
-"yf": 9.9,
-"tp": 23.3,
-"cs": 14.0
+"mtw": 20.2,
+"lt": 3.3,
+"sp": 12.9,
+"wf": 14.2,
+"yf": 10.0,
+"tp": 24.4,
+"cs": 15.1
 },
 "facts": {
 "residents": 10038,
@@ -1434,7 +1476,8 @@
 "rm": 20.4,
 "own": 10.4,
 "rent": 30.4,
-"noq": 13.1
+"noq": 13.1,
+"leave": 48.0
 }
 },
 "bradninch": {
@@ -1448,13 +1491,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 17.0,
-"lt": 9.0,
-"sp": 16.3,
-"wf": 15.5,
-"yf": 8.7,
-"tp": 17.0,
-"cs": 16.5
+"mtw": 16.0,
+"lt": 8.5,
+"sp": 14.3,
+"wf": 15.7,
+"yf": 8.8,
+"tp": 18.1,
+"cs": 18.5
 },
 "facts": {
 "residents": 2166,
@@ -1465,7 +1508,8 @@
 "rm": 20.1,
 "own": 14.0,
 "rent": 34.6,
-"noq": 13.3
+"noq": 13.3,
+"leave": 46.3
 }
 },
 "cadbury": {
@@ -1479,12 +1523,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 20.7,
-"sp": 21.9,
+"lt": 19.1,
+"sp": 18.4,
 "wf": 14.4,
-"yf": 6.9,
+"yf": 7.0,
 "tp": 0.2,
-"cs": 35.7
+"cs": 40.7
 },
 "facts": {
 "residents": 1777,
@@ -1495,7 +1539,8 @@
 "rm": 13.7,
 "own": 21.8,
 "rent": 21.7,
-"noq": 11.7
+"noq": 11.7,
+"leave": 44.9
 }
 },
 "canonsleigh": {
@@ -1508,13 +1553,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 0.9,
-"lt": 24.5,
-"sp": 20.5,
-"wf": 15.8,
-"yf": 9.7,
-"tp": 0.9,
-"cs": 27.6
+"mtw": 0.8,
+"lt": 23.5,
+"sp": 18.5,
+"wf": 16.0,
+"yf": 9.8,
+"tp": 1.0,
+"cs": 30.3
 },
 "facts": {
 "residents": 3684,
@@ -1525,7 +1570,8 @@
 "rm": 18.3,
 "own": 21.2,
 "rent": 22.2,
-"noq": 15.5
+"noq": 15.5,
+"leave": 47.5
 }
 },
 "clare and shuttern": {
@@ -1538,13 +1584,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 5.2,
-"lt": 20.1,
-"sp": 24.4,
+"mtw": 5.3,
+"lt": 20.7,
+"sp": 25.2,
 "wf": 12.7,
 "yf": 8.5,
-"tp": 4.7,
-"cs": 24.4
+"tp": 4.6,
+"cs": 22.9
 },
 "facts": {
 "residents": 3871,
@@ -1555,7 +1601,8 @@
 "rm": 19.3,
 "own": 23.8,
 "rent": 29.4,
-"noq": 16.3
+"noq": 16.3,
+"leave": 54.9
 }
 },
 "crediton boniface": {
@@ -1568,13 +1615,13 @@
 "seats": 2,
 "target": true,
 "shares": {
-"mtw": 30.3,
-"lt": 2.9,
-"sp": 15.0,
-"wf": 14.5,
+"mtw": 30.4,
+"lt": 3.0,
+"sp": 15.1,
+"wf": 14.6,
 "yf": 13.3,
-"tp": 16.1,
-"cs": 7.9
+"tp": 16.0,
+"cs": 7.7
 },
 "facts": {
 "residents": 4274,
@@ -1585,7 +1632,8 @@
 "rm": 31.0,
 "own": 11.4,
 "rent": 33.9,
-"noq": 18.2
+"noq": 18.2,
+"leave": 53.4
 }
 },
 "crediton lawrence": {
@@ -1600,11 +1648,11 @@
 "shares": {
 "mtw": 28.2,
 "lt": 3.1,
-"sp": 18.7,
-"wf": 12.3,
-"yf": 11.4,
+"sp": 18.6,
+"wf": 12.4,
+"yf": 11.5,
 "tp": 16.8,
-"cs": 9.5
+"cs": 9.3
 },
 "facts": {
 "residents": 3802,
@@ -1615,7 +1663,8 @@
 "rm": 28.0,
 "own": 13.1,
 "rent": 38.8,
-"noq": 18.5
+"noq": 18.5,
+"leave": 52.8
 }
 },
 "cullompton padbrook": {
@@ -1628,13 +1677,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 24.4,
-"lt": 6.5,
-"sp": 15.2,
-"wf": 18.0,
-"yf": 14.5,
-"tp": 12.1,
-"cs": 9.4
+"mtw": 25.1,
+"lt": 6.8,
+"sp": 16.3,
+"wf": 17.9,
+"yf": 14.4,
+"tp": 11.4,
+"cs": 8.2
 },
 "facts": {
 "residents": 3865,
@@ -1645,7 +1694,8 @@
 "rm": 28.6,
 "own": 10.3,
 "rent": 30.1,
-"noq": 17.2
+"noq": 17.2,
+"leave": 57.6
 }
 },
 "cullompton st andrews": {
@@ -1658,13 +1708,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 27.8,
-"lt": 5.6,
-"sp": 14.2,
-"wf": 16.3,
-"yf": 14.6,
-"tp": 13.0,
-"cs": 8.5
+"mtw": 29.1,
+"lt": 5.9,
+"sp": 15.9,
+"wf": 16.1,
+"yf": 14.4,
+"tp": 11.8,
+"cs": 6.9
 },
 "facts": {
 "residents": 5734,
@@ -1675,7 +1725,8 @@
 "rm": 29.7,
 "own": 11.5,
 "rent": 35.1,
-"noq": 18.6
+"noq": 18.6,
+"leave": 60.3
 }
 },
 "cullompton vale": {
@@ -1688,13 +1739,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 2.1,
-"lt": 25.3,
-"sp": 16.7,
-"wf": 19.7,
+"mtw": 2.2,
+"lt": 26.8,
+"sp": 18.5,
+"wf": 19.6,
 "yf": 15.4,
-"tp": 1.4,
-"cs": 19.4
+"tp": 1.3,
+"cs": 16.3
 },
 "facts": {
 "residents": 889,
@@ -1705,7 +1756,8 @@
 "rm": 23.3,
 "own": 17.3,
 "rent": 24.4,
-"noq": 19.1
+"noq": 19.1,
+"leave": 59.2
 }
 },
 "halberton": {
@@ -1720,12 +1772,12 @@
 "target": false,
 "shares": {
 "mtw": 0.5,
-"lt": 26.2,
-"sp": 16.7,
-"wf": 17.6,
-"yf": 11.0,
+"lt": 24.6,
+"sp": 14.5,
+"wf": 17.7,
+"yf": 11.1,
 "tp": 0.6,
-"cs": 27.4
+"cs": 31.0
 },
 "facts": {
 "residents": 2083,
@@ -1736,7 +1788,8 @@
 "rm": 17.8,
 "own": 20.0,
 "rent": 26.3,
-"noq": 11.9
+"noq": 11.9,
+"leave": 45.7
 }
 },
 "lower culm": {
@@ -1750,13 +1803,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 17.8,
-"lt": 10.7,
-"sp": 19.0,
+"mtw": 18.1,
+"lt": 10.9,
+"sp": 19.7,
 "wf": 15.6,
 "yf": 10.6,
-"tp": 11.9,
-"cs": 14.4
+"tp": 11.6,
+"cs": 13.4
 },
 "facts": {
 "residents": 6925,
@@ -1767,7 +1820,8 @@
 "rm": 26.4,
 "own": 14.8,
 "rent": 29.7,
-"noq": 17.3
+"noq": 17.3,
+"leave": 55.2
 }
 },
 "sandford and creedy": {
@@ -1781,12 +1835,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 24.3,
-"sp": 22.4,
-"wf": 14.1,
-"yf": 9.5,
+"lt": 22.8,
+"sp": 19.3,
+"wf": 14.3,
+"yf": 9.6,
 "tp": 0.1,
-"cs": 29.5
+"cs": 33.8
 },
 "facts": {
 "residents": 3498,
@@ -1797,7 +1851,8 @@
 "rm": 18.8,
 "own": 21.8,
 "rent": 23.1,
-"noq": 15.1
+"noq": 15.1,
+"leave": 45.4
 }
 },
 "silverton": {
@@ -1810,13 +1865,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 13.9,
-"lt": 9.3,
-"sp": 20.6,
-"wf": 16.0,
-"yf": 7.8,
-"tp": 14.0,
-"cs": 18.4
+"mtw": 12.6,
+"lt": 8.6,
+"sp": 17.0,
+"wf": 16.3,
+"yf": 8.0,
+"tp": 15.4,
+"cs": 22.1
 },
 "facts": {
 "residents": 1907,
@@ -1827,7 +1882,8 @@
 "rm": 19.6,
 "own": 14.6,
 "rent": 22.3,
-"noq": 14.1
+"noq": 14.1,
+"leave": 43.0
 }
 },
 "taw vale": {
@@ -1841,12 +1897,12 @@
 "target": true,
 "shares": {
 "mtw": 0.0,
-"lt": 27.9,
-"sp": 22.7,
-"wf": 15.8,
-"yf": 10.3,
+"lt": 28.3,
+"sp": 23.0,
+"wf": 15.9,
+"yf": 10.4,
 "tp": 0.0,
-"cs": 23.2
+"cs": 22.3
 },
 "facts": {
 "residents": 2010,
@@ -1857,7 +1913,8 @@
 "rm": 21.8,
 "own": 23.1,
 "rent": 21.4,
-"noq": 18.3
+"noq": 18.3,
+"leave": 53.8
 }
 },
 "tiverton castle": {
@@ -1870,13 +1927,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 33.0,
+"mtw": 33.3,
 "lt": 3.1,
-"sp": 17.9,
+"sp": 18.3,
 "wf": 11.1,
 "yf": 13.8,
-"tp": 13.5,
-"cs": 7.6
+"tp": 13.2,
+"cs": 7.1
 },
 "facts": {
 "residents": 4472,
@@ -1887,7 +1944,8 @@
 "rm": 32.7,
 "own": 11.7,
 "rent": 43.9,
-"noq": 22.1
+"noq": 22.1,
+"leave": 54.7
 }
 },
 "tiverton cranmore": {
@@ -1900,13 +1958,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 24.8,
-"lt": 5.1,
-"sp": 23.8,
-"wf": 12.3,
-"yf": 9.8,
-"tp": 13.5,
-"cs": 10.6
+"mtw": 25.5,
+"lt": 5.3,
+"sp": 25.6,
+"wf": 12.2,
+"yf": 9.7,
+"tp": 12.7,
+"cs": 9.1
 },
 "facts": {
 "residents": 4553,
@@ -1917,7 +1975,8 @@
 "rm": 29.6,
 "own": 12.0,
 "rent": 28.8,
-"noq": 20.4
+"noq": 20.4,
+"leave": 58.1
 }
 },
 "tiverton lowman": {
@@ -1930,13 +1989,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 32.1,
-"lt": 5.2,
+"mtw": 32.2,
+"lt": 5.3,
 "sp": 11.5,
 "wf": 14.4,
-"yf": 14.1,
-"tp": 15.3,
-"cs": 7.3
+"yf": 14.2,
+"tp": 15.2,
+"cs": 7.1
 },
 "facts": {
 "residents": 6563,
@@ -1947,7 +2006,8 @@
 "rm": 31.7,
 "own": 11.9,
 "rent": 44.8,
-"noq": 17.7
+"noq": 17.7,
+"leave": 53.4
 }
 },
 "tiverton westexe": {
@@ -1960,13 +2020,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 26.9,
-"lt": 7.6,
-"sp": 18.2,
-"wf": 13.2,
-"yf": 11.8,
-"tp": 12.8,
-"cs": 9.6
+"mtw": 28.2,
+"lt": 8.0,
+"sp": 20.7,
+"wf": 12.9,
+"yf": 11.5,
+"tp": 11.3,
+"cs": 7.3
 },
 "facts": {
 "residents": 6330,
@@ -1977,7 +2037,8 @@
 "rm": 30.6,
 "own": 13.8,
 "rent": 38.8,
-"noq": 20.3
+"noq": 20.3,
+"leave": 62.1
 }
 },
 "upper culm": {
@@ -1990,13 +2051,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 5.7,
-"lt": 20.0,
-"sp": 19.0,
-"wf": 15.5,
-"yf": 9.5,
-"tp": 6.2,
-"cs": 24.1
+"mtw": 5.9,
+"lt": 20.9,
+"sp": 20.3,
+"wf": 15.6,
+"yf": 9.6,
+"tp": 6.0,
+"cs": 21.7
 },
 "facts": {
 "residents": 4331,
@@ -2007,7 +2068,8 @@
 "rm": 17.7,
 "own": 22.1,
 "rent": 25.2,
-"noq": 13.7
+"noq": 13.7,
+"leave": 56.8
 }
 },
 "upper yeo and taw": {
@@ -2021,12 +2083,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 27.9,
-"sp": 19.4,
-"wf": 17.0,
+"lt": 28.3,
+"sp": 19.7,
+"wf": 17.1,
 "yf": 13.1,
 "tp": 0.0,
-"cs": 22.7
+"cs": 21.8
 },
 "facts": {
 "residents": 4175,
@@ -2037,7 +2099,8 @@
 "rm": 24.0,
 "own": 18.6,
 "rent": 25.6,
-"noq": 16.5
+"noq": 16.5,
+"leave": 53.9
 }
 },
 "way": {
@@ -2051,12 +2114,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 27.6,
-"sp": 18.2,
-"wf": 15.6,
-"yf": 11.6,
+"lt": 27.2,
+"sp": 17.3,
+"wf": 15.8,
+"yf": 11.7,
 "tp": 0.0,
-"cs": 26.9
+"cs": 27.9
 },
 "facts": {
 "residents": 2080,
@@ -2067,7 +2130,8 @@
 "rm": 17.0,
 "own": 25.2,
 "rent": 20.1,
-"noq": 13.8
+"noq": 13.8,
+"leave": 50.2
 }
 },
 "yeo": {
@@ -2080,13 +2144,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 0.8,
-"lt": 23.2,
-"sp": 20.4,
-"wf": 14.9,
-"yf": 9.3,
-"tp": 0.9,
-"cs": 30.4
+"mtw": 0.7,
+"lt": 21.8,
+"sp": 17.6,
+"wf": 15.1,
+"yf": 9.4,
+"tp": 1.0,
+"cs": 34.4
 },
 "facts": {
 "residents": 3835,
@@ -2097,7 +2161,8 @@
 "rm": 17.2,
 "own": 20.2,
 "rent": 23.8,
-"noq": 13.2
+"noq": 13.2,
+"leave": 45.7
 }
 },
 "barnstaple central": {
@@ -2110,13 +2175,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 42.1,
+"mtw": 42.5,
 "lt": 2.1,
-"sp": 11.8,
+"sp": 12.1,
 "wf": 8.1,
 "yf": 14.2,
-"tp": 16.0,
-"cs": 5.6
+"tp": 15.6,
+"cs": 5.3
 },
 "facts": {
 "residents": 2632,
@@ -2127,7 +2192,8 @@
 "rm": 36.1,
 "own": 11.1,
 "rent": 66.5,
-"noq": 22.7
+"noq": 22.7,
+"leave": 54.7
 }
 },
 "barnstaple with pilton": {
@@ -2140,13 +2206,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 32.1,
-"lt": 3.2,
-"sp": 15.5,
+"mtw": 32.2,
+"lt": 3.3,
+"sp": 15.6,
 "wf": 14.0,
-"yf": 12.4,
-"tp": 15.1,
-"cs": 7.7
+"yf": 12.5,
+"tp": 15.0,
+"cs": 7.4
 },
 "facts": {
 "residents": 8041,
@@ -2157,7 +2223,8 @@
 "rm": 33.0,
 "own": 11.2,
 "rent": 36.0,
-"noq": 18.1
+"noq": 18.1,
+"leave": 53.7
 }
 },
 "barnstaple with westacott": {
@@ -2170,13 +2237,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 40.6,
-"lt": 2.4,
-"sp": 13.4,
-"wf": 11.9,
-"yf": 14.1,
-"tp": 12.7,
-"cs": 5.0
+"mtw": 41.9,
+"lt": 2.5,
+"sp": 14.7,
+"wf": 11.6,
+"yf": 13.8,
+"tp": 11.5,
+"cs": 4.0
 },
 "facts": {
 "residents": 7368,
@@ -2187,7 +2254,8 @@
 "rm": 38.3,
 "own": 9.7,
 "rent": 44.8,
-"noq": 21.9
+"noq": 21.9,
+"leave": 60.1
 }
 },
 "bickington": {
@@ -2200,13 +2268,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 27.7,
-"lt": 2.8,
-"sp": 17.1,
-"wf": 15.7,
-"yf": 14.1,
-"tp": 14.4,
-"cs": 8.3
+"mtw": 28.7,
+"lt": 3.0,
+"sp": 18.7,
+"wf": 15.5,
+"yf": 13.9,
+"tp": 13.3,
+"cs": 6.9
 },
 "facts": {
 "residents": 7055,
@@ -2217,7 +2285,8 @@
 "rm": 29.1,
 "own": 11.4,
 "rent": 26.9,
-"noq": 18.1
+"noq": 18.1,
+"leave": 59.1
 }
 },
 "bishop's nympton": {
@@ -2231,12 +2300,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 27.5,
-"sp": 22.9,
+"lt": 28.5,
+"sp": 24.3,
 "wf": 14.8,
 "yf": 10.2,
 "tp": 0.1,
-"cs": 24.3
+"cs": 21.9
 },
 "facts": {
 "residents": 2182,
@@ -2247,7 +2316,8 @@
 "rm": 17.2,
 "own": 28.6,
 "rent": 23.5,
-"noq": 16.5
+"noq": 16.5,
+"leave": 56.4
 }
 },
 "bratton fleming": {
@@ -2261,12 +2331,12 @@
 "target": false,
 "shares": {
 "mtw": 0.2,
-"lt": 27.0,
-"sp": 23.2,
-"wf": 14.0,
+"lt": 27.7,
+"sp": 24.1,
+"wf": 14.1,
 "yf": 10.3,
 "tp": 0.2,
-"cs": 25.1
+"cs": 23.3
 },
 "facts": {
 "residents": 2407,
@@ -2277,7 +2347,8 @@
 "rm": 20.0,
 "own": 25.4,
 "rent": 25.6,
-"noq": 15.4
+"noq": 15.4,
+"leave": 55.3
 }
 },
 "braunton east": {
@@ -2290,13 +2361,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 16.1,
+"mtw": 15.9,
 "lt": 8.0,
-"sp": 21.2,
-"wf": 15.9,
-"yf": 7.8,
-"tp": 15.0,
-"cs": 16.2
+"sp": 20.6,
+"wf": 16.0,
+"yf": 7.9,
+"tp": 15.3,
+"cs": 16.5
 },
 "facts": {
 "residents": 4861,
@@ -2307,7 +2378,8 @@
 "rm": 20.0,
 "own": 16.9,
 "rent": 21.4,
-"noq": 14.5
+"noq": 14.5,
+"leave": 51.2
 }
 },
 "braunton west and georgeham": {
@@ -2320,13 +2392,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 10.5,
-"lt": 14.9,
-"sp": 23.1,
-"wf": 14.5,
+"mtw": 10.6,
+"lt": 15.1,
+"sp": 23.3,
+"wf": 14.6,
 "yf": 8.7,
 "tp": 9.0,
-"cs": 19.3
+"cs": 18.7
 },
 "facts": {
 "residents": 4669,
@@ -2337,7 +2409,8 @@
 "rm": 22.4,
 "own": 18.6,
 "rent": 23.1,
-"noq": 15.8
+"noq": 15.8,
+"leave": 53.5
 }
 },
 "chittlehampton": {
@@ -2351,12 +2424,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 27.6,
-"sp": 23.8,
+"lt": 29.1,
+"sp": 26.3,
 "wf": 13.7,
 "yf": 9.2,
 "tp": 0.1,
-"cs": 25.4
+"cs": 21.5
 },
 "facts": {
 "residents": 2338,
@@ -2367,7 +2440,8 @@
 "rm": 19.1,
 "own": 28.0,
 "rent": 25.0,
-"noq": 15.2
+"noq": 15.2,
+"leave": 59.0
 }
 },
 "chulmleigh": {
@@ -2380,13 +2454,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 6.4,
-"lt": 19.8,
-"sp": 24.6,
-"wf": 12.7,
-"yf": 11.0,
-"tp": 5.0,
-"cs": 20.5
+"mtw": 6.7,
+"lt": 20.8,
+"sp": 27.0,
+"wf": 12.6,
+"yf": 10.9,
+"tp": 4.7,
+"cs": 17.4
 },
 "facts": {
 "residents": 2107,
@@ -2397,7 +2471,8 @@
 "rm": 20.9,
 "own": 23.1,
 "rent": 27.7,
-"noq": 17.3
+"noq": 17.3,
+"leave": 58.8
 }
 },
 "combe martin": {
@@ -2410,13 +2485,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 20.9,
-"lt": 8.3,
-"sp": 24.2,
-"wf": 12.3,
-"yf": 9.5,
-"tp": 12.8,
-"cs": 12.1
+"mtw": 21.6,
+"lt": 8.6,
+"sp": 26.2,
+"wf": 12.2,
+"yf": 9.3,
+"tp": 11.9,
+"cs": 10.2
 },
 "facts": {
 "residents": 2648,
@@ -2427,7 +2502,8 @@
 "rm": 26.0,
 "own": 19.5,
 "rent": 27.2,
-"noq": 19.3
+"noq": 19.3,
+"leave": 58.7
 }
 },
 "fremington": {
@@ -2440,13 +2516,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 19.8,
-"lt": 4.6,
-"sp": 25.7,
-"wf": 15.0,
-"yf": 10.0,
-"tp": 12.2,
-"cs": 12.8
+"mtw": 20.9,
+"lt": 4.9,
+"sp": 29.6,
+"wf": 14.6,
+"yf": 9.7,
+"tp": 10.7,
+"cs": 9.6
 },
 "facts": {
 "residents": 5231,
@@ -2457,7 +2533,8 @@
 "rm": 25.8,
 "own": 12.9,
 "rent": 16.4,
-"noq": 19.7
+"noq": 19.7,
+"leave": 62.8
 }
 },
 "heanton punchardon": {
@@ -2470,13 +2547,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 6.6,
-"lt": 18.1,
-"sp": 11.8,
-"wf": 18.5,
-"yf": 20.8,
-"tp": 5.2,
-"cs": 19.0
+"mtw": 6.8,
+"lt": 18.7,
+"sp": 12.4,
+"wf": 18.6,
+"yf": 20.9,
+"tp": 5.1,
+"cs": 17.6
 },
 "facts": {
 "residents": 2895,
@@ -2487,7 +2564,8 @@
 "rm": 20.4,
 "own": 11.0,
 "rent": 47.0,
-"noq": 12.9
+"noq": 12.9,
+"leave": 55.5
 }
 },
 "ilfracombe east": {
@@ -2500,13 +2578,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 36.1,
-"lt": 3.7,
-"sp": 16.8,
-"wf": 9.9,
-"yf": 11.4,
-"tp": 15.2,
-"cs": 6.9
+"mtw": 37.5,
+"lt": 3.8,
+"sp": 18.7,
+"wf": 9.7,
+"yf": 11.1,
+"tp": 13.7,
+"cs": 5.5
 },
 "facts": {
 "residents": 6549,
@@ -2517,7 +2595,8 @@
 "rm": 31.0,
 "own": 16.1,
 "rent": 47.3,
-"noq": 19.9
+"noq": 19.9,
+"leave": 60.8
 }
 },
 "ilfracombe west": {
@@ -2530,13 +2609,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 25.2,
-"lt": 7.7,
-"sp": 18.9,
-"wf": 13.9,
-"yf": 12.1,
-"tp": 12.7,
-"cs": 9.7
+"mtw": 26.0,
+"lt": 8.0,
+"sp": 20.6,
+"wf": 13.7,
+"yf": 11.9,
+"tp": 11.7,
+"cs": 8.0
 },
 "facts": {
 "residents": 4488,
@@ -2547,7 +2626,8 @@
 "rm": 29.0,
 "own": 15.9,
 "rent": 30.1,
-"noq": 18.5
+"noq": 18.5,
+"leave": 59.3
 }
 },
 "instow": {
@@ -2561,12 +2641,12 @@
 "target": false,
 "shares": {
 "mtw": 0.7,
-"lt": 22.3,
-"sp": 24.8,
-"wf": 13.8,
-"yf": 7.9,
+"lt": 23.1,
+"sp": 25.9,
+"wf": 13.9,
+"yf": 8.0,
 "tp": 0.7,
-"cs": 29.7
+"cs": 27.7
 },
 "facts": {
 "residents": 2189,
@@ -2577,7 +2657,8 @@
 "rm": 16.7,
 "own": 23.0,
 "rent": 26.3,
-"noq": 14.7
+"noq": 14.7,
+"leave": 55.3
 }
 },
 "landkey": {
@@ -2590,13 +2671,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 6.1,
-"lt": 18.8,
-"sp": 21.1,
-"wf": 17.2,
-"yf": 9.8,
-"tp": 5.1,
-"cs": 21.9
+"mtw": 6.2,
+"lt": 19.3,
+"sp": 21.8,
+"wf": 17.3,
+"yf": 9.9,
+"tp": 5.0,
+"cs": 20.6
 },
 "facts": {
 "residents": 4527,
@@ -2607,7 +2688,8 @@
 "rm": 21.4,
 "own": 17.7,
 "rent": 22.3,
-"noq": 15.9
+"noq": 15.9,
+"leave": 54.8
 }
 },
 "lynton and lynmouth": {
@@ -2620,13 +2702,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 11.7,
-"lt": 18.6,
-"sp": 22.3,
+"mtw": 12.1,
+"lt": 19.5,
+"sp": 24.2,
 "wf": 11.6,
 "yf": 8.9,
-"tp": 9.3,
-"cs": 17.6
+"tp": 8.7,
+"cs": 15.1
 },
 "facts": {
 "residents": 2068,
@@ -2637,7 +2719,8 @@
 "rm": 21.6,
 "own": 29.8,
 "rent": 29.3,
-"noq": 16.1
+"noq": 16.1,
+"leave": 58.2
 }
 },
 "marwood": {
@@ -2651,12 +2734,12 @@
 "target": false,
 "shares": {
 "mtw": 0.3,
-"lt": 24.7,
-"sp": 23.5,
-"wf": 14.2,
-"yf": 9.9,
+"lt": 25.5,
+"sp": 24.4,
+"wf": 14.3,
+"yf": 10.0,
 "tp": 0.3,
-"cs": 27.0
+"cs": 25.2
 },
 "facts": {
 "residents": 2451,
@@ -2667,7 +2750,8 @@
 "rm": 17.4,
 "own": 25.0,
 "rent": 18.7,
-"noq": 14.5
+"noq": 14.5,
+"leave": 55.1
 }
 },
 "mortehoe": {
@@ -2681,12 +2765,12 @@
 "target": false,
 "shares": {
 "mtw": 6.7,
-"lt": 18.9,
-"sp": 22.5,
-"wf": 14.4,
-"yf": 7.8,
+"lt": 19.0,
+"sp": 22.4,
+"wf": 14.5,
+"yf": 7.9,
 "tp": 7.1,
-"cs": 22.5
+"cs": 22.3
 },
 "facts": {
 "residents": 2037,
@@ -2697,7 +2781,8 @@
 "rm": 17.8,
 "own": 24.4,
 "rent": 23.3,
-"noq": 13.6
+"noq": 13.6,
+"leave": 52.5
 }
 },
 "newport": {
@@ -2710,13 +2795,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 29.6,
+"mtw": 29.8,
 "lt": 3.3,
-"sp": 15.1,
-"wf": 14.9,
-"yf": 10.8,
-"tp": 17.5,
-"cs": 8.7
+"sp": 15.3,
+"wf": 15.0,
+"yf": 10.9,
+"tp": 17.4,
+"cs": 8.3
 },
 "facts": {
 "residents": 5054,
@@ -2727,7 +2812,8 @@
 "rm": 27.3,
 "own": 12.2,
 "rent": 34.2,
-"noq": 17.3
+"noq": 17.3,
+"leave": 53.8
 }
 },
 "north molton": {
@@ -2741,12 +2827,12 @@
 "target": false,
 "shares": {
 "mtw": 0.3,
-"lt": 29.7,
-"sp": 22.5,
+"lt": 31.1,
+"sp": 24.6,
 "wf": 13.7,
 "yf": 11.3,
-"tp": 0.3,
-"cs": 22.2
+"tp": 0.2,
+"cs": 18.8
 },
 "facts": {
 "residents": 2326,
@@ -2757,7 +2843,8 @@
 "rm": 18.0,
 "own": 27.1,
 "rent": 33.6,
-"noq": 15.8
+"noq": 15.8,
+"leave": 58.6
 }
 },
 "roundswell": {
@@ -2770,13 +2857,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 19.4,
-"lt": 5.0,
-"sp": 24.4,
-"wf": 15.7,
-"yf": 10.8,
-"tp": 12.4,
-"cs": 12.3
+"mtw": 19.8,
+"lt": 5.1,
+"sp": 25.6,
+"wf": 15.6,
+"yf": 10.7,
+"tp": 12.0,
+"cs": 11.1
 },
 "facts": {
 "residents": 3659,
@@ -2787,7 +2874,8 @@
 "rm": 24.8,
 "own": 13.4,
 "rent": 18.5,
-"noq": 18.0
+"noq": 18.0,
+"leave": 56.1
 }
 },
 "south molton": {
@@ -2800,13 +2888,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 29.2,
-"lt": 4.3,
-"sp": 21.4,
-"wf": 11.8,
-"yf": 12.3,
-"tp": 12.6,
-"cs": 8.5
+"mtw": 30.2,
+"lt": 4.5,
+"sp": 23.5,
+"wf": 11.5,
+"yf": 12.0,
+"tp": 11.4,
+"cs": 6.8
 },
 "facts": {
 "residents": 6352,
@@ -2817,7 +2905,8 @@
 "rm": 30.8,
 "own": 14.9,
 "rent": 34.9,
-"noq": 19.0
+"noq": 19.0,
+"leave": 60.0
 }
 },
 "witheridge": {
@@ -2830,13 +2919,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 9.9,
-"lt": 17.2,
-"sp": 25.0,
-"wf": 13.7,
-"yf": 10.6,
-"tp": 6.6,
-"cs": 17.0
+"mtw": 10.3,
+"lt": 18.0,
+"sp": 27.4,
+"wf": 13.5,
+"yf": 10.5,
+"tp": 6.1,
+"cs": 14.2
 },
 "facts": {
 "residents": 2465,
@@ -2847,7 +2936,8 @@
 "rm": 21.7,
 "own": 23.0,
 "rent": 24.3,
-"noq": 20.4
+"noq": 20.4,
+"leave": 59.1
 }
 },
 "allington and strete": {
@@ -2861,12 +2951,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 23.3,
-"sp": 25.3,
-"wf": 11.5,
-"yf": 7.7,
+"lt": 22.7,
+"sp": 23.5,
+"wf": 11.6,
+"yf": 7.8,
 "tp": 0.0,
-"cs": 32.1
+"cs": 34.3
 },
 "facts": {
 "residents": 3051,
@@ -2877,7 +2967,8 @@
 "rm": 16.7,
 "own": 23.8,
 "rent": 25.0,
-"noq": 13.9
+"noq": 13.9,
+"leave": 48.9
 }
 },
 "bickleigh and cornwood": {
@@ -2890,13 +2981,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 3.6,
-"lt": 21.0,
-"sp": 19.9,
-"wf": 16.5,
-"yf": 9.5,
-"tp": 3.3,
-"cs": 26.1
+"mtw": 3.4,
+"lt": 20.5,
+"sp": 18.6,
+"wf": 16.7,
+"yf": 9.6,
+"tp": 3.5,
+"cs": 27.7
 },
 "facts": {
 "residents": 2837,
@@ -2907,7 +2998,8 @@
 "rm": 19.3,
 "own": 16.0,
 "rent": 24.8,
-"noq": 15.5
+"noq": 15.5,
+"leave": 49.2
 }
 },
 "blackawton and stoke fleming": {
@@ -2921,12 +3013,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 24.2,
-"sp": 23.9,
-"wf": 13.7,
-"yf": 7.3,
+"lt": 23.4,
+"sp": 21.8,
+"wf": 13.9,
+"yf": 7.4,
 "tp": 0.0,
-"cs": 30.9
+"cs": 33.5
 },
 "facts": {
 "residents": 2563,
@@ -2937,7 +3029,8 @@
 "rm": 16.1,
 "own": 25.6,
 "rent": 25.9,
-"noq": 12.2
+"noq": 12.2,
+"leave": 48.0
 }
 },
 "charterlands": {
@@ -2950,13 +3043,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 6.9,
-"lt": 14.9,
-"sp": 19.4,
+"mtw": 6.4,
+"lt": 14.0,
+"sp": 16.7,
 "wf": 13.4,
 "yf": 7.2,
-"tp": 10.4,
-"cs": 27.8
+"tp": 11.1,
+"cs": 31.3
 },
 "facts": {
 "residents": 3157,
@@ -2967,7 +3060,8 @@
 "rm": 14.3,
 "own": 20.3,
 "rent": 25.8,
-"noq": 10.4
+"noq": 10.4,
+"leave": 45.8
 }
 },
 "dartington and staverton": {
@@ -2980,13 +3074,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 1.7,
-"lt": 20.0,
-"sp": 18.3,
-"wf": 12.8,
-"yf": 6.2,
-"tp": 3.1,
-"cs": 38.0
+"mtw": 1.3,
+"lt": 15.7,
+"sp": 11.5,
+"wf": 12.4,
+"yf": 6.0,
+"tp": 3.5,
+"cs": 49.7
 },
 "facts": {
 "residents": 2954,
@@ -2997,7 +3091,8 @@
 "rm": 14.9,
 "own": 18.4,
 "rent": 26.9,
-"noq": 9.9
+"noq": 9.9,
+"leave": 34.6
 }
 },
 "dartmouth and east dart": {
@@ -3010,13 +3105,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 16.8,
+"mtw": 16.5,
 "lt": 8.4,
-"sp": 22.9,
-"wf": 11.1,
-"yf": 8.6,
-"tp": 14.8,
-"cs": 17.4
+"sp": 22.0,
+"wf": 11.2,
+"yf": 8.8,
+"tp": 15.2,
+"cs": 17.9
 },
 "facts": {
 "residents": 7856,
@@ -3027,7 +3122,8 @@
 "rm": 21.5,
 "own": 17.3,
 "rent": 32.3,
-"noq": 15.5
+"noq": 15.5,
+"leave": 50.6
 }
 },
 "ermington and ugborough": {
@@ -3041,12 +3137,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 24.9,
-"sp": 16.8,
+"lt": 23.0,
+"sp": 14.1,
 "wf": 17.3,
 "yf": 7.5,
 "tp": 0.1,
-"cs": 33.3
+"cs": 37.9
 },
 "facts": {
 "residents": 2857,
@@ -3057,7 +3153,8 @@
 "rm": 15.0,
 "own": 20.5,
 "rent": 24.3,
-"noq": 12.1
+"noq": 12.1,
+"leave": 44.9
 }
 },
 "ivybridge east": {
@@ -3070,13 +3167,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 21.5,
-"lt": 4.4,
-"sp": 14.5,
-"wf": 18.1,
-"yf": 10.8,
-"tp": 18.7,
-"cs": 12.1
+"mtw": 21.1,
+"lt": 4.3,
+"sp": 13.9,
+"wf": 18.2,
+"yf": 10.9,
+"tp": 19.2,
+"cs": 12.4
 },
 "facts": {
 "residents": 6053,
@@ -3087,7 +3184,8 @@
 "rm": 22.7,
 "own": 10.5,
 "rent": 22.7,
-"noq": 12.8
+"noq": 12.8,
+"leave": 50.7
 }
 },
 "ivybridge west": {
@@ -3100,13 +3198,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 24.0,
+"mtw": 23.7,
 "lt": 2.7,
-"sp": 15.0,
-"wf": 16.9,
-"yf": 11.5,
-"tp": 19.1,
-"cs": 10.7
+"sp": 14.6,
+"wf": 17.1,
+"yf": 11.6,
+"tp": 19.5,
+"cs": 10.8
 },
 "facts": {
 "residents": 6434,
@@ -3117,7 +3215,8 @@
 "rm": 23.7,
 "own": 10.8,
 "rent": 24.4,
-"noq": 13.0
+"noq": 13.0,
+"leave": 51.4
 }
 },
 "kingsbridge": {
@@ -3130,13 +3229,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 25.0,
-"lt": 5.8,
-"sp": 20.3,
+"mtw": 25.2,
+"lt": 5.9,
+"sp": 20.7,
 "wf": 10.9,
-"yf": 8.6,
-"tp": 17.7,
-"cs": 11.7
+"yf": 8.7,
+"tp": 17.4,
+"cs": 11.1
 },
 "facts": {
 "residents": 5680,
@@ -3147,7 +3246,8 @@
 "rm": 25.1,
 "own": 18.4,
 "rent": 38.0,
-"noq": 16.4
+"noq": 16.4,
+"leave": 54.3
 }
 },
 "loddiswell and aveton gifford": {
@@ -3161,12 +3261,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 26.9,
-"sp": 20.2,
-"wf": 14.0,
-"yf": 9.4,
+"lt": 26.0,
+"sp": 18.4,
+"wf": 14.1,
+"yf": 9.5,
 "tp": 0.1,
-"cs": 29.4
+"cs": 31.8
 },
 "facts": {
 "residents": 2894,
@@ -3177,7 +3277,8 @@
 "rm": 17.1,
 "own": 26.3,
 "rent": 26.8,
-"noq": 11.8
+"noq": 11.8,
+"leave": 48.2
 }
 },
 "marldon and littlehempston": {
@@ -3190,13 +3291,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 10.1,
-"lt": 12.5,
-"sp": 21.8,
-"wf": 15.1,
-"yf": 7.3,
-"tp": 11.8,
-"cs": 21.4
+"mtw": 9.7,
+"lt": 12.2,
+"sp": 20.2,
+"wf": 15.3,
+"yf": 7.4,
+"tp": 12.3,
+"cs": 22.9
 },
 "facts": {
 "residents": 2975,
@@ -3207,7 +3308,8 @@
 "rm": 16.6,
 "own": 19.3,
 "rent": 19.1,
-"noq": 13.8
+"noq": 13.8,
+"leave": 48.9
 }
 },
 "newton and yealmpton": {
@@ -3220,13 +3322,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 7.5,
-"lt": 13.4,
-"sp": 20.3,
+"mtw": 6.7,
+"lt": 12.2,
+"sp": 16.5,
 "wf": 13.7,
 "yf": 7.4,
-"tp": 10.3,
-"cs": 27.5
+"tp": 11.2,
+"cs": 32.3
 },
 "facts": {
 "residents": 6233,
@@ -3237,7 +3339,8 @@
 "rm": 15.6,
 "own": 17.1,
 "rent": 28.0,
-"noq": 10.9
+"noq": 10.9,
+"leave": 43.2
 }
 },
 "salcombe and thurlestone": {
@@ -3250,13 +3353,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 10.5,
-"lt": 13.7,
-"sp": 24.6,
-"wf": 11.0,
+"mtw": 10.4,
+"lt": 13.8,
+"sp": 24.4,
+"wf": 11.1,
 "yf": 7.9,
-"tp": 10.6,
-"cs": 21.7
+"tp": 10.7,
+"cs": 21.6
 },
 "facts": {
 "residents": 4968,
@@ -3267,7 +3370,8 @@
 "rm": 18.6,
 "own": 23.4,
 "rent": 27.8,
-"noq": 14.1
+"noq": 14.1,
+"leave": 52.3
 }
 },
 "south brent": {
@@ -3280,13 +3384,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 6.5,
-"lt": 17.1,
-"sp": 18.8,
+"mtw": 5.9,
+"lt": 15.8,
+"sp": 15.6,
 "wf": 13.3,
-"yf": 8.0,
-"tp": 8.9,
-"cs": 27.3
+"yf": 8.1,
+"tp": 9.6,
+"cs": 31.7
 },
 "facts": {
 "residents": 5433,
@@ -3297,7 +3401,8 @@
 "rm": 16.0,
 "own": 20.7,
 "rent": 27.0,
-"noq": 12.3
+"noq": 12.3,
+"leave": 44.1
 }
 },
 "stokenham": {
@@ -3311,12 +3416,12 @@
 "target": false,
 "shares": {
 "mtw": 3.3,
-"lt": 19.6,
-"sp": 27.6,
-"wf": 10.6,
-"yf": 8.4,
+"lt": 19.9,
+"sp": 27.8,
+"wf": 10.7,
+"yf": 8.5,
 "tp": 3.8,
-"cs": 26.6
+"cs": 26.0
 },
 "facts": {
 "residents": 2644,
@@ -3327,7 +3432,8 @@
 "rm": 16.7,
 "own": 27.7,
 "rent": 19.8,
-"noq": 15.1
+"noq": 15.1,
+"leave": 53.2
 }
 },
 "totnes": {
@@ -3340,13 +3446,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 24.7,
-"lt": 3.9,
-"sp": 14.5,
-"wf": 10.2,
-"yf": 6.7,
-"tp": 26.2,
-"cs": 13.6
+"mtw": 20.8,
+"lt": 3.4,
+"sp": 10.3,
+"wf": 10.4,
+"yf": 6.9,
+"tp": 30.2,
+"cs": 18.1
 },
 "facts": {
 "residents": 9030,
@@ -3357,7 +3463,8 @@
 "rm": 21.9,
 "own": 16.0,
 "rent": 40.4,
-"noq": 13.1
+"noq": 13.1,
+"leave": 37.0
 }
 },
 "wembury and brixton": {
@@ -3370,13 +3477,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 8.1,
-"lt": 11.3,
-"sp": 20.8,
-"wf": 17.5,
-"yf": 8.2,
-"tp": 9.5,
-"cs": 24.6
+"mtw": 7.5,
+"lt": 10.7,
+"sp": 18.1,
+"wf": 17.7,
+"yf": 8.3,
+"tp": 10.1,
+"cs": 27.5
 },
 "facts": {
 "residents": 5456,
@@ -3387,7 +3494,8 @@
 "rm": 15.9,
 "own": 13.1,
 "rent": 18.8,
-"noq": 11.6
+"noq": 11.6,
+"leave": 46.2
 }
 },
 "west dart": {
@@ -3401,12 +3509,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 23.1,
-"sp": 19.5,
-"wf": 12.9,
-"yf": 6.2,
+"lt": 20.1,
+"sp": 14.8,
+"wf": 12.8,
+"yf": 6.1,
 "tp": 0.0,
-"cs": 38.3
+"cs": 46.1
 },
 "facts": {
 "residents": 2560,
@@ -3417,7 +3525,8 @@
 "rm": 12.7,
 "own": 25.3,
 "rent": 25.2,
-"noq": 9.6
+"noq": 9.6,
+"leave": 41.0
 }
 },
 "woolwell": {
@@ -3430,13 +3539,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 21.8,
+"mtw": 21.2,
 "lt": 2.3,
-"sp": 12.1,
-"wf": 21.2,
-"yf": 11.5,
-"tp": 20.8,
-"cs": 10.3
+"sp": 11.3,
+"wf": 21.4,
+"yf": 11.6,
+"tp": 21.5,
+"cs": 10.8
 },
 "facts": {
 "residents": 2992,
@@ -3447,7 +3556,8 @@
 "rm": 19.8,
 "own": 9.4,
 "rent": 23.5,
-"noq": 10.5
+"noq": 10.5,
+"leave": 49.7
 }
 },
 "ambrook": {
@@ -3460,13 +3570,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 12.9,
-"lt": 12.4,
-"sp": 18.3,
-"wf": 16.4,
-"yf": 11.3,
-"tp": 11.0,
-"cs": 17.7
+"mtw": 13.0,
+"lt": 12.6,
+"sp": 18.4,
+"wf": 16.6,
+"yf": 11.4,
+"tp": 10.9,
+"cs": 17.2
 },
 "facts": {
 "residents": 6396,
@@ -3477,7 +3587,8 @@
 "rm": 20.4,
 "own": 16.1,
 "rent": 19.5,
-"noq": 13.7
+"noq": 13.7,
+"leave": 53.4
 }
 },
 "ashburton and buckfastleigh": {
@@ -3490,13 +3601,13 @@
 "seats": 3,
 "target": true,
 "shares": {
-"mtw": 18.4,
-"lt": 11.2,
-"sp": 17.9,
-"wf": 13.0,
-"yf": 8.5,
-"tp": 15.3,
-"cs": 15.8
+"mtw": 17.5,
+"lt": 10.7,
+"sp": 16.1,
+"wf": 13.2,
+"yf": 8.7,
+"tp": 16.2,
+"cs": 17.5
 },
 "facts": {
 "residents": 8849,
@@ -3507,7 +3618,8 @@
 "rm": 23.0,
 "own": 18.5,
 "rent": 34.9,
-"noq": 16.2
+"noq": 16.2,
+"leave": 47.2
 }
 },
 "bishopsteignton": {
@@ -3520,13 +3632,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 10.0,
-"lt": 6.9,
-"sp": 30.3,
-"wf": 12.1,
-"yf": 4.2,
-"tp": 12.4,
-"cs": 24.1
+"mtw": 9.6,
+"lt": 6.7,
+"sp": 27.6,
+"wf": 12.3,
+"yf": 4.3,
+"tp": 13.1,
+"cs": 26.4
 },
 "facts": {
 "residents": 2636,
@@ -3537,7 +3649,8 @@
 "rm": 17.0,
 "own": 16.2,
 "rent": 12.4,
-"noq": 13.1
+"noq": 13.1,
+"leave": 47.8
 }
 },
 "bovey": {
@@ -3550,13 +3663,13 @@
 "seats": 3,
 "target": true,
 "shares": {
-"mtw": 14.6,
-"lt": 8.9,
-"sp": 21.9,
-"wf": 14.3,
-"yf": 9.8,
-"tp": 12.3,
-"cs": 18.1
+"mtw": 14.2,
+"lt": 8.7,
+"sp": 20.6,
+"wf": 14.5,
+"yf": 10.0,
+"tp": 12.8,
+"cs": 19.1
 },
 "facts": {
 "residents": 7998,
@@ -3567,7 +3680,8 @@
 "rm": 23.3,
 "own": 12.9,
 "rent": 24.3,
-"noq": 14.8
+"noq": 14.8,
+"leave": 49.5
 }
 },
 "bradley": {
@@ -3580,13 +3694,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 24.3,
-"lt": 4.2,
-"sp": 13.9,
-"wf": 18.9,
-"yf": 13.6,
-"tp": 15.5,
-"cs": 9.6
+"mtw": 25.8,
+"lt": 4.6,
+"sp": 15.9,
+"wf": 18.8,
+"yf": 13.5,
+"tp": 14.0,
+"cs": 7.6
 },
 "facts": {
 "residents": 7771,
@@ -3597,7 +3711,8 @@
 "rm": 25.9,
 "own": 10.9,
 "rent": 25.3,
-"noq": 14.2
+"noq": 14.2,
+"leave": 61.5
 }
 },
 "buckland and milber": {
@@ -3610,13 +3725,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 30.0,
-"lt": 2.9,
-"sp": 18.7,
-"wf": 14.4,
-"yf": 12.4,
-"tp": 13.5,
-"cs": 8.1
+"mtw": 31.4,
+"lt": 3.1,
+"sp": 21.2,
+"wf": 14.0,
+"yf": 12.1,
+"tp": 11.9,
+"cs": 6.2
 },
 "facts": {
 "residents": 8756,
@@ -3627,7 +3742,8 @@
 "rm": 31.2,
 "own": 11.8,
 "rent": 29.2,
-"noq": 19.6
+"noq": 19.6,
+"leave": 62.1
 }
 },
 "bushell": {
@@ -3640,13 +3756,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 35.8,
+"mtw": 36.1,
 "lt": 2.5,
-"sp": 11.6,
+"sp": 11.9,
 "wf": 13.0,
-"yf": 13.9,
-"tp": 16.8,
-"cs": 6.4
+"yf": 14.0,
+"tp": 16.5,
+"cs": 6.0
 },
 "facts": {
 "residents": 5940,
@@ -3657,7 +3773,8 @@
 "rm": 31.5,
 "own": 11.5,
 "rent": 45.6,
-"noq": 17.5
+"noq": 17.5,
+"leave": 54.7
 }
 },
 "chudleigh": {
@@ -3670,13 +3787,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 19.3,
-"lt": 6.1,
-"sp": 15.9,
-"wf": 16.9,
-"yf": 10.5,
-"tp": 17.4,
-"cs": 13.9
+"mtw": 18.5,
+"lt": 5.9,
+"sp": 14.6,
+"wf": 17.1,
+"yf": 10.6,
+"tp": 18.2,
+"cs": 15.0
 },
 "facts": {
 "residents": 5919,
@@ -3687,7 +3804,8 @@
 "rm": 21.3,
 "own": 13.2,
 "rent": 26.0,
-"noq": 14.6
+"noq": 14.6,
+"leave": 48.4
 }
 },
 "college": {
@@ -3700,13 +3818,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 27.9,
-"lt": 2.9,
-"sp": 15.8,
-"wf": 13.7,
-"yf": 11.8,
-"tp": 18.4,
-"cs": 9.4
+"mtw": 28.4,
+"lt": 3.0,
+"sp": 16.5,
+"wf": 13.8,
+"yf": 11.9,
+"tp": 17.9,
+"cs": 8.7
 },
 "facts": {
 "residents": 5400,
@@ -3717,7 +3835,8 @@
 "rm": 26.2,
 "own": 12.2,
 "rent": 35.2,
-"noq": 15.3
+"noq": 15.3,
+"leave": 55.5
 }
 },
 "dawlish north east": {
@@ -3730,13 +3849,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 23.9,
-"lt": 5.0,
-"sp": 21.6,
-"wf": 14.5,
-"yf": 10.1,
-"tp": 13.8,
-"cs": 11.1
+"mtw": 24.7,
+"lt": 5.2,
+"sp": 23.3,
+"wf": 14.4,
+"yf": 10.0,
+"tp": 13.0,
+"cs": 9.5
 },
 "facts": {
 "residents": 8876,
@@ -3747,7 +3866,8 @@
 "rm": 26.8,
 "own": 12.8,
 "rent": 28.3,
-"noq": 17.5
+"noq": 17.5,
+"leave": 58.2
 }
 },
 "dawlish south west": {
@@ -3760,13 +3880,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 23.3,
-"lt": 4.5,
-"sp": 23.8,
-"wf": 12.3,
-"yf": 8.9,
-"tp": 14.5,
-"cs": 12.6
+"mtw": 24.2,
+"lt": 4.7,
+"sp": 26.1,
+"wf": 12.2,
+"yf": 8.8,
+"tp": 13.4,
+"cs": 10.5
 },
 "facts": {
 "residents": 6006,
@@ -3777,7 +3897,8 @@
 "rm": 25.7,
 "own": 13.6,
 "rent": 34.3,
-"noq": 18.1
+"noq": 18.1,
+"leave": 59.1
 }
 },
 "haytor": {
@@ -3790,13 +3911,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 7.5,
-"lt": 14.0,
-"sp": 21.7,
-"wf": 15.4,
-"yf": 8.4,
-"tp": 9.3,
-"cs": 23.7
+"mtw": 7.3,
+"lt": 13.7,
+"sp": 20.3,
+"wf": 15.6,
+"yf": 8.5,
+"tp": 9.6,
+"cs": 25.0
 },
 "facts": {
 "residents": 2446,
@@ -3807,7 +3928,8 @@
 "rm": 17.3,
 "own": 18.6,
 "rent": 15.9,
-"noq": 13.9
+"noq": 13.9,
+"leave": 49.5
 }
 },
 "ipplepen": {
@@ -3821,12 +3943,12 @@
 "target": false,
 "shares": {
 "mtw": 13.0,
-"lt": 8.7,
-"sp": 23.7,
-"wf": 14.7,
-"yf": 8.4,
+"lt": 8.9,
+"sp": 23.8,
+"wf": 14.8,
+"yf": 8.5,
 "tp": 12.5,
-"cs": 18.9
+"cs": 18.5
 },
 "facts": {
 "residents": 2522,
@@ -3837,7 +3959,8 @@
 "rm": 19.6,
 "own": 15.5,
 "rent": 20.5,
-"noq": 14.2
+"noq": 14.2,
+"leave": 53.2
 }
 },
 "kenn valley": {
@@ -3850,13 +3973,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 7.6,
-"lt": 14.5,
-"sp": 17.7,
-"wf": 17.5,
-"yf": 9.2,
-"tp": 9.3,
-"cs": 24.2
+"mtw": 7.0,
+"lt": 13.5,
+"sp": 15.2,
+"wf": 17.6,
+"yf": 9.3,
+"tp": 9.9,
+"cs": 27.4
 },
 "facts": {
 "residents": 8339,
@@ -3867,7 +3990,8 @@
 "rm": 16.8,
 "own": 15.7,
 "rent": 25.2,
-"noq": 13.3
+"noq": 13.3,
+"leave": 45.6
 }
 },
 "kenton and starcross": {
@@ -3880,13 +4004,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 12.6,
-"lt": 11.3,
-"sp": 20.0,
-"wf": 15.8,
-"yf": 8.5,
-"tp": 11.6,
-"cs": 20.2
+"mtw": 12.1,
+"lt": 11.0,
+"sp": 18.5,
+"wf": 16.0,
+"yf": 8.6,
+"tp": 12.1,
+"cs": 21.6
 },
 "facts": {
 "residents": 2975,
@@ -3897,7 +4021,8 @@
 "rm": 21.4,
 "own": 13.3,
 "rent": 27.7,
-"noq": 13.9
+"noq": 13.9,
+"leave": 48.7
 }
 },
 "kerswell-with-combe": {
@@ -3910,13 +4035,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 16.5,
-"lt": 7.9,
-"sp": 23.3,
-"wf": 15.9,
-"yf": 9.1,
-"tp": 12.7,
-"cs": 14.7
+"mtw": 17.1,
+"lt": 8.3,
+"sp": 25.3,
+"wf": 15.8,
+"yf": 9.0,
+"tp": 11.9,
+"cs": 12.6
 },
 "facts": {
 "residents": 5584,
@@ -3927,7 +4052,8 @@
 "rm": 21.8,
 "own": 15.3,
 "rent": 18.0,
-"noq": 17.8
+"noq": 17.8,
+"leave": 58.4
 }
 },
 "kingsteignton east": {
@@ -3940,13 +4066,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 24.2,
-"lt": 4.9,
-"sp": 16.6,
-"wf": 18.1,
-"yf": 11.7,
-"tp": 14.6,
-"cs": 10.0
+"mtw": 25.7,
+"lt": 5.2,
+"sp": 19.1,
+"wf": 17.8,
+"yf": 11.5,
+"tp": 13.0,
+"cs": 7.7
 },
 "facts": {
 "residents": 6678,
@@ -3957,7 +4083,8 @@
 "rm": 25.8,
 "own": 12.6,
 "rent": 26.3,
-"noq": 14.9
+"noq": 14.9,
+"leave": 62.3
 }
 },
 "kingsteignton west": {
@@ -3970,13 +4097,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 23.7,
-"lt": 6.0,
-"sp": 18.4,
-"wf": 16.9,
-"yf": 12.5,
-"tp": 12.7,
-"cs": 9.9
+"mtw": 24.9,
+"lt": 6.4,
+"sp": 20.9,
+"wf": 16.6,
+"yf": 12.3,
+"tp": 11.3,
+"cs": 7.6
 },
 "facts": {
 "residents": 6047,
@@ -3987,7 +4114,8 @@
 "rm": 28.4,
 "own": 13.4,
 "rent": 24.2,
-"noq": 17.8
+"noq": 17.8,
+"leave": 62.1
 }
 },
 "moretonhampstead": {
@@ -4000,13 +4128,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 6.2,
-"lt": 16.7,
-"sp": 20.9,
-"wf": 12.5,
-"yf": 6.3,
-"tp": 9.2,
-"cs": 28.1
+"mtw": 5.5,
+"lt": 14.9,
+"sp": 16.4,
+"wf": 12.6,
+"yf": 6.4,
+"tp": 10.1,
+"cs": 34.0
 },
 "facts": {
 "residents": 2880,
@@ -4017,7 +4145,8 @@
 "rm": 15.1,
 "own": 23.7,
 "rent": 25.8,
-"noq": 12.3
+"noq": 12.3,
+"leave": 41.8
 }
 },
 "shaldon and stokeinteignhead": {
@@ -4030,13 +4159,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 9.7,
-"lt": 8.3,
-"sp": 26.3,
-"wf": 11.7,
-"yf": 6.4,
-"tp": 14.3,
-"cs": 23.5
+"mtw": 9.5,
+"lt": 8.2,
+"sp": 25.6,
+"wf": 11.8,
+"yf": 6.5,
+"tp": 14.5,
+"cs": 23.8
 },
 "facts": {
 "residents": 2451,
@@ -4047,7 +4176,8 @@
 "rm": 14.7,
 "own": 18.5,
 "rent": 19.3,
-"noq": 12.4
+"noq": 12.4,
+"leave": 51.4
 }
 },
 "teign valley": {
@@ -4061,12 +4191,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 21.6,
-"sp": 23.4,
-"wf": 14.8,
+"lt": 20.6,
+"sp": 20.8,
+"wf": 14.9,
 "yf": 7.5,
 "tp": 0.0,
-"cs": 32.7
+"cs": 36.1
 },
 "facts": {
 "residents": 5016,
@@ -4077,7 +4207,8 @@
 "rm": 15.8,
 "own": 19.6,
 "rent": 19.3,
-"noq": 14.3
+"noq": 14.3,
+"leave": 47.0
 }
 },
 "teignmouth central": {
@@ -4090,13 +4221,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 24.9,
-"lt": 3.4,
-"sp": 20.7,
+"mtw": 25.2,
+"lt": 3.5,
+"sp": 21.5,
 "wf": 13.6,
 "yf": 8.9,
-"tp": 17.1,
-"cs": 11.4
+"tp": 16.7,
+"cs": 10.6
 },
 "facts": {
 "residents": 5762,
@@ -4107,7 +4238,8 @@
 "rm": 24.8,
 "own": 13.3,
 "rent": 31.8,
-"noq": 16.4
+"noq": 16.4,
+"leave": 55.2
 }
 },
 "teignmouth east": {
@@ -4122,11 +4254,11 @@
 "shares": {
 "mtw": 16.4,
 "lt": 4.2,
-"sp": 26.8,
-"wf": 11.3,
-"yf": 6.7,
-"tp": 16.9,
-"cs": 17.7
+"sp": 26.5,
+"wf": 11.4,
+"yf": 6.8,
+"tp": 17.1,
+"cs": 17.6
 },
 "facts": {
 "residents": 4530,
@@ -4137,7 +4269,8 @@
 "rm": 19.2,
 "own": 15.4,
 "rent": 25.7,
-"noq": 15.1
+"noq": 15.1,
+"leave": 52.3
 }
 },
 "teignmouth west": {
@@ -4150,13 +4283,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 31.7,
-"lt": 3.0,
-"sp": 14.8,
-"wf": 15.6,
-"yf": 11.2,
-"tp": 16.1,
-"cs": 7.6
+"mtw": 32.8,
+"lt": 3.1,
+"sp": 16.1,
+"wf": 15.5,
+"yf": 11.1,
+"tp": 15.0,
+"cs": 6.4
 },
 "facts": {
 "residents": 5024,
@@ -4167,7 +4300,8 @@
 "rm": 31.2,
 "own": 12.3,
 "rent": 34.5,
-"noq": 15.7
+"noq": 15.7,
+"leave": 58.7
 }
 },
 "appledore": {
@@ -4180,13 +4314,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 26.7,
-"lt": 4.0,
-"sp": 23.0,
-"wf": 12.7,
+"mtw": 27.5,
+"lt": 4.2,
+"sp": 24.8,
+"wf": 12.6,
 "yf": 8.1,
-"tp": 14.7,
-"cs": 10.7
+"tp": 13.7,
+"cs": 9.1
 },
 "facts": {
 "residents": 3676,
@@ -4197,7 +4331,8 @@
 "rm": 27.1,
 "own": 15.6,
 "rent": 29.1,
-"noq": 17.7
+"noq": 17.7,
+"leave": 58.3
 }
 },
 "bideford east": {
@@ -4210,13 +4345,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 36.8,
-"lt": 2.9,
-"sp": 14.4,
-"wf": 13.7,
-"yf": 13.1,
-"tp": 13.4,
-"cs": 5.7
+"mtw": 39.2,
+"lt": 3.1,
+"sp": 17.1,
+"wf": 13.1,
+"yf": 12.6,
+"tp": 11.0,
+"cs": 3.8
 },
 "facts": {
 "residents": 5734,
@@ -4227,7 +4362,8 @@
 "rm": 34.2,
 "own": 13.0,
 "rent": 38.7,
-"noq": 19.8
+"noq": 19.8,
+"leave": 66.4
 }
 },
 "bideford north": {
@@ -4240,13 +4376,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 34.0,
+"mtw": 34.3,
 "lt": 2.9,
-"sp": 17.0,
+"sp": 17.5,
 "wf": 12.4,
 "yf": 11.5,
-"tp": 15.0,
-"cs": 7.3
+"tp": 14.6,
+"cs": 6.8
 },
 "facts": {
 "residents": 5740,
@@ -4257,7 +4393,8 @@
 "rm": 32.8,
 "own": 12.5,
 "rent": 39.4,
-"noq": 18.0
+"noq": 18.0,
+"leave": 55.0
 }
 },
 "bideford south": {
@@ -4270,13 +4407,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 33.2,
-"lt": 3.1,
-"sp": 15.3,
-"wf": 14.5,
-"yf": 14.1,
-"tp": 13.4,
-"cs": 6.4
+"mtw": 34.5,
+"lt": 3.2,
+"sp": 16.9,
+"wf": 14.2,
+"yf": 13.8,
+"tp": 12.2,
+"cs": 5.2
 },
 "facts": {
 "residents": 3848,
@@ -4287,7 +4424,8 @@
 "rm": 33.6,
 "own": 12.9,
 "rent": 32.4,
-"noq": 19.1
+"noq": 19.1,
+"leave": 60.1
 }
 },
 "bideford west": {
@@ -4300,13 +4438,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 36.4,
-"lt": 2.7,
-"sp": 14.0,
-"wf": 14.0,
-"yf": 13.7,
-"tp": 13.5,
-"cs": 5.7
+"mtw": 37.7,
+"lt": 2.8,
+"sp": 15.4,
+"wf": 13.7,
+"yf": 13.5,
+"tp": 12.3,
+"cs": 4.6
 },
 "facts": {
 "residents": 2942,
@@ -4317,7 +4455,8 @@
 "rm": 35.6,
 "own": 11.0,
 "rent": 34.7,
-"noq": 20.4
+"noq": 20.4,
+"leave": 59.9
 }
 },
 "broadheath": {
@@ -4331,12 +4470,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 28.4,
-"sp": 26.8,
-"wf": 13.4,
-"yf": 10.3,
+"lt": 30.2,
+"sp": 30.7,
+"wf": 13.1,
+"yf": 10.0,
 "tp": 0.0,
-"cs": 21.1
+"cs": 16.0
 },
 "facts": {
 "residents": 4148,
@@ -4347,7 +4486,8 @@
 "rm": 22.2,
 "own": 26.2,
 "rent": 22.8,
-"noq": 20.3
+"noq": 20.3,
+"leave": 62.5
 }
 },
 "great torrington": {
@@ -4360,13 +4500,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 32.1,
-"lt": 3.5,
-"sp": 19.2,
-"wf": 11.7,
-"yf": 12.4,
-"tp": 13.5,
-"cs": 7.6
+"mtw": 33.5,
+"lt": 3.6,
+"sp": 21.6,
+"wf": 11.4,
+"yf": 12.1,
+"tp": 11.9,
+"cs": 5.8
 },
 "facts": {
 "residents": 5801,
@@ -4377,7 +4517,8 @@
 "rm": 34.5,
 "own": 13.8,
 "rent": 34.7,
-"noq": 19.5
+"noq": 19.5,
+"leave": 62.0
 }
 },
 "hartland": {
@@ -4391,12 +4532,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 29.5,
-"sp": 24.5,
-"wf": 13.2,
-"yf": 12.2,
+"lt": 32.0,
+"sp": 29.4,
+"wf": 12.8,
+"yf": 11.9,
 "tp": 0.0,
-"cs": 20.6
+"cs": 14.0
 },
 "facts": {
 "residents": 6085,
@@ -4407,7 +4548,8 @@
 "rm": 22.7,
 "own": 26.0,
 "rent": 30.8,
-"noq": 17.6
+"noq": 17.6,
+"leave": 66.0
 }
 },
 "holsworthy": {
@@ -4420,13 +4562,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 34.6,
-"lt": 3.6,
-"sp": 19.1,
-"wf": 9.8,
-"yf": 15.5,
-"tp": 11.3,
-"cs": 6.0
+"mtw": 36.4,
+"lt": 3.9,
+"sp": 22.4,
+"wf": 9.3,
+"yf": 14.7,
+"tp": 9.3,
+"cs": 4.0
 },
 "facts": {
 "residents": 3471,
@@ -4437,7 +4579,8 @@
 "rm": 33.8,
 "own": 16.1,
 "rent": 44.5,
-"noq": 22.0
+"noq": 22.0,
+"leave": 66.1
 }
 },
 "milton and tamarside": {
@@ -4451,12 +4594,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 28.5,
-"sp": 26.7,
-"wf": 13.2,
-"yf": 10.8,
+"lt": 30.5,
+"sp": 31.1,
+"wf": 12.8,
+"yf": 10.5,
 "tp": 0.1,
-"cs": 20.7
+"cs": 14.9
 },
 "facts": {
 "residents": 4095,
@@ -4467,7 +4610,8 @@
 "rm": 21.4,
 "own": 26.4,
 "rent": 19.6,
-"noq": 19.7
+"noq": 19.7,
+"leave": 64.1
 }
 },
 "monkleigh and putford": {
@@ -4481,12 +4625,12 @@
 "target": false,
 "shares": {
 "mtw": 0.3,
-"lt": 24.4,
-"sp": 27.1,
+"lt": 25.6,
+"sp": 29.5,
 "wf": 14.0,
 "yf": 8.5,
 "tp": 0.2,
-"cs": 25.5
+"cs": 21.9
 },
 "facts": {
 "residents": 3837,
@@ -4497,7 +4641,8 @@
 "rm": 19.5,
 "own": 24.5,
 "rent": 19.1,
-"noq": 16.4
+"noq": 16.4,
+"leave": 58.2
 }
 },
 "northam": {
@@ -4510,13 +4655,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 18.4,
-"lt": 4.4,
-"sp": 29.4,
-"wf": 12.9,
-"yf": 6.8,
-"tp": 13.7,
-"cs": 14.4
+"mtw": 19.2,
+"lt": 4.6,
+"sp": 32.8,
+"wf": 12.6,
+"yf": 6.7,
+"tp": 12.4,
+"cs": 11.6
 },
 "facts": {
 "residents": 4931,
@@ -4527,7 +4672,8 @@
 "rm": 21.8,
 "own": 15.3,
 "rent": 21.6,
-"noq": 18.2
+"noq": 18.2,
+"leave": 60.4
 }
 },
 "shebbear and langtree": {
@@ -4541,12 +4687,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 26.2,
-"sp": 26.6,
-"wf": 14.2,
-"yf": 10.9,
+"lt": 27.3,
+"sp": 28.9,
+"wf": 14.1,
+"yf": 10.8,
 "tp": 0.0,
-"cs": 22.0
+"cs": 18.8
 },
 "facts": {
 "residents": 3851,
@@ -4557,7 +4703,8 @@
 "rm": 22.2,
 "own": 23.8,
 "rent": 21.5,
-"noq": 19.1
+"noq": 19.1,
+"leave": 58.3
 }
 },
 "two rivers and three moors": {
@@ -4571,12 +4718,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 24.6,
-"sp": 25.4,
+"lt": 25.9,
+"sp": 27.8,
 "wf": 14.9,
 "yf": 9.3,
 "tp": 0.1,
-"cs": 25.7
+"cs": 22.0
 },
 "facts": {
 "residents": 4026,
@@ -4587,7 +4734,8 @@
 "rm": 19.9,
 "own": 22.9,
 "rent": 18.1,
-"noq": 16.6
+"noq": 16.6,
+"leave": 58.5
 }
 },
 "westward ho!": {
@@ -4600,13 +4748,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 23.8,
-"lt": 4.0,
-"sp": 26.9,
-"wf": 11.8,
+"mtw": 24.2,
+"lt": 4.1,
+"sp": 28.1,
+"wf": 11.7,
 "yf": 8.7,
-"tp": 13.1,
-"cs": 11.6
+"tp": 12.6,
+"cs": 10.6
 },
 "facts": {
 "residents": 3743,
@@ -4617,7 +4765,8 @@
 "rm": 26.2,
 "own": 15.3,
 "rent": 28.7,
-"noq": 19.7
+"noq": 19.7,
+"leave": 55.9
 }
 },
 "winkleigh": {
@@ -4630,13 +4779,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 7.0,
-"lt": 19.2,
-"sp": 27.2,
-"wf": 13.5,
-"yf": 9.0,
-"tp": 4.7,
-"cs": 19.5
+"mtw": 7.2,
+"lt": 20.0,
+"sp": 29.5,
+"wf": 13.4,
+"yf": 8.9,
+"tp": 4.4,
+"cs": 16.6
 },
 "facts": {
 "residents": 2189,
@@ -4647,7 +4796,8 @@
 "rm": 21.7,
 "own": 22.7,
 "rent": 29.4,
-"noq": 17.4
+"noq": 17.4,
+"leave": 58.3
 }
 },
 "bere ferrers": {
@@ -4660,13 +4810,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 11.5,
-"lt": 14.1,
-"sp": 23.7,
-"wf": 13.7,
-"yf": 8.5,
-"tp": 9.2,
-"cs": 19.3
+"mtw": 11.8,
+"lt": 14.6,
+"sp": 25.0,
+"wf": 13.8,
+"yf": 8.6,
+"tp": 8.8,
+"cs": 17.4
 },
 "facts": {
 "residents": 3668,
@@ -4677,7 +4827,8 @@
 "rm": 22.8,
 "own": 18.1,
 "rent": 26.5,
-"noq": 15.6
+"noq": 15.6,
+"leave": 56.4
 }
 },
 "bridestowe": {
@@ -4691,12 +4842,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 26.2,
-"sp": 24.1,
+"lt": 27.4,
+"sp": 26.0,
 "wf": 13.0,
 "yf": 10.4,
 "tp": 0.1,
-"cs": 26.0
+"cs": 22.9
 },
 "facts": {
 "residents": 3271,
@@ -4707,7 +4858,8 @@
 "rm": 18.0,
 "own": 26.9,
 "rent": 21.3,
-"noq": 14.6
+"noq": 14.6,
+"leave": 57.5
 }
 },
 "buckland monachorum": {
@@ -4720,13 +4872,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 4.9,
-"lt": 13.4,
-"sp": 21.4,
-"wf": 13.4,
-"yf": 5.6,
-"tp": 7.9,
-"cs": 33.4
+"mtw": 4.3,
+"lt": 11.7,
+"sp": 16.2,
+"wf": 13.3,
+"yf": 5.5,
+"tp": 8.6,
+"cs": 40.4
 },
 "facts": {
 "residents": 3798,
@@ -4737,7 +4889,8 @@
 "rm": 15.2,
 "own": 14.8,
 "rent": 23.0,
-"noq": 11.2
+"noq": 11.2,
+"leave": 40.9
 }
 },
 "burrator": {
@@ -4750,13 +4903,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 11.1,
-"lt": 11.8,
-"sp": 22.2,
-"wf": 15.3,
-"yf": 7.6,
-"tp": 10.8,
-"cs": 21.2
+"mtw": 10.7,
+"lt": 11.4,
+"sp": 20.4,
+"wf": 15.5,
+"yf": 7.7,
+"tp": 11.3,
+"cs": 23.0
 },
 "facts": {
 "residents": 3625,
@@ -4767,7 +4920,8 @@
 "rm": 18.7,
 "own": 15.4,
 "rent": 22.5,
-"noq": 14.7
+"noq": 14.7,
+"leave": 48.3
 }
 },
 "chagford": {
@@ -4780,13 +4934,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 10.7,
-"lt": 10.6,
-"sp": 22.0,
-"wf": 10.6,
+"mtw": 9.3,
+"lt": 9.3,
+"sp": 16.5,
+"wf": 10.7,
 "yf": 4.7,
-"tp": 17.5,
-"cs": 23.9
+"tp": 19.5,
+"cs": 30.1
 },
 "facts": {
 "residents": 1545,
@@ -4797,7 +4951,8 @@
 "rm": 14.1,
 "own": 22.6,
 "rent": 34.2,
-"noq": 11.9
+"noq": 11.9,
+"leave": 39.6
 }
 },
 "dartmoor": {
@@ -4810,13 +4965,13 @@
 "seats": 1,
 "target": false,
 "shares": {
-"mtw": 0.9,
-"lt": 32.3,
-"sp": 17.2,
-"wf": 15.9,
+"mtw": 1.0,
+"lt": 33.6,
+"sp": 18.5,
+"wf": 15.8,
 "yf": 13.9,
 "tp": 0.5,
-"cs": 19.3
+"cs": 16.8
 },
 "facts": {
 "residents": 2372,
@@ -4827,7 +4982,8 @@
 "rm": 24.7,
 "own": 19.4,
 "rent": 29.6,
-"noq": 17.3
+"noq": 17.3,
+"leave": 57.7
 }
 },
 "drewsteignton": {
@@ -4841,12 +4997,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 26.3,
-"sp": 20.1,
-"wf": 14.0,
-"yf": 7.4,
+"lt": 24.7,
+"sp": 17.4,
+"wf": 14.1,
+"yf": 7.5,
 "tp": 0.0,
-"cs": 32.2
+"cs": 36.3
 },
 "facts": {
 "residents": 1759,
@@ -4857,7 +5013,8 @@
 "rm": 16.1,
 "own": 27.4,
 "rent": 23.9,
-"noq": 11.1
+"noq": 11.1,
+"leave": 45.8
 }
 },
 "exbourne": {
@@ -4870,13 +5027,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 8.4,
-"lt": 19.1,
-"sp": 21.2,
+"mtw": 8.6,
+"lt": 19.8,
+"sp": 22.6,
 "wf": 14.8,
 "yf": 10.7,
-"tp": 6.6,
-"cs": 19.2
+"tp": 6.3,
+"cs": 17.1
 },
 "facts": {
 "residents": 4148,
@@ -4887,7 +5044,8 @@
 "rm": 21.5,
 "own": 21.6,
 "rent": 25.1,
-"noq": 15.6
+"noq": 15.6,
+"leave": 57.0
 }
 },
 "hatherleigh": {
@@ -4900,13 +5058,13 @@
 "seats": 2,
 "target": true,
 "shares": {
-"mtw": 8.7,
-"lt": 21.5,
-"sp": 22.3,
-"wf": 12.4,
-"yf": 12.3,
-"tp": 5.5,
-"cs": 17.2
+"mtw": 9.2,
+"lt": 22.9,
+"sp": 25.5,
+"wf": 12.2,
+"yf": 12.1,
+"tp": 4.9,
+"cs": 13.3
 },
 "facts": {
 "residents": 3229,
@@ -4917,7 +5075,8 @@
 "rm": 22.7,
 "own": 23.5,
 "rent": 30.0,
-"noq": 20.3
+"noq": 20.3,
+"leave": 62.0
 }
 },
 "mary tavy": {
@@ -4931,12 +5090,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 20.1,
+"lt": 20.4,
 "sp": 24.0,
-"wf": 14.3,
-"yf": 7.4,
+"wf": 14.5,
+"yf": 7.5,
 "tp": 0.1,
-"cs": 34.1
+"cs": 33.5
 },
 "facts": {
 "residents": 1601,
@@ -4947,7 +5106,8 @@
 "rm": 15.3,
 "own": 19.9,
 "rent": 17.1,
-"noq": 13.5
+"noq": 13.5,
+"leave": 52.9
 }
 },
 "milton ford": {
@@ -4961,12 +5121,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 24.1,
-"sp": 23.3,
-"wf": 13.7,
+"lt": 25.3,
+"sp": 25.1,
+"wf": 13.8,
 "yf": 8.8,
 "tp": 0.0,
-"cs": 30.1
+"cs": 27.0
 },
 "facts": {
 "residents": 1923,
@@ -4977,7 +5137,8 @@
 "rm": 16.4,
 "own": 24.2,
 "rent": 24.8,
-"noq": 13.8
+"noq": 13.8,
+"leave": 57.0
 }
 },
 "okehampton north": {
@@ -4990,13 +5151,13 @@
 "seats": 3,
 "target": true,
 "shares": {
-"mtw": 26.5,
-"lt": 5.7,
-"sp": 18.6,
-"wf": 13.9,
-"yf": 12.4,
-"tp": 13.5,
-"cs": 9.5
+"mtw": 27.4,
+"lt": 5.9,
+"sp": 20.3,
+"wf": 13.7,
+"yf": 12.2,
+"tp": 12.5,
+"cs": 7.9
 },
 "facts": {
 "residents": 5735,
@@ -5007,7 +5168,8 @@
 "rm": 29.4,
 "own": 14.7,
 "rent": 32.6,
-"noq": 18.2
+"noq": 18.2,
+"leave": 58.9
 }
 },
 "okehampton south": {
@@ -5020,13 +5182,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 32.4,
-"lt": 4.7,
-"sp": 15.7,
-"wf": 12.2,
-"yf": 12.3,
-"tp": 15.2,
-"cs": 7.5
+"mtw": 33.5,
+"lt": 4.9,
+"sp": 17.1,
+"wf": 12.0,
+"yf": 12.2,
+"tp": 14.0,
+"cs": 6.3
 },
 "facts": {
 "residents": 3998,
@@ -5037,7 +5199,8 @@
 "rm": 31.7,
 "own": 14.1,
 "rent": 44.6,
-"noq": 19.9
+"noq": 19.9,
+"leave": 59.2
 }
 },
 "south tawton": {
@@ -5051,12 +5214,12 @@
 "target": false,
 "shares": {
 "mtw": 0.1,
-"lt": 24.6,
-"sp": 21.9,
-"wf": 14.0,
-"yf": 8.0,
+"lt": 22.8,
+"sp": 18.4,
+"wf": 14.2,
+"yf": 8.1,
 "tp": 0.2,
-"cs": 31.2
+"cs": 36.3
 },
 "facts": {
 "residents": 1928,
@@ -5067,7 +5230,8 @@
 "rm": 17.8,
 "own": 22.5,
 "rent": 23.5,
-"noq": 13.8
+"noq": 13.8,
+"leave": 44.4
 }
 },
 "tamarside": {
@@ -5081,12 +5245,12 @@
 "target": false,
 "shares": {
 "mtw": 0.0,
-"lt": 28.3,
-"sp": 22.2,
-"wf": 13.7,
-"yf": 12.0,
+"lt": 30.5,
+"sp": 25.7,
+"wf": 13.6,
+"yf": 11.9,
 "tp": 0.0,
-"cs": 23.8
+"cs": 18.3
 },
 "facts": {
 "residents": 1824,
@@ -5097,7 +5261,8 @@
 "rm": 22.3,
 "own": 21.4,
 "rent": 27.4,
-"noq": 18.6
+"noq": 18.6,
+"leave": 62.4
 }
 },
 "tavistock north": {
@@ -5110,13 +5275,13 @@
 "seats": 3,
 "target": false,
 "shares": {
-"mtw": 22.3,
-"lt": 3.5,
-"sp": 18.5,
-"wf": 12.4,
-"yf": 8.8,
-"tp": 21.5,
-"cs": 13.1
+"mtw": 21.7,
+"lt": 3.4,
+"sp": 17.3,
+"wf": 12.6,
+"yf": 8.9,
+"tp": 22.3,
+"cs": 13.9
 },
 "facts": {
 "residents": 5485,
@@ -5127,7 +5292,8 @@
 "rm": 21.6,
 "own": 13.4,
 "rent": 31.6,
-"noq": 14.5
+"noq": 14.5,
+"leave": 49.2
 }
 },
 "tavistock south east": {
@@ -5140,13 +5306,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 17.4,
+"mtw": 16.9,
 "lt": 3.7,
-"sp": 25.7,
-"wf": 11.5,
+"sp": 24.2,
+"wf": 11.7,
 "yf": 5.7,
-"tp": 17.8,
-"cs": 18.2
+"tp": 18.5,
+"cs": 19.3
 },
 "facts": {
 "residents": 3892,
@@ -5157,7 +5323,8 @@
 "rm": 20.8,
 "own": 13.4,
 "rent": 20.6,
-"noq": 13.7
+"noq": 13.7,
+"leave": 49.4
 }
 },
 "tavistock south west": {
@@ -5170,13 +5337,13 @@
 "seats": 2,
 "target": false,
 "shares": {
-"mtw": 30.6,
+"mtw": 30.9,
 "lt": 3.1,
-"sp": 17.8,
+"sp": 18.3,
 "wf": 13.9,
 "yf": 11.6,
-"tp": 14.9,
-"cs": 8.1
+"tp": 14.6,
+"cs": 7.6
 },
 "facts": {
 "residents": 3294,
@@ -5187,7 +5354,8 @@
 "rm": 29.4,
 "own": 12.8,
 "rent": 37.2,
-"noq": 16.8
+"noq": 16.8,
+"leave": 54.7
 }
 }
 }
