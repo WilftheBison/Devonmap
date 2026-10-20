@@ -178,3 +178,33 @@ via the Saturday Walkers Club boundary KML service
 reference. Census: 2021 Census, Office for National Statistics. Base map:
 (c) OpenStreetMap contributors (https://www.openstreetmap.org/copyright).
 
+
+## Voter tribes scenarios (`scenarios.html`)
+
+A discussion tool, linked from the sidebar ("Open scenarios"). Seven voter
+tribes - Market Town Workers, Land and Trades, Settled Patriots, Working
+Families, Young and Fed Up, Town Progressives, Comfortable Shires - each get
+a slider for how strongly our message appeals to them (-2 puts them off,
++3 core). Every ward's score is the average appeal across its estimated
+tribe mix, optionally weighted by how likely each tribe is to vote; wards
+are ranked within the chosen constituency or district, and the "Change"
+column compares each rank with the "Current offer" preset. "Copy link to
+this scenario" puts the settings in the URL, so a scenario can be sent to
+the group.
+
+The tribe mix per ward (`data/tribes.json`) is an estimate, not a
+measurement: built by `tools/build_tribes.py` from 2021 Census counts per
+ward (`data/ward-census-2021-detail.json`: age bands, highest
+qualification, NS-SeC, household tenure, pulled from the ONS Census API;
+Mid Devon's 22 wards summed from Output Areas onto the 2023 boundaries) and
+the rural-urban mix in `data/ruc11-wards.json`. County-wide tribe shares are
+calibrated to a rough split set in the script (`TARGET_SPLIT`); turnout
+weights and the presets are also set there. Edit and re-run:
+
+```
+python3 tools/build_tribes.py data/ward-census-2021-detail.json data/ruc11-wards.json data/tribes.json <ward list csv>
+```
+
+(the ward list CSV is the "Ward data" sheet of the ward-level census
+spreadsheet: needs Ward, Ward code, District, constituency and councillor
+columns).
