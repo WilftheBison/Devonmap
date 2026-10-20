@@ -178,7 +178,7 @@ function renderDetail(k, r) {
     <div class="sc-dim">${r ? `Rank #${r.rank} in ${esc(area.replace("District: ", ""))}, score ${r.score.toFixed(2)}` : "Outside the selected area"}</div>
     <div class="sc-bar">${bar}</div>
     <table class="sc-mix"><tr class="sc-dim"><td>Estimated tribe mix (adults)</td><td class="num">Share</td><td class="num">Appeal</td></tr>${rows}</table>
-    <div class="sc-dim" style="margin-top:8px">Census: aged 16&ndash;29 ${f.y}%, 65+ ${f.o65}%, graduates ${f.grad}%, routine/manual ${f.rm}%, own-account ${f.own}%, renting ${f.rent}%. 2016 Leave (estimate) ${f.leave}%.</div>`;
+    <div class="sc-dim" style="margin-top:8px">Census: aged 16&ndash;29 ${f.y}%, 65+ ${f.o65}%, graduates ${f.grad}%, routine/manual ${f.rm}%, own-account ${f.own}%, renting ${f.rent}%. 2016 Leave (estimate) ${f.leave}%, ${f.lean >= 0 ? f.lean + " pts more" : -f.lean + " pts less"} than its make-up predicts.</div>`;
   box.classList.remove("hidden");
   box.querySelector(".sc-close").addEventListener("click", () => { selected = null; box.classList.add("hidden"); update(); });
 }

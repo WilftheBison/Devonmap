@@ -67,6 +67,25 @@ if len(sys.argv) > 5:
     for e in csv.DictReader(open(sys.argv[5])):
         leave[e["wardcode"]] = float(e["leaveshare"])
 mean_leave = sum(leave.values()) / len(leave) if leave else 0.5
+
+# Electoral Calculus estimates Leave largely from demographics we already use (education above all), so use only
+# the part our own census figures don't explain: regress Leave on graduates, no qualifications, 65+ and
+# routine/manual across all wards, and keep the residual (a ward's local Leave/Remain lean beyond its make-up).
+resid = {}
+if leave:
+    import numpy as np
+    feats, ys, codes = [], [], []
+    for r in rows:
+        c = census[r["Ward code"]]
+        q, n, a4b, a4a = c["highest_qualification"], c["ns_sec_10a"], c["resident_age_4b"], c["resident_age_4a"]
+        qt, nt, p = sum(g(q, k) for k in range(7)), sum(g(n, k) for k in range(1, 10)), g(a4a, 2) + g(a4a, 3) + g(a4a, 4)
+        feats.append([1, g(q, 5) / qt, g(q, 0) / qt, g(a4b, 4) / p, (g(n, 6) + g(n, 7)) / nt])
+        ys.append(leave[r["Ward code"]]); codes.append(r["Ward code"])
+    A, Y = np.array(feats), np.array(ys)
+    coef = np.linalg.lstsq(A, Y, rcond=None)[0]
+    pred = A @ coef
+    print("Leave explained by census measures: R2 =", round(1 - ((Y - pred) ** 2).sum() / ((Y - Y.mean()) ** 2).sum(), 2))
+    resid = {cd: float(y_ - p_) for cd, y_, p_ in zip(codes, Y, pred)}
 raw, facts, meta = {}, {}, {}
 for r in rows:
     code, name = r["Ward code"], r["Ward"]
@@ -94,7 +113,8 @@ for r in rows:
     rur = 1 - urb
     working = ns[5] + ns[6] + ns[7] + ns[8]
     lv = leave.get(code, mean_leave)
-    lf, rf = lv / mean_leave, (1 - lv) / (1 - mean_leave)  # Leave / Remain lean relative to the Devon average
+    lean = resid.get(code, 0.0)  # Leave share above (+) or below (-) what the ward's demographics predict
+    lf, rf = (mean_leave + lean) / mean_leave, (1 - mean_leave - lean) / (1 - mean_leave)
     raw[norm(name)] = {
         "mtw": urb * working * (1 - o65) * (0.6 + rent) * lf ** 0.5,
         "lt": (rur * (ns[4] + working) * (1 - o65) + urb * ns[4] * 0.4) * lf ** 0.5,
@@ -105,7 +125,7 @@ for r in rows:
         "cs": (ab * rur * 0.8 + o65 * grad + ab * urb * 0.25) * rf,
     }
     facts[norm(name)] = dict(residents=int(u16 + p16), town=round(urb * 100), y=round(y * 100, 1), o65=round(o65 * 100, 1),
-                             grad=round(grad * 100, 1), rm=round(rm * 100, 1), own=round(ns[4] * 100, 1), rent=round(rent * 100, 1), noq=round(noq * 100, 1), leave=round(lv * 100, 1))
+                             grad=round(grad * 100, 1), rm=round(rm * 100, 1), own=round(ns[4] * 100, 1), rent=round(rent * 100, 1), noq=round(noq * 100, 1), leave=round(lv * 100, 1), lean=round(lean * 100, 1))
     cons = r["Parliamentary constituency (2024 boundaries)"].replace(" (split ward)", "").split(" / ")
     meta[norm(name)] = dict(name=name, code=code, district=r["District"], constituencies=cons, seats=int(float(r["Councillors elected"])))
 
@@ -126,6 +146,6 @@ for k in raw:
     wards[k] = dict(meta[k], target=k in TARGETS, shares={i: round(shares[k][i], 1) for i in ids}, facts=facts[k])
 
 json.dump(dict(
-    note="Estimated voter-tribe mix per Devon district ward. Built from 2021 Census (ONS API: age, highest qualification, NS-SeC, household tenure; Mid Devon summed from Output Areas to 2023 wards) the 2011 rural-urban classification, and Electoral Calculus ward-level estimates of the 2016 Leave vote. Estimates for comparing strategies, not measurements.",
+    note="Estimated voter-tribe mix per Devon district ward. Built from 2021 Census (ONS API: age, highest qualification, NS-SeC, household tenure; Mid Devon summed from Output Areas to 2023 wards) the 2011 rural-urban classification, and the part of Electoral Calculus's ward-level 2016 Leave estimate not already explained by census demographics. Estimates for comparing strategies, not measurements.",
     tribes=TRIBES, presets=PRESETS, target_split=TARGET_SPLIT, wards=wards), open(out_path, "w"), indent=0)
 print("wards", len(wards))
