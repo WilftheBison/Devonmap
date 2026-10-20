@@ -225,12 +225,22 @@ function fitArea() {
   }).addTo(map);
 
   buildSliders(); buildPresets(); buildArea(); markPreset();
+  document.getElementById("sc-reset").addEventListener("click", () => { setAppeal(presets[0].appeal); markPreset(); update(); });
   document.getElementById("sc-turnout").addEventListener("change", (e) => { useTurnout = e.target.checked; update(); });
   document.getElementById("sc-share").addEventListener("click", async () => {
     writeHash();
     const msg = document.getElementById("sc-share-msg");
-    try { await navigator.clipboard.writeText(location.href); msg.textContent = "Link copied. Anyone opening it sees these settings."; }
+    try { await navigator.clipboard.writeText(location.href); msg.textContent = "Link copied. Anyone opening it sees these settings."; setTimeout(() => (msg.textContent = ""), 4000); }
     catch (e) { msg.textContent = "Copy this link: " + location.href; }
   });
+  const sizeMap = () => {
+    const narrow = window.matchMedia("(max-width: 1000px)").matches;
+    const el = document.getElementById("sc-map");
+    el.style.height = narrow ? Math.max(360, window.innerHeight - document.getElementById("sc-left").offsetHeight) + "px" : "";
+    map.invalidateSize();
+  };
+  window.addEventListener("resize", sizeMap);
+  window.addEventListener("orientationchange", () => setTimeout(sizeMap, 300));
+  sizeMap();
   update(true);
 })();

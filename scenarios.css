@@ -28,6 +28,7 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 .sc-panel { padding: 14px 20px; border-bottom: 1px solid var(--border); }
 .sc-panel h2 { margin: 0 0 10px; font-size: 12px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.04em; }
 .sc-notes p { font-size: 12.5px; line-height: 1.45; margin: 0 0 8px; }
+#sc-right .sc-notes { border-bottom: 1px solid var(--border); }
 
 .sc-presets { display: flex; flex-wrap: wrap; gap: 6px; }
 .sc-presets button, .sc-btn {
@@ -36,6 +37,12 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 }
 .sc-presets button.active { border-color: var(--accent); color: var(--text-bright); background: #1f3433; }
 .sc-btn { margin-top: 10px; width: 100%; }
+.sc-row { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 8px; }
+.sc-row .sc-check { flex: 1; margin: 0; }
+.sc-row .sc-field { flex: 1; }
+.sc-btn-inline { width: auto; margin: 0; flex: none; white-space: nowrap; }
+#sc-share-msg { margin: 0; }
+#sc-share-msg:empty { display: none; }
 
 .sc-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); margin: 0 0 6px 0; padding-left: 118px; }
 .sc-slider { display: grid; grid-template-columns: 112px 1fr 26px; align-items: center; gap: 6px; margin-bottom: 8px; }
@@ -76,8 +83,20 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 .sc-legend .ends { display: flex; justify-content: space-between; color: var(--text-dim); }
 
 @media (max-width: 1000px) {
-  #sc-app { grid-template-columns: 1fr; grid-template-rows: auto 60vh auto; height: auto; }
-  #sc-map { height: 60vh; }
-  #sc-left, #sc-right { border: none; }
+  #sc-app { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
+  #sc-left, #sc-right { border: none; overflow: visible; }
+  .sc-head { padding: 10px 16px 8px; display: flex; align-items: baseline; gap: 12px; }
+  .sc-head h1 { margin: 0; font-size: 17px; }
+  .sc-sub { display: none; }
+  .sc-panel { padding: 10px 16px; }
+  .sc-panel h2 { margin-bottom: 6px; }
+  .sc-presets button { padding: 5px 9px; }
+  #sc-sliders { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
+  .sc-scale { display: none; }
+  .sc-slider { grid-template-columns: 104px 1fr 24px; margin-bottom: 4px; }
+  .sc-slider .sc-name { font-size: 12.5px; }
+  #sc-map { height: calc(100vh - var(--controls-h, 470px)); min-height: 360px; }
+  #sc-right .sc-notes { border-top: 1px solid var(--border); }
 }
 .sc-bar span { display: block; height: 100%; }
+.sc-options .sc-row:first-of-type { align-items: center; }

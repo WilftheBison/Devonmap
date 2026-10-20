@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-<link rel="stylesheet" href="scenarios.css?v=1" />
+<link rel="stylesheet" href="scenarios.css?v=2" />
 </head>
 <body>
 <div id="sc-app">
@@ -22,6 +22,19 @@
       <h1>Voter tribes</h1>
       <p class="sc-sub">Set how strongly our message appeals to each tribe. Every Devon ward is re-scored and re-ranked as you move the sliders.</p>
     </header>
+
+    <section class="sc-panel sc-options">
+      <h2>Options</h2>
+      <div class="sc-row">
+        <label class="sc-check"><input type="checkbox" id="sc-turnout" checked> Count only likely voters <span class="sc-dim">(older tribes turn out more)</span></label>
+        <button id="sc-reset" class="sc-btn sc-btn-inline" title="Put the sliders back to the Current offer">Reset sliders</button>
+      </div>
+      <div class="sc-row">
+        <label class="sc-field"><span>Area</span><select id="sc-area"></select></label>
+        <button id="sc-share" class="sc-btn sc-btn-inline">Copy link</button>
+      </div>
+      <p id="sc-share-msg" class="sc-dim"></p>
+    </section>
 
     <section class="sc-panel">
       <h2>Starting points</h2>
@@ -34,25 +47,18 @@
       <div id="sc-sliders"></div>
     </section>
 
-    <section class="sc-panel">
-      <h2>Options</h2>
-      <label class="sc-check"><input type="checkbox" id="sc-turnout" checked> Count only likely voters <span class="sc-dim">(older tribes turn out more)</span></label>
-      <label class="sc-field"><span>Area</span><select id="sc-area"></select></label>
-      <button id="sc-share" class="sc-btn">Copy link to this scenario</button>
-      <p id="sc-share-msg" class="sc-dim"></p>
-    </section>
 
+  </aside>
+
+  <main id="sc-map"></main>
+
+  <aside id="sc-right">
     <section class="sc-panel sc-notes">
       <h2>How to read this</h2>
       <p>Tribe sizes in each ward are <b>estimates</b> built from the 2021 Census (age, occupation, qualifications, housing) and the rural-urban mix. Nobody counts tribes, so treat them as a way to compare strategies, not as a vote forecast.</p>
       <p>A ward's <b>score</b> is the average appeal across its likely voters, from &minus;2 to +3. The ranking ignores incumbents, candidates and Reform; those are for the group to weigh.</p>
       <p><b>Change</b> compares each ward's rank with the &ldquo;Current offer&rdquo; starting point.</p>
     </section>
-  </aside>
-
-  <main id="sc-map"></main>
-
-  <aside id="sc-right">
     <div class="sc-right-head">
       <h2 id="sc-rank-title">Ranking</h2>
       <p class="sc-dim" id="sc-rank-sub"></p>
@@ -66,6 +72,6 @@
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="scenarios.js?v=1"></script>
+<script src="scenarios.js?v=2"></script>
 </body>
 </html>

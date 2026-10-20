@@ -7,7 +7,7 @@
    a connection the boundaries, labels, popups, pinned data and postcode
    lookups all still work, just the base map tiles won't load. */
 
-const SHELL_CACHE = "devon-map-shell-v11";
+const SHELL_CACHE = "devon-map-shell-v12";
 const DATA_CACHE = "devon-map-data-v2";
 
 const SHELL_FILES = [
