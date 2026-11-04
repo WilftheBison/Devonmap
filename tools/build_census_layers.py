@@ -8,7 +8,7 @@ Measures (unchanged from the original spreadsheet method):
   % AB-equivalent = NS-SeC 1+2 / NS-SeC 1-9
   % routine/manual= NS-SeC 6+7 / NS-SeC 1-9
 Target-ward layer: per constituency, top ten by routine/manual share ("share") and top ten by
-fewest residents per seat ("seat"); wards in both are ranked by the sum of the two ranks ("crank").
+fewest residents per seat contested ("seat"; Exeter elects by thirds, so one seat per ward); wards in both are ranked by the sum of the two ranks ("crank").
 Ward codes, districts, seats and constituencies come from tribes.json. Councillor-confidence
 flags ("conf") are carried over from the previous top-wards.json where present.
 Run from the repo root:  python3 tools/build_census_layers.py
@@ -29,7 +29,9 @@ for key, w in T.items():
     ab = 100 * s(c["ns_sec_10a"], 1, 2) / ns
     rm = 100 * s(c["ns_sec_10a"], 6, 7) / ns
     rec[key] = dict(ward=w["name"], district=w["district"], code=w["code"], split=len(w["constituencies"]) > 1,
-                    seats=w["seats"], residents=res, rps=round(res / w["seats"]), rm=round(rm, 1), ab=round(ab, 1),
+                    seats=w["seats"], residents=res,
+                    # Exeter elects by thirds: one seat per ward is up at each election
+                    rps=round(res / (1 if w["district"] == "Exeter" else w["seats"])), rm=round(rm, 1), ab=round(ab, 1),
                     a50=round(a50, 1), conf=old.get(key, {}).get("conf", "High"),
                     cons=w["constituencies"], share=[], seat=[], both=[])
     # keep the CSV's ward spelling so pinned-data matching is unchanged
