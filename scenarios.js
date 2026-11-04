@@ -4,9 +4,11 @@
    our message appeals to each tribe (-2 puts them off ... +3 core). A ward's
    score is the average appeal across its (optionally turnout-weighted)
    tribe mix; wards are ranked by score, and the rank is compared with the
-   "Current offer" preset. Scenarios can be shared via the URL hash. */
+   "Current offer" preset. The URL hash keeps the current settings. The Print
+   button prints exactly what is on screen, on white, at A4 or A3. */
 
 const SLIDER_MIN = -2, SLIDER_MAX = 3;
+document.documentElement.classList.toggle("narrow", window.matchMedia("(max-width: 1000px)").matches);
 const norm = (s) => (s || "").trim().toLowerCase().replace(/&/g, "and").replace(/\s+/g, " ");
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -209,6 +211,66 @@ function fitArea() {
   if (b.isValid()) map.fitBounds(b, { padding: [20, 20] });
 }
 
+/* ---------- print ---------- */
+// Prints the screen as it is (scroll positions, map zoom and pan) on a white background.
+// Nothing is re-laid out: the page is frozen at its current size and scaled to fit the paper.
+const PAPER_MM = { A4: [297, 210], A3: [420, 297] };   // landscape width x height
+const MARGIN_MM = 8;
+let printing = false, printSaved = null, printStartedAt = 0;
+function setNarrow() {
+  if (printing) return;
+  document.documentElement.classList.toggle("narrow", window.matchMedia("(max-width: 1000px)").matches);
+}
+function startPrint() {
+  if (printing) return;
+  const root = document.documentElement, W = window.innerWidth, H = window.innerHeight;
+  const paper = document.getElementById("sc-paper").value;
+  const landscape = W >= H;
+  let [pw, ph] = PAPER_MM[paper];
+  if (!landscape) [pw, ph] = [ph, pw];
+  const usable = (mm) => ((mm - 2 * MARGIN_MM - 8) * 96) / 25.4;   // CSS px, leaving room for the frame
+  const scale = Math.min(usable(pw) / W, usable(ph) / H);
+  const left = document.getElementById("sc-left"), right = document.getElementById("sc-right");
+  printSaved = { sy: window.scrollY, sl: left.scrollTop, sr: right.scrollTop };
+  const narrow = root.classList.contains("narrow");
+  const set = (k, v) => root.style.setProperty(k, v);
+  set("--pw", W + "px"); set("--ph", H + "px"); set("--scale", scale);
+  set("--sy", printSaved.sy + "px");
+  set("--sl", (narrow ? 0 : printSaved.sl) + "px"); set("--sr", (narrow ? 0 : printSaved.sr) + "px");
+  let ps = document.getElementById("sc-page-style");
+  if (!ps) { ps = document.createElement("style"); ps.id = "sc-page-style"; document.head.appendChild(ps); }
+  ps.textContent = `@page { size: ${paper} ${landscape ? "landscape" : "portrait"}; margin: ${MARGIN_MM}mm; }`;
+  const active = document.querySelector("#sc-presets button.active");
+  document.getElementById("sc-print-date").textContent =
+    `Printed ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}` +
+    (active ? ` \u00b7 ${active.textContent}` : " \u00b7 custom sliders");
+  printing = true;
+  root.classList.add("printing");
+  left.scrollTop = 0; right.scrollTop = 0; window.scrollTo(0, 0);
+  printStartedAt = Date.now();
+  setTimeout(() => window.print(), 150);
+}
+function endPrint() {
+  if (!printing) return;
+  printing = false;
+  const root = document.documentElement;
+  root.classList.remove("printing");
+  const left = document.getElementById("sc-left"), right = document.getElementById("sc-right");
+  left.scrollTop = printSaved.sl; right.scrollTop = printSaved.sr; window.scrollTo(0, printSaved.sy);
+  setNarrow();
+}
+function setupPrint() {
+  const sel = document.getElementById("sc-paper");
+  try { const p = localStorage.getItem("sc-paper"); if (p && PAPER_MM[p]) sel.value = p; } catch (e) { /* no storage */ }
+  sel.addEventListener("change", () => { try { localStorage.setItem("sc-paper", sel.value); } catch (e) { /* no storage */ } });
+  document.getElementById("sc-print").addEventListener("click", startPrint);
+  // Desktop browsers block during print, so afterprint means done. On the iPad the print sheet
+  // opens without blocking, so print mode ends on the next touch of the page instead.
+  window.addEventListener("afterprint", () => { if (Date.now() - printStartedAt > 1500) endPrint(); });
+  ["pointerdown", "touchstart", "wheel", "keydown"].forEach((ev) =>
+    window.addEventListener(ev, () => { if (printing && Date.now() - printStartedAt > 800) endPrint(); }, { capture: true, passive: true }));
+}
+
 /* ---------- boot ---------- */
 (async function init() {
   const [tj, gj] = await Promise.all([fetch("data/tribes.json").then((r) => r.json()), fetch("data/wards.geojson").then((r) => r.json())]);
@@ -230,14 +292,11 @@ function fitArea() {
   buildSliders(); buildPresets(); buildArea(); markPreset();
   document.getElementById("sc-reset").addEventListener("click", () => { setAppeal(presets[0].appeal); markPreset(); update(); });
   document.getElementById("sc-turnout").addEventListener("change", (e) => { useTurnout = e.target.checked; update(); });
-  document.getElementById("sc-share").addEventListener("click", async () => {
-    writeHash();
-    const msg = document.getElementById("sc-share-msg");
-    try { await navigator.clipboard.writeText(location.href); msg.textContent = "Link copied. Anyone opening it sees these settings."; setTimeout(() => (msg.textContent = ""), 4000); }
-    catch (e) { msg.textContent = "Copy this link: " + location.href; }
-  });
+  setupPrint();
   const sizeMap = () => {
-    const narrow = window.matchMedia("(max-width: 1000px)").matches;
+    if (printing) return;
+    setNarrow();
+    const narrow = document.documentElement.classList.contains("narrow");
     const el = document.getElementById("sc-map");
     el.style.height = narrow ? Math.max(360, window.innerHeight - document.getElementById("sc-left").offsetHeight) + "px" : "";
     map.invalidateSize();

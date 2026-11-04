@@ -41,8 +41,6 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 .sc-row .sc-check { flex: 1; margin: 0; }
 .sc-row .sc-field { flex: 1; }
 .sc-btn-inline { width: auto; margin: 0; flex: none; white-space: nowrap; }
-#sc-share-msg { margin: 0; }
-#sc-share-msg:empty { display: none; }
 
 .sc-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); margin: 0 0 6px 0; padding-left: 118px; }
 .sc-slider { display: grid; grid-template-columns: 112px 1fr 26px; align-items: center; gap: 6px; margin-bottom: 8px; }
@@ -82,23 +80,63 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 .sc-legend .ramp { width: 160px; height: 10px; border-radius: 2px; margin: 4px 0 2px; }
 .sc-legend .ends { display: flex; justify-content: space-between; color: var(--text-dim); }
 
-@media (max-width: 1000px) {
-  #sc-app { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
-  #sc-left, #sc-right { border: none; overflow: visible; }
-  .sc-head { padding: 10px 16px 8px; display: flex; align-items: baseline; gap: 12px; }
-  .sc-head h1 { margin: 0; font-size: 17px; }
-  .sc-sub { display: none; }
-  .sc-panel { padding: 10px 16px; }
-  .sc-panel h2 { margin-bottom: 6px; }
-  .sc-presets button { padding: 5px 9px; }
-  #sc-sliders { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
-  .sc-scale { display: none; }
-  .sc-slider { grid-template-columns: 104px 1fr 24px; margin-bottom: 4px; }
-  .sc-slider .sc-name { font-size: 12.5px; }
-  #sc-map { height: calc(100vh - var(--controls-h, 470px)); min-height: 360px; }
-  #sc-right .sc-notes { border-top: 1px solid var(--border); }
+/* narrow (portrait iPad / phone) layout: html.narrow is set by scenarios.js, and frozen while printing */
+html.narrow #sc-app { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
+html.narrow #sc-left, html.narrow #sc-right { border: none; overflow: visible; }
+html.narrow .sc-head { padding: 10px 16px 8px; display: flex; align-items: baseline; gap: 12px; }
+html.narrow .sc-head h1 { margin: 0; font-size: 17px; }
+html.narrow .sc-sub { display: none; }
+html.narrow .sc-panel { padding: 10px 16px; }
+html.narrow .sc-panel h2 { margin-bottom: 6px; }
+html.narrow .sc-presets button { padding: 5px 9px; }
+html.narrow #sc-sliders { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
+html.narrow .sc-scale { display: none; }
+html.narrow .sc-slider { grid-template-columns: 104px 1fr 24px; margin-bottom: 4px; }
+html.narrow .sc-slider .sc-name { font-size: 12.5px; }
+html.narrow #sc-map { height: calc(100vh - var(--controls-h, 470px)); min-height: 360px; }
+html.narrow #sc-right .sc-notes { border-top: 1px solid var(--border);
 }
 .sc-bar span { display: block; height: 100%; }
 .sc-options .sc-row:first-of-type { align-items: center; }
 .sc-tomap { float: right; display: none; background: var(--bg); color: var(--accent); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; padding: 3px 8px; margin-right: 8px; cursor: pointer; }
-@media (max-width: 1000px) { .sc-tomap { display: inline-block; } }
+html.narrow .sc-tomap { display: inline-block; }
+
+/* ---------- print ---------- */
+.sc-print { display: flex; gap: 6px; flex: none; }
+.sc-row .sc-field { min-width: 0; }
+.sc-row .sc-field select { width: 100%; min-width: 0; }
+.sc-print select { background: var(--bg-raised); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 5px 4px; font-size: 13px; }
+.sc-head { position: relative; }
+#sc-print-date { display: none; }
+
+/* print mode: freeze what is on screen. Each scrolled area is shown at its scroll position by shifting its contents. */
+html.printing #sc-left, html.printing #sc-right { overflow: hidden; }
+html.printing #sc-left > * { position: relative; top: calc(-1 * var(--sl)); }
+html.printing #sc-right > * { position: relative; top: calc(-1 * var(--sr)); }
+html.printing:not(.narrow) #sc-app { grid-template-rows: minmax(0, 1fr); }
+html.printing:not(.narrow) #sc-app > * { min-height: 0; }
+html.printing.narrow #sc-app { height: var(--ph); overflow: hidden; }
+html.printing.narrow #sc-app > * { position: relative; top: calc(-1 * var(--sy)); }
+
+@media print {
+  :root {
+    --bg: #ffffff; --bg-raised: #f3f4f6; --border: #d1d5db;
+    --text: #1f2937; --text-dim: #4b5563; --text-bright: #111827;
+    --accent: #0f766e; --up: #15803d; --down: #b91c1c;
+  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #fff !important; height: auto; }
+  html.printing, html.printing body { width: calc(var(--pw) * var(--scale)); height: calc(var(--ph) * var(--scale)); overflow: hidden; }
+  html.printing body { position: relative; }
+  html.printing #sc-app { position: absolute; left: 0; top: 0; width: var(--pw); height: var(--ph); overflow: hidden;
+    transform: scale(var(--scale)); transform-origin: 0 0; }
+  /* faux iPad: a light rounded frame around the screen */
+  html.printing body { padding: 3mm; box-sizing: content-box; }
+  html.printing #sc-app { left: 3mm; top: 3mm; outline: 2.5mm solid #e5e7eb; border-radius: 4mm; box-shadow: 0 0 0 2.5mm #e5e7eb, 0 0 0 2.8mm #9ca3af; }
+  .sc-presets button.active { background: #e6f4f3; }
+  #sc-table td { border-bottom-color: #e5e7eb; }
+  #sc-table tbody tr.sel { background: #e8eef5; }
+  .sc-legend { background: rgba(255,255,255,0.92); border: 1px solid #d1d5db; color: #1f2937; }
+  .sc-back, #sc-reset, .sc-print, .sc-close, .sc-tomap, .leaflet-control-zoom { visibility: hidden; }
+  #sc-print-date { display: block; position: absolute; right: 16px; top: 12px; font-size: 11px; color: var(--text-dim); text-align: right; }
+}

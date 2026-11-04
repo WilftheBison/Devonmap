@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-<link rel="stylesheet" href="scenarios.css?v=3" />
+<link rel="stylesheet" href="scenarios.css?v=5" />
 </head>
 <body>
 <div id="sc-app">
@@ -20,6 +20,7 @@
     <header class="sc-head">
       <a href="index.html" class="sc-back">&larr; Map</a>
       <h1>Voter tribes</h1>
+      <div id="sc-print-date"></div>
       <p class="sc-sub">Set how strongly our message appeals to each tribe. Every Devon ward is re-scored and re-ranked as you move the sliders.</p>
     </header>
 
@@ -31,9 +32,11 @@
       </div>
       <div class="sc-row">
         <label class="sc-field"><span>Area</span><select id="sc-area"></select></label>
-        <button id="sc-share" class="sc-btn sc-btn-inline">Copy link</button>
+        <div class="sc-print">
+          <select id="sc-paper" aria-label="Paper size"><option>A4</option><option>A3</option></select>
+          <button id="sc-print" class="sc-btn sc-btn-inline" title="Print exactly what is on screen, on a white background">Print</button>
+        </div>
       </div>
-      <p id="sc-share-msg" class="sc-dim"></p>
     </section>
 
     <section class="sc-panel">
@@ -72,6 +75,6 @@
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="scenarios.js?v=6"></script>
+<script src="scenarios.js?v=8"></script>
 </body>
 </html>
