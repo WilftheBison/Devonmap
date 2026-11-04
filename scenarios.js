@@ -98,12 +98,17 @@ function markPreset() {
     b.classList.toggle("active", tribes.every((t) => (p.appeal[t.id] ?? 0) === appeal[t.id]));
   });
 }
+function areaLabel() {
+  if (area === "All Devon") return area;
+  return area.startsWith("District: ") ? area.slice(10) + " council" : area + " constituency";
+}
 function buildArea() {
   const sel = document.getElementById("sc-area");
   const cons = [...new Set(Object.values(T.wards).flatMap((w) => w.constituencies))].sort();
   const dists = [...new Set(Object.values(T.wards).map((w) => w.district))].sort();
-  sel.innerHTML = `<option>All Devon</option><optgroup label="Constituency">${cons.map((c) => `<option>${esc(c)}</option>`).join("")}</optgroup>` +
-    `<optgroup label="District">${dists.map((d) => `<option value="District: ${esc(d)}">${esc(d)}</option>`).join("")}</optgroup>`;
+  // Exeter is both a constituency and a district (city council) with different wards, so every option says which it is
+  sel.innerHTML = `<option>All Devon</option><optgroup label="Council districts">${dists.map((d) => `<option value="District: ${esc(d)}">${esc(d)} council</option>`).join("")}</optgroup>` +
+    `<optgroup label="Parliamentary constituencies">${cons.map((c) => `<option value="${esc(c)}">${esc(c)} constituency</option>`).join("")}</optgroup>`;
   sel.value = area;
   sel.addEventListener("change", () => { area = sel.value; update(true); });
 }
@@ -154,7 +159,7 @@ function update(fit) {
 }
 
 function renderTable(list) {
-  document.getElementById("sc-rank-title").textContent = `Ranking: ${area.replace("District: ", "")}`;
+  document.getElementById("sc-rank-title").textContent = `Ranking: ${areaLabel()}`;
   document.getElementById("sc-rank-sub").textContent = `${list.length} wards. ★ = current target ward. Click a ward for its tribe mix.`;
   const tb = document.querySelector("#sc-table tbody");
   tb.innerHTML = list.map((r) => {
@@ -178,7 +183,7 @@ function renderDetail(k, r) {
   box.innerHTML = `<button class="sc-close" aria-label="Close">&times;</button><button class="sc-tomap">&uarr; Map</button>
     <h3>${esc(w.name)}${w.target ? " ★" : ""}</h3>
     <div class="sc-dim">${esc(w.district)} &middot; ${w.seats} seat${w.seats > 1 ? "s" : ""} &middot; ${Number(f.residents).toLocaleString()} residents &middot; ${f.town}% town</div>
-    <div class="sc-dim">${r ? `Rank #${r.rank} in ${esc(area.replace("District: ", ""))}, score ${r.score.toFixed(2)}` : "Outside the selected area"}</div>
+    <div class="sc-dim">${r ? `Rank #${r.rank} in ${esc(areaLabel())}, score ${r.score.toFixed(2)}` : "Outside the selected area"}</div>
     <div class="sc-bar">${bar}</div>
     <table class="sc-mix"><tr class="sc-dim"><td>Estimated tribe mix (adults)</td><td class="num">Share</td><td class="num">Appeal</td></tr>${rows}</table>
     <div class="sc-dim" style="margin-top:8px">Census: aged 16&ndash;29 ${f.y}%, 65+ ${f.o65}%, graduates ${f.grad}%, routine/manual ${f.rm}%, own-account ${f.own}%, renting ${f.rent}%. 2016 Leave (estimate) ${f.leave}%, ${f.lean >= 0 ? f.lean + " pts more" : -f.lean + " pts less"} than its make-up predicts.</div>`;
