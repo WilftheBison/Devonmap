@@ -107,8 +107,8 @@ function buildArea() {
   const cons = [...new Set(Object.values(T.wards).flatMap((w) => w.constituencies))].sort();
   const dists = [...new Set(Object.values(T.wards).map((w) => w.district))].sort();
   // Exeter is both a constituency and a district (city council) with different wards, so every option says which it is
-  sel.innerHTML = `<option>All Devon</option><optgroup label="Council districts">${dists.map((d) => `<option value="District: ${esc(d)}">${esc(d)} council</option>`).join("")}</optgroup>` +
-    `<optgroup label="Parliamentary constituencies">${cons.map((c) => `<option value="${esc(c)}">${esc(c)} constituency</option>`).join("")}</optgroup>`;
+  sel.innerHTML = `<option>All Devon</option><optgroup label="Parliamentary constituencies">${cons.map((c) => `<option value="${esc(c)}">${esc(c)} constituency</option>`).join("")}</optgroup>` +
+    `<optgroup label="Council districts">${dists.map((d) => `<option value="District: ${esc(d)}">${esc(d)} council</option>`).join("")}</optgroup>`;
   sel.value = area;
   sel.addEventListener("change", () => { area = sel.value; update(true); });
 }
