@@ -140,11 +140,18 @@ the ward name.
 
 The map ships with 2021 Census data (`data/ward-census-data.csv` - total
 residents, % aged 50+, % AB-equivalent, % routine/manual) pinned onto
-district wards by default. Five Mid Devon wards (Cullompton Padbrook/St
-Andrews/Vale, Upper Yeo & Taw, Yeo) show "no data": the 2023 boundary
-review split and re-merged older wards into these, and the 2021 Census was
-published against the old boundaries, so there's no direct 1:1 figure for
-them without a proper output-area-level re-aggregation.
+district wards by default. All 168 wards have figures. Mid Devon's 22
+wards (re-drawn in 2023) are summed exactly from 2021 Output Areas, so they
+match the current boundaries. The bundled file, the target-ward layer
+(`data/top-wards.json`) and the voter tribes (`data/tribes.json`) all come
+from the same Census counts (`data/ward-census-2021-detail.json`): rebuild
+the first two with `python3 tools/build_census_layers.py` whenever those
+counts change, so every view of the map agrees.
+
+**Single source of truth.** This repository's `data/` folder is the master
+record for the campaign's ward figures. The Master Register document in the
+"Voting intentions" project lists what each file holds, which version is
+current, and which documents depend on it.
 
 ## Files
 

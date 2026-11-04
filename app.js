@@ -757,6 +757,9 @@ function loadPinnedFromStorage() {
   if (!raw) return false;
   try {
     const parsed = JSON.parse(raw);
+    // The bundled census file is always re-read fresh, so corrections to it reach every device;
+    // only data the user pinned themselves is restored from storage.
+    if (String(parsed.filename || "").endsWith("(bundled)")) return false;
     pinnedData = parsed.data;
     pinnedColumns = parsed.columns;
     refreshDataControls();
