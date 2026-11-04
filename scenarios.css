@@ -133,6 +133,9 @@ html.printing.narrow #sc-app > * { position: relative; top: calc(-1 * var(--sy))
   /* faux iPad: a light rounded frame around the screen */
   html.printing body { padding: 3mm; box-sizing: content-box; }
   html.printing #sc-app { left: 3mm; top: 3mm; outline: 2.5mm solid #e5e7eb; border-radius: 4mm; box-shadow: 0 0 0 2.5mm #e5e7eb, 0 0 0 2.8mm #9ca3af; }
+}
+/* light print styling: used by the browser's print (html.printing in print media) and by the PDF snapshot (html.print-light) */
+@media print {
   .sc-presets button.active { background: #e6f4f3; }
   #sc-table td { border-bottom-color: #e5e7eb; }
   #sc-table tbody tr.sel { background: #e8eef5; }
@@ -140,3 +143,23 @@ html.printing.narrow #sc-app > * { position: relative; top: calc(-1 * var(--sy))
   .sc-back, #sc-reset, .sc-print, .sc-close, .sc-tomap, .leaflet-control-zoom { visibility: hidden; }
   #sc-print-date { display: block; position: absolute; right: 16px; top: 12px; font-size: 11px; color: var(--text-dim); text-align: right; }
 }
+html.print-light {
+  --bg: #ffffff; --bg-raised: #f3f4f6; --border: #d1d5db;
+  --text: #1f2937; --text-dim: #4b5563; --text-bright: #111827;
+  --accent: #0f766e; --up: #15803d; --down: #b91c1c;
+}
+html.print-light body { background: #fff; }
+html.print-light .sc-presets button.active { background: #e6f4f3; }
+html.print-light #sc-table td { border-bottom-color: #e5e7eb; }
+html.print-light #sc-table tbody tr.sel { background: #e8eef5; }
+html.print-light .sc-legend { background: rgba(255,255,255,0.92); border: 1px solid #d1d5db; color: #1f2937; }
+html.print-light .sc-back, html.print-light #sc-reset, html.print-light .sc-print, html.print-light .sc-close,
+html.print-light .sc-tomap, html.print-light .leaflet-control-zoom { visibility: hidden; }
+html.print-light #sc-print-date { display: block; position: absolute; right: 16px; top: 12px; font-size: 11px; color: var(--text-dim); text-align: right; }
+/* overlay shown once the PDF is ready (iPad) */
+#sc-pdf-ready { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 5000; }
+#sc-pdf-ready .box { background: var(--bg-raised); color: var(--text-bright); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; max-width: 320px; text-align: center; font-size: 14px; }
+#sc-pdf-ready .box p { margin: 0 0 12px; color: var(--text); }
+#sc-pdf-ready .box button, #sc-pdf-ready .box a { display: block; width: 100%; margin-top: 8px; padding: 10px; border-radius: 8px; font-size: 15px; cursor: pointer; text-decoration: none; box-sizing: border-box; }
+#sc-pdf-ready .go { background: var(--accent); color: #fff; border: none; }
+#sc-pdf-ready .cancel { background: none; color: var(--text-dim); border: 1px solid var(--border); }

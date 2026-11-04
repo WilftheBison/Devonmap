@@ -5,7 +5,8 @@
    score is the average appeal across its (optionally turnout-weighted)
    tribe mix; wards are ranked by score, and the rank is compared with the
    "Current offer" preset. The URL hash keeps the current settings. The Print
-   button prints exactly what is on screen, on white, at A4 or A3. */
+   button prints exactly what is on screen, on white, at A4 or A3: through the browser's
+   print on a computer, and as a PDF handed to the share sheet on an iPad. */
 
 const SLIDER_MIN = -2, SLIDER_MAX = 3;
 document.documentElement.classList.toggle("narrow", window.matchMedia("(max-width: 1000px)").matches);
@@ -23,8 +24,8 @@ let baselineRanks = {};  // area-specific ranks under the baseline preset
 let wardLayer = null;
 const layersByWard = {};
 
-const map = L.map("sc-map", { zoomControl: true }).setView([50.75, -3.8], 9);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+const map = L.map("sc-map", { zoomControl: true, preferCanvas: true }).setView([50.75, -3.8], 9);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, crossOrigin: true, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
 
 /* ---------- scoring ---------- */
 function wardScore(w, a, turnout) {
@@ -221,8 +222,11 @@ function setNarrow() {
   if (printing) return;
   document.documentElement.classList.toggle("narrow", window.matchMedia("(max-width: 1000px)").matches);
 }
-function startPrint() {
-  if (printing) return;
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+// Freeze the page exactly as it is on screen, ready to print or snapshot.
+function preparePrint(freeze = true) {
   const root = document.documentElement, W = window.innerWidth, H = window.innerHeight;
   const paper = document.getElementById("sc-paper").value;
   const landscape = W >= H;
@@ -243,12 +247,125 @@ function startPrint() {
   const active = document.querySelector("#sc-presets button.active");
   document.getElementById("sc-print-date").textContent =
     `Printed ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}` +
-    (active ? ` \u00b7 ${active.textContent}` : " \u00b7 custom sliders");
+    (active ? ` · ${active.textContent}` : " · custom sliders");
+  printStartedAt = Date.now();
+  if (!freeze) return { W, H, paper, landscape };
   printing = true;
   root.classList.add("printing");
   left.scrollTop = 0; right.scrollTop = 0; window.scrollTo(0, 0);
-  printStartedAt = Date.now();
-  setTimeout(() => window.print(), 150);
+  return { W, H, paper, landscape };
+}
+function startPrint() {
+  if (printing) return;
+  if (isIOS()) { pdfPrint(); return; }
+  preparePrint();
+  window.print();   // called straight from the tap, or browsers may block it
+}
+
+/* iPad: the home-screen app can't use the browser's print, so make a PDF of the screen and hand it
+   to the iPad's share sheet, which has Print (and Save to Files). */
+function loadScript(src) {
+  return new Promise((res, rej) => {
+    if (document.querySelector(`script[src="${src}"]`)) return res();
+    const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load " + src));
+    document.head.appendChild(s);
+  });
+}
+function showPdfReady(file, url, errMsg) {
+  const old = document.getElementById("sc-pdf-ready"); if (old) old.remove();
+  const ov = document.createElement("div"); ov.id = "sc-pdf-ready";
+  const canShare = file && navigator.canShare && navigator.canShare({ files: [file] });
+  ov.innerHTML = errMsg
+    ? `<div class="box"><p>${esc(errMsg)}</p><button class="cancel">Close</button></div>`
+    : `<div class="box"><p>Your ${esc(file.name.match(/A[34]/)[0])} page is ready.</p>
+       ${canShare ? `<button class="go">Print or save&hellip;</button>` : `<a class="go" href="${url}" target="_blank" rel="noopener">Open PDF</a>`}
+       <button class="cancel">Close</button></div>`;
+  document.body.appendChild(ov);
+  const close = () => { ov.remove(); if (url) setTimeout(() => URL.revokeObjectURL(url), 60000); };
+  ov.querySelector(".cancel").addEventListener("click", close);
+  const go = ov.querySelector("button.go");
+  if (go) go.addEventListener("click", async () => {
+    try { await navigator.share({ files: [file], title: "Voter tribes" }); close(); }
+    catch (e) { if (e && e.name === "AbortError") return; window.open(url, "_blank"); }
+  });
+}
+function mapComposite(scale) {
+  const el = document.getElementById("sc-map"), r = el.getBoundingClientRect();
+  const c = document.createElement("canvas");
+  c.width = Math.round(r.width * scale); c.height = Math.round(r.height * scale);
+  const g = c.getContext("2d");
+  g.scale(scale, scale);
+  g.fillStyle = "#dddddd"; g.fillRect(0, 0, r.width, r.height);
+  el.querySelectorAll(".leaflet-tile-pane img.leaflet-tile-loaded, .leaflet-overlay-pane canvas").forEach((n) => {
+    const b = n.getBoundingClientRect();
+    if (b.right < r.left || b.left > r.right || b.bottom < r.top || b.top > r.bottom) return;
+    try { g.drawImage(n, b.left - r.left, b.top - r.top, b.width, b.height); } catch (e) { /* tile not readable: skip */ }
+  });
+  return { canvas: c, rect: r };
+}
+async function pdfPrint() {
+  const btn = document.getElementById("sc-print");
+  btn.disabled = true; btn.textContent = "Making PDF…";
+  let job;
+  try {
+    await Promise.all([loadScript("vendor/html2canvas.min.js"), loadScript("vendor/jspdf.umd.min.js")]);
+    const narrow = document.documentElement.classList.contains("narrow");
+    const sy = window.scrollY;
+    // Landscape: the side panels scroll, so freeze them. Portrait: the whole page scrolls,
+    // so leave it as it is and cut out the part on screen.
+    job = preparePrint(!narrow);
+    document.documentElement.classList.add("print-light");
+    await new Promise((r) => setTimeout(r, 120));
+    const SC = 2, app = document.getElementById("sc-app");
+    const mapImg = mapComposite(SC);   // the map, copied layer by layer at its exact on-screen positions
+    const page = await window.html2canvas(app, {
+      useCORS: true, backgroundColor: null, scale: SC, width: job.W, height: job.H,
+      ignoreElements: (el) => el.classList && el.classList.contains("leaflet-map-pane"),
+      windowWidth: job.W, windowHeight: job.H, x: 0, y: narrow ? sy : 0, logging: false,
+      onclone: (doc) => {
+        // html2canvas can't draw range sliders, so swap each for a drawn track and knob (in the copy only)
+        doc.querySelectorAll('#sc-sliders input[type="range"]').forEach((inp) => {
+          const min = +inp.min, max = +inp.max, f = (+inp.value - min) / (max - min);
+          const w = inp.getBoundingClientRect().width || 120;
+          const d = doc.createElement("div");
+          d.style.cssText = `position:relative;height:16px;width:${w}px`;
+          d.innerHTML = `<div style="position:absolute;left:0;right:0;top:6px;height:4px;border-radius:2px;background:#d1d5db"></div>` +
+            `<div style="position:absolute;left:0;width:${f * (w - 14) + 7}px;top:6px;height:4px;border-radius:2px;background:#0f766e"></div>` +
+            `<div style="position:absolute;left:${f * (w - 14)}px;top:1px;width:14px;height:14px;border-radius:50%;background:#0f766e"></div>`;
+          inp.replaceWith(d);
+        });
+        const m = doc.getElementById("sc-map"); if (m) m.style.background = "transparent";
+      },
+    });
+    const canvas = document.createElement("canvas");
+    canvas.width = page.width; canvas.height = page.height;
+    const g = canvas.getContext("2d");
+    g.fillStyle = "#ffffff"; g.fillRect(0, 0, canvas.width, canvas.height);
+    g.drawImage(mapImg.canvas, mapImg.rect.left * SC, mapImg.rect.top * SC);   // on-screen position = position on the page
+    g.drawImage(page, 0, 0);
+    document.documentElement.classList.remove("print-light");
+    endPrint();
+    if (narrow) window.scrollTo(0, sy);
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: job.landscape ? "landscape" : "portrait", unit: "mm", format: job.paper.toLowerCase() });
+    const pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight();
+    const pad = MARGIN_MM + 4, frame = 3;
+    const s = Math.min((pw - 2 * pad) / job.W, (ph - 2 * pad) / job.H);
+    const w = job.W * s, h = job.H * s, x = (pw - w) / 2, y = (ph - h) / 2;
+    pdf.setFillColor(229, 231, 235); pdf.setDrawColor(156, 163, 175); pdf.setLineWidth(0.3);
+    pdf.roundedRect(x - frame, y - frame, w + 2 * frame, h + 2 * frame, 5, 5, "FD");
+    pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", x, y, w, h);
+    const blob = pdf.output("blob");
+    const day = new Date().toISOString().slice(0, 10);
+    const file = new File([blob], `Voter tribes ${day} ${job.paper}.pdf`, { type: "application/pdf" });
+    showPdfReady(file, URL.createObjectURL(blob));
+  } catch (e) {
+    document.documentElement.classList.remove("print-light");
+    endPrint();
+    showPdfReady(null, null, "Sorry, the PDF couldn't be made (" + (e && e.message ? e.message : e) + "). Check you're online and try again.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Print";
+  }
 }
 function endPrint() {
   if (!printing) return;
