@@ -1,0 +1,116 @@
+# Appledore|41.37
+Leonard Ford|Ind|410|34.1|E
+Peter Hames|Grn|391|32.5|E
+Andrew Eastman|Con|379|31.5
+Kenneth Davis|UKIP|285|23.7
+David Chalmers|LD|254|21.1
+Barry Edwards|Ind|207|17.2
+James Jackson|Con|128|10.6
+# Bideford East|27.23
+Judith Gubb|Ind|407|36.2|E
+Ruth Craigie|Lab|330|29.3|E
+Jamie McKenzie|Ind|266|23.6|E
+James Hellyer|Con|255|22.7
+Linda Hellyer|Con|249|22.1
+Ethne Brenton|Lab|234|20.8
+Gaston Dezart|UKIP|215|19.1
+Oliver Sherborne|Con|187|16.6
+Gregory De Frayne-Martin|Grn|183|16.3
+Pauline Davies|Ind|174|15.5
+Theodoros Plowman|Lab|167|14.8
+Nicola Kennelly|LD|136|12.1
+# Bideford North|37.65
+Peter Christie|Grn|861|50.5|E
+Douglas Bushby|Ind|641|37.6|E
+Dermot McGeough|Con|615|36.1|E
+Joel Herron|Ind|320|18.8
+Rosemary Arno|Lab|304|17.8
+Trevor Johns|LD|301|17.7
+Ashley Cole|Ind|300|17.6
+Michael James|Lab|265|15.6
+Morgan Fletcher|Con|242|14.2
+Stephen Potts|LD|182|10.7
+Jason Noble|Lab|167|9.8
+# Bideford South|26.97
+David Brenton|Lab|206|32.1|E
+Shirley Langford|Lab|206|32.1|E
+Simon Inch|Con|198|30.9
+Peter Lawrence|Ind|176|27.5
+Robert Wootton|Ind|153|23.9
+Adam Conabere|UKIP|111|17.3
+Claire Davey-Potts|LD|78|12.2
+# Bideford West|28.09
+Carl Hawkins|Ind|215|36.1|E
+Anthony Inch|Con|197|33.1|E
+Alan Rayner|Ind|192|32.3
+Jake McLean|Lab|166|27.9
+Andrew Tithecott|Lab|129|21.7
+Nigel Johnson|UKIP|127|21.3
+# Broadheath|34.77
+Peter Watson|Ind|667|60.0|E
+Philip Hackett|Ind|666|59.9|E
+Zygmunt Gregorek|Con|350|31.5
+Graeme Barriball|Con|330|29.7
+# Great Torrington|32.27
+Cheryl Cottle-Hunkin|LD|908|64.9|E
+Christopher Bright|LD|552|39.4|E
+Margaret Brown|Ind|526|37.6|E
+Keith Funnell|Grn|332|23.7
+Diana Davey|Lab|328|23.4
+Jonathan Rose|Ind|258|18.4
+Siobhan Strode|Lab|225|16.1
+Douglas Smith|Ind|219|15.6
+# Hartland|38.14
+Stephen Harding|Con|656|37.2|E
+Richard Boughton|Con|650|36.9|E
+Anna Dart|Ind|630|35.7|E
+Mireille Thornton|Grn|571|32.4
+Robin Julian|Ind|470|26.7
+Martin Hill|LD|463|26.3
+Brian Redwood|Con|460|26.1
+Dylan Billson|Lab|340|19.3
+# Holsworthy|33.91
+Jonathan Hutchings|Con|607|74.0|E
+David Jones|Con|398|48.5|E
+Valentina Kassam|Ind|203|24.8
+# Milton & Tamarside|
+Kit Hepple|Con|||E
+Ken James|Ind|||E
+# Monkleigh & Putford|38.93
+Philip Pennington|Ind|737|60.3|E
+Robert Hicks|Ind|659|53.9|E
+William Douglas-Mann|Grn|319|26.1
+Kenton Baker|Con|237|19.4
+Peter Haselhurst|Con|182|14.9
+# Northam|40.20
+Christopher Leather|Ind|783|47.9|E
+Joanne Manley|Ind|602|36.8|E
+Giuseppe Rossi|Ind|539|33.0|E
+John Himan|Con|381|23.3
+Keith Lane|Con|372|22.8
+Richard Hancock|UKIP|305|18.7
+William Gewanter|Con|296|18.1
+David Berryman|LD|255|15.6
+John Coats|Lab|214|13.1
+Geoffrey Allen|Lab|209|12.8
+Brendan Montague|Lab|175|10.7
+# Shebbear & Langtree|43.82
+David Hurley|Con|599|45.9|E
+Richard Wiseman|Ind|486|37.2|E
+Christopher Styles-Power|LD|470|36.0
+Rhys Matthews|Con|420|32.2
+Gillian Tesh|Lab|210|16.1
+# Two Rivers & Three Moors|38.85
+Rosemary Lock|Con|732|59.0|E
+Michael Clarke|Con|640|51.6|E
+Colin Jones|Grn|494|39.8
+Anthony Goldstone|Lab|265|21.4
+# Westward Ho!|41.87
+Nicholas Laws|Ind|953|77.1|E
+Claire Hodson|Ind|572|46.3|E
+Derek Sargent|UKIP|326|26.4
+Carrie Woodhouse|Con|231|18.7
+# Winkleigh|40.52
+Simon Newton|Con|319|47.9|E
+Stephen Middleton|LD|249|37.4
+Angela Findlay|Lab|98|14.7

@@ -1,0 +1,106 @@
+# Allington & Strete|44.12
+Richard John Foss|Con|443|42.8|E
+Laurel Maria Jasmine Lawford|LD|395|38.2
+Suzanne Ellis|Grn|155|15.0
+Peter Ernest McIlven|Lab|42|4.1
+# Bickleigh & Cornwood|31.67
+Barrie Michael Spencer|Con|515|76.1|E
+Michael Arthur Vincent Cade|Lab|162|23.9
+# Blackawton & Stoke Fleming|44.99
+Helen Emily May Reeve|Con|402|47.4|E
+Simon John Rake|LD|391|46.1
+David John Matthews|Lab|55|6.5
+# Charterlands|44.92
+Bernard James Taylor|Con|537|52.3|E
+George Henry William Rosevear|LD|332|32.4
+David James Trigger|Lab|157|15.3
+# Dartington & Staverton|48.2
+Jacqueline Mary Hodgson|Grn|853|81.5|E
+Jennifer Louise McGeever|Con|193|18.5
+# Dartmouth & East Dart|44.9
+Jonathan Denis Hawkins|Con|1383|50.9|E
+Hilary Douglas Bastone|Con|1317|48.4|E
+Rosemary Rowe|Con|965|35.5|E
+Richard Mark Horsley Heseltine|LD|865|31.8
+Nathan Luke Bodinnar|Lab|779|28.7
+Graham Reid Campbell|Lab|614|22.6
+John Edward Renwick Robinson|Ind|475|17.5
+# Ermington & Ugborough|38.95
+Thomas Richard Holway|Con|491|58.9|E
+Louise Rea|Lab|182|21.8
+Anthony David Power|LD|161|19.3
+# Ivybridge East|30.33
+Victor James Abbott|LD|574|45.3|E
+Karen Ann Pringle|Con|565|44.6|E
+Richard Alistair Martyn Peachey|Con|483|38.2
+Tessa Soma Lannin|Lab|468|37.0
+# Ivybridge West|29.6
+David William May|Con|703|52.5|E
+Lance Peter Austen|Con|662|49.5|E
+Anthony Thomas Rea|Lab|520|38.9
+David Allan Robinson|LD|424|31.7
+# Kingsbridge|36.9
+Denise Maria O'Callaghan|LD|809|49.3|E
+Susan Jackson|LD|737|44.9|E
+Keith Robert Henry Wingate|Con|560|34.1
+Samantha Dennis|Con|539|32.8
+Gerrie Lee Messer|Lab|327|19.9
+# Loddiswell & Aveton Gifford|36.5
+Katharine Georgina Kemp|LD|362|47.0|E
+Ian Bramble|Con|305|39.6
+John Harvey|Lab|104|13.5
+# Marldon & Littlehempston|38.67
+James Trevor Pennington|Ind|380|42.4|E
+Stephen Maurice Veasey|Con|205|22.9
+Margaret Gillian Coombs|Grn|126|14.0
+Keith Anthony Smith|LD|126|14.0
+Evelyn Ruth Burges|Lab|60|6.7
+# Newton & Yealmpton|41.41
+Keith John Baldry|LD|1236|62.6|E
+Daniel James Thomas|LD|1141|57.8|E
+Basil Fernley Cane|Con|614|31.1
+Michael David Blake|Con|509|25.8
+Edward Denis Parsons|Lab|155|7.9
+# Salcombe & Thurlestone|48.78
+Mark Leonard Christopher Long|Ind|1191|61.2|E
+Judith Anne Pearce|Con|739|38.0|E
+Simon Anthony Edward Wright|Con|706|36.3
+Alan Christopher Kerr|LD|336|17.3
+Helen Anne Beetham|Lab|159|8.2
+# South Brent|49.96
+Peter Courtenay Smerdon|Con|744|36.1|E
+Guy Alexander Pannell|LD|729|35.4|E
+Robert Cyril Steer|Con|715|34.7
+Charlotte Victoria Power|LD|663|32.2
+Gavin Shaun Fennell|Grn|417|20.2
+Colin Raymond Moore|Grn|371|18.0
+Lynn Alderson|Lab|203|9.8
+Paul David Bishop|Lab|169|8.2
+# Stokenham|47.47
+Julian Brazil|LD|690|67.4|E
+Joshua John Alexander Gardiner|Con|298|29.1
+Richard Michael Gaehl|Lab|35|3.4
+# Totnes|46.32
+John Percy Birch|LD|1424|44.9|E
+Joanna Marie Sweett|Grn|1350|42.5|E
+Joseph Deal Rose|Grn|1062|33.5|E
+Emily Harriet Price|LD|924|29.1
+John Malcolm Anderson|LD|899|28.3
+Christopher Maguire|Grn|892|28.1
+Laurel Ellis|Lab|654|20.6
+Louise Michelle Webberley|Lab|630|19.9
+Colin Stuart Luker|Lab|601|18.9
+Philip Charles Paine|Con|376|11.8
+# Wembury & Brixton|40.22
+Daniel James Brown|Con|825|53.4|E
+Matthew John Chown|Con|753|48.7|E
+Katy Ward-Edwards|Grn|420|27.2
+Ian Stuart Martin|Ind|283|18.3
+Brian Samuel Blake|LD|265|17.2
+Alastair William Henderson|Lab|202|13.1
+# West Dart|46.2
+John Peter McKay|LD|602|64.2|E
+Leigh Ann Munro|Con|336|35.8
+# Woolwell|34.8
+Nicola Ann Hopwood|Con|663|85.9|E
+Paul Francis Furlong|Lab|109|14.1

@@ -215,3 +215,19 @@ python3 tools/build_tribes.py data/ward-census-2021-detail.json data/ruc11-wards
 (the ward list CSV is the "Ward data" sheet of the ward-level census
 spreadsheet: needs Ward, Ward code, District, constituency and councillor
 columns).
+
+## Politics layer (election results)
+
+"Colour wards by → Politics" colours District Council mode by the party holding most of each
+ward's seats (dashed white outline = seats split between parties) and outlines each district in
+the colour of the party controlling the council (black dashed = no overall control). In
+Parliamentary Constituency mode it colours each constituency by the 2024 winner, and a touch
+anywhere in a constituency opens a constituency box (2024 result plus census totals for its
+Devon wards). Ward boxes now appear in District Council mode only.
+
+Data: `data/elections.json`, built by `python3 tools/elections/build_elections.py` from the
+result files in `tools/elections/raw/` (one per council election) and the constituency and
+council-control tables at the top of that script. Sources are listed in the file. To add a
+new result (by-election, May 2027), add or edit the raw file and rebuild.
+`data/ward-households.json` (households per ward, 2021 Census) is built by the same script and
+used by the Voter Tribes page.

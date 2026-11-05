@@ -1,0 +1,74 @@
+# Alphington|34.24
+Rob Harding|Lab|997|46.0|E
+Katherine New|Con|606|28.0
+Benn Harrison|Grn|289|13.3
+Jamie Horner|LD|151|7.0
+Mark Harreld|Ind|125|5.8
+# Duryard and St James|27.25
+Tammy Palmer|LD|891|45.4|E
+Tony Badcott|Lab|619|31.5
+Martha Lee|Grn|270|13.7
+Rory More O'Ferrall|Con|184|9.4
+# Exwick|28.5
+Philip Bialyk|Lab|1060|51.2|E
+Frankie Rufolo|Ind|371|17.9
+Kayleigh Luscombe|Con|256|12.2
+Eric Helianthus|Grn|252|12.2
+Charles Curnock|LD|130|6.3
+# Heavitree|48.80
+Lucy Haigh|Ind|1171|36.0|E
+Jack Eade|Grn|948|29.1
+Dave Mutton|Lab|705|21.7
+Joan Collacott|Con|355|10.9
+Rod Ruffle|LD|76|2.3
+# Mincinglake and Whipton|33.67
+Liz Pole|Lab|842|38.5|E
+Clive Hutchings|Ind|775|35.4
+Oscar Brown|Con|290|13.3
+Alex Stephan|Grn|169|7.7
+Michael Payne|LD|111|5.1
+# Newtown and St Leonard's|39.1
+Lynn Wetenhall|Grn|1215|47.0|E
+Julian Cabrera|Lab|941|36.4
+Keith Sparkes|Con|211|8.4
+Paul Simmonds|Ind|122|4.7
+Philip Brock|LD|96|3.7
+# Pennsylvania|39.60
+Zoë Hughes|Lab|1106|38.8|E
+Jack Vickers|Grn|878|30.8
+Jack Hunt|Con|390|13.7
+Victoria Jarman|Ind|297|10.4
+Nigel Williams|LD|177|6.2
+# Pinhoe|32.37
+Jakir Hussain|Lab|1019|41.9|E
+David Thompson|Con|580|23.8
+Susan Simmonds|Ind|314|12.9
+Kate Jago|Grn|300|12.3
+Christine Campion|LD|220|9.0
+# Priory|32.34
+Tony Wardle|Lab|888|41.9|E
+Tal Abdulrazaq|Ind|443|20.9
+David Luscombe|Con|344|16.2
+Heather Mullett|Grn|233|11.0
+Philip Thomas|LD|209|9.9
+# St David's|33.30
+James Banyard|Grn|1187|51.0|E
+Ellen Stuart|Lab|785|33.7
+Rob Newby|Con|248|10.7
+Harry Wright|LD|107|4.6
+# St Loyes|36.69
+Anne Jobson|Con|1220|48.6|E
+Jake Bonetta|Lab|914|36.4
+Deb Hancock|Grn|211|8.4
+Timothy Butters|LD|167|6.6
+# St Thomas|38.10
+Deborah Darling|Lab|1058|38.3|E
+Alexandra Newcombe|LD|771|27.9
+Rob Hannaford|Ind|464|16.8
+Andy Bragg|Grn|299|10.8
+Ashley Carr|Con|167|6.1
+# Topsham|37.33
+Gemma Rolstone|Lab|1339|45.1|E
+Cynthia Thompson|Con|1094|36.8
+Sarah Finch|Grn|322|10.8
+Alan Williamson|LD|217|7.3

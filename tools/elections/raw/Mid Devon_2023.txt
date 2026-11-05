@@ -1,0 +1,131 @@
+# Bradninch|48.5
+Luke Taylor|LD|650|82.2|E
+Piers Kotting|Lab|92|11.6
+James Rutledge|Con|49|6.2
+# Cadbury|45.1
+Rhys Roberts|Con|277|41.5|E
+Georgina Stone|LD|163|24.4
+Bob Deed|Ind|137|20.5
+Linda Luckhaus|Lab|71|10.6
+Jennifer Riddle|Ref|19|2.8
+# Canonsleigh|40.3
+Jane Lock|LD|736|63.6|E
+Gill Westcott|Grn|521|45.0|E
+Christine Collis|Con|375|32.4
+Paul Osman|Con|333|28.8
+# Clare & Shuttern|44.9
+Chris Adcock|LD|787|58.5|E
+Rachel Gilmour|LD|732|54.4|E
+Isobel Grant|Con|549|40.8
+Isla Farrington|Con|493|36.7
+# Crediton Boniface|27.5
+Jim Cairney|LD|497|57.4|E
+John Downes|LD|494|57.0|E
+Steve Huxtable|Ind|215|24.8
+Gina Ford|Con|194|22.4
+John Humphreys|Lab|138|15.9
+# Crediton Lawrence|34.3
+Frank Letch|LD|611|58.9|E
+Guy Cochran|LD|556|53.6|E
+Laurie Laybourn|Lab|307|29.6
+Sam Scougall-Scott|Con|254|24.5
+# Cullompton Padbrook|27.6
+Lloyd Knight|LD|457|55.4|E
+Sue Robinson|LD|370|44.8|E
+John Berry|Con|345|41.8
+Susan Lane-Smith|Con|263|31.9
+Anthony Humble-Smith|Grn|123|14.9
+# Cullompton St Andrews|27.0
+Emma Buczkowski|LD|636|59.7|E
+James Buczkowski|LD|634|59.5|E
+Nikki Woollatt|Ind|479|45.0|E
+Jane Attwood|Con|322|30.2
+Edward Southerden|Lab|226|21.2
+Martin Whatley|Con|217|20.4
+Melvyn Hanks|Con|205|19.2
+# Cullompton Vale|31.8
+Matt Fletcher|LD|166|65.6|E
+Rosemary Berry|Con|87|34.4
+# Halberton|38.1
+Gwen DuChesne|LD|360|60.4|E
+Ray Radford|Con|236|39.6
+# Lower Culm|33.3
+Andrea Glover|LD|814|45.3|E
+Cathy Connor|LD|702|39.1|E
+John Poynton|LD|673|37.5|E
+Richard Chesterton|Con|649|36.1
+Brian Lane-Smith|Con|461|25.7
+Bob Evans|Ind|434|24.2
+Lewis Worrow|Con|419|23.3
+Barry Warren|Ind|403|22.4
+John Bell|Lab|236|13.1
+# Sandford & Creedy|43.6
+Helen Tuffin|Grn|632|51.6|E
+Mark Jenkins|Grn|576|47.1|E
+Margaret Squires|Con|575|47.0
+Alex Monro|Con|517|42.2
+# Silverton|37.9
+Josh Wright|LD|500|85.3|E
+Jerry Brook|Con|86|14.7
+# Taw Vale|48.5
+Steve Keable|LD|444|53.7|E
+Clive Eginton|Con|383|46.3
+# Tiverton Castle|30.1
+Ben Holdman|LD|553|55.6|E
+David Wulff|LD|532|53.5|E
+Elizabeth Slade|Con|273|27.4
+Luis Gordon|Con|265|26.6
+Chris Berry|Ind|198|19.9
+# Tiverton Cranmore|28.8
+Les Cruwys|LD|606|54.5|E
+Beckett Fish|LD|463|41.6|E
+Lance Kennedy|LD|445|40.0|E
+Sue Griggs|Con|346|31.1
+Guy Edwards|Con|271|24.4
+Chris Daw|Ind|262|23.6
+Steve Bush|Ind|229|20.6
+Nina Lindsay|Con|202|18.2
+Tom Ewings|Lab|109|9.8
+# Tiverton Lowman|23.0
+Andy Cuddy|LD|574|50.9|E
+Gordon Czapiewski|LD|455|40.4|E
+Matt Farrell|LD|405|35.9|E
+Rebecca Clarke|Con|360|31.9
+Neal Davey|Con|355|31.5
+Colin Slade|Con|313|27.8
+Tim Bridger|Ind|250|22.2
+Jason Chamberlain|Lab|245|21.7
+# Tiverton Westexe|25.3
+Dave Broom|LD|494|40.7|E
+Jamie Frost|LD|444|36.6|E
+Claudette Harrower|Con|334|27.5|E
+Stephen Pugh|Con|287|23.7
+Richard Watson|Con|277|22.8
+Wally Burke|Ind|273|22.5
+Jason Lejeune|Ind|236|19.5
+Alex Bingham|Lab|221|18.2
+Martin Atkinson|Grn|208|17.1
+Steve Flaws|Ind|170|14.0
+Chris Musgrave|Grn|156|12.9
+# Upper Culm|39.6
+Simon Clist|LD|814|60.8|E
+Natasha Bradshaw|LD|807|60.3|E
+James Bartlett|Con|428|32.0
+Michael Cooper|Con|366|27.3
+Terence Edwards|Lab|127|9.5
+# Upper Yeo & Taw|38.3
+Stuart Penny|Con|591|47.8|E
+Natalia Letch|LD|561|45.4|E
+Peter Heal|Con|524|42.4
+Andi Wyer|LD|382|30.9
+Hayden Sharp|Lab|208|16.8
+# Way|40.6
+Polly Colthorpe|Con|351|50.5|E
+Rosie Wibberley|Grn|344|49.5
+# Yeo|43.4
+Sandy Chenore|LD|553|43.3|E
+Martin Binks|Con|490|38.4|E
+Angus Howie|Con|489|38.3
+Paul Perriman|LD|381|29.8
+John Dean|Lab|233|18.2
+Danuta Karpinska|Grn|233|18.2

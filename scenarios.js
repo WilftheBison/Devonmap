@@ -11,9 +11,12 @@
 const SLIDER_MIN = -2, SLIDER_MAX = 3;
 document.documentElement.classList.toggle("narrow", window.matchMedia("(max-width: 1000px)").matches);
 const norm = (s) => (s || "").trim().toLowerCase().replace(/&/g, "and").replace(/\s+/g, " ");
+const hhOf = (w) => (w && HH[w.code]) || null;
+const fmtHH = (n) => (n ? Number(n).toLocaleString() : "–");
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 let T = null;            // tribes.json
+let HH = {};             // ward code -> households (2021 Census), data/ward-households.json
 let tribes = [];         // [{id,name,colour,desc,turnout}]
 let presets = [];
 let appeal = {};         // id -> value
@@ -147,7 +150,9 @@ function update(fit) {
       layer.setStyle({ fillColor: rampColour((r.score - lo) / span), fillOpacity: 0.72, color: isTarget ? "#111" : "#444",
         weight: isTarget ? 3 : (k === selected ? 3 : 0.8), opacity: 1, dashArray: k === selected ? "4 3" : null });
     }
-    layer.setTooltipContent(r ? `<b>${esc(layer.feature.properties.name)}</b><br>#${r.rank} &middot; score ${r.score.toFixed(2)}` : esc(layer.feature.properties.name));
+    const hh = hhOf(w);
+    layer.setTooltipContent((r ? `<b>${esc(layer.feature.properties.name)}</b><br>#${r.rank} &middot; score ${r.score.toFixed(2)}` : `<b>${esc(layer.feature.properties.name)}</b>`) +
+      (hh ? `<br>${fmtHH(hh)} households` : ""));
   });
 
   renderTable(list);
@@ -167,7 +172,7 @@ function renderTable(list) {
     const ch = d > 0 ? `<span class="up">▲${d}</span>` : d < 0 ? `<span class="down">▼${-d}</span>` : "&ndash;";
     return `<tr data-k="${esc(r.k)}" class="${r.w.target ? "target" : ""} ${r.k === selected ? "sel" : ""}">
       <td>${r.rank}</td><td>${esc(r.w.name)}${r.w.target ? ' <span class="sc-star">\u2605</span>' : ""}<span class="sc-ward-dist">${esc(r.w.district)}</span></td>
-      <td class="num">${r.score.toFixed(2)}</td><td class="num">${ch}</td><td class="num">${r.w.seats}</td></tr>`;
+      <td class="num">${r.score.toFixed(2)}</td><td class="num">${ch}</td><td class="num">${fmtHH(hhOf(r.w))}</td><td class="num">${r.w.seats}</td></tr>`;
   }).join("");
   tb.querySelectorAll("tr").forEach((tr) => tr.addEventListener("click", () => selectWard(tr.dataset.k, true)));
 }
@@ -182,7 +187,7 @@ function renderDetail(k, r) {
   const f = w.facts;
   box.innerHTML = `<button class="sc-close" aria-label="Close">&times;</button><button class="sc-tomap">&uarr; Map</button>
     <h3>${esc(w.name)}${w.target ? " ★" : ""}</h3>
-    <div class="sc-dim">${esc(w.district)} &middot; ${w.seats} seat${w.seats > 1 ? "s" : ""} &middot; ${Number(f.residents).toLocaleString()} residents &middot; ${f.town}% town</div>
+    <div class="sc-dim">${esc(w.district)} &middot; ${w.seats} seat${w.seats > 1 ? "s" : ""} &middot; ${Number(f.residents).toLocaleString()} residents &middot; ${fmtHH(hhOf(w))} households &middot; ${f.town}% town</div>
     <div class="sc-dim">${r ? `Rank #${r.rank} in ${esc(areaLabel())}, score ${r.score.toFixed(2)}` : "Outside the selected area"}</div>
     <div class="sc-bar">${bar}</div>
     <table class="sc-mix"><tr class="sc-dim"><td>Estimated tribe mix (adults)</td><td class="num">Share</td><td class="num">Appeal</td></tr>${rows}</table>
@@ -395,8 +400,9 @@ function setupPrint() {
 
 /* ---------- boot ---------- */
 (async function init() {
-  const [tj, gj] = await Promise.all([fetch("data/tribes.json").then((r) => r.json()), fetch("data/wards.geojson").then((r) => r.json())]);
-  T = tj; tribes = T.tribes; presets = T.presets;
+  const [tj, gj, hj] = await Promise.all([fetch("data/tribes.json").then((r) => r.json()), fetch("data/wards.geojson").then((r) => r.json()),
+    fetch("data/ward-households.json").then((r) => (r.ok ? r.json() : null)).catch(() => null)]);
+  T = tj; HH = (hj && hj.households) || {}; tribes = T.tribes; presets = T.presets;
   setAppeal(presets[0].appeal);
   readHash();
   if (area !== "All Devon" && !area.startsWith("District: ") && !Object.values(T.wards).some((w) => w.constituencies.includes(area))) area = "All Devon";

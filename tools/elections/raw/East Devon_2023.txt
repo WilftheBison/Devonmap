@@ -1,0 +1,164 @@
+# Axminster|34.7
+Paul Hayward|Ind|1219|55.4|E
+Sarah Jackson|Ind|1065|48.4|E
+Simon Smith|Ind|893|40.6|E
+Ian Hall|Con|801|36.4
+Steve Holt|Con|544|24.7
+Gillian Jordan|LD|531|24.1
+David Willey|Con|420|19.1
+Jeremy Walden|Lab|395|17.9
+# Beer & Branscombe|36.0
+John Heath|Ind|431|56.9|E
+Maria Hall|Con|170|22.5
+Peter Burrows|LD|156|20.6
+# Broadclyst|27.7
+Sarah Chamberlain|LD|711|42.4|E
+Paula Fearnley|Grn|700|41.8|E
+Eleanor Rylance|LD|689|41.1|E
+Katie Jones|LD|661|39.4
+Jane Chanot|Ind|482|28.8
+Colin Trudgeon|Con|474|28.3
+Keith Bickers|Con|430|25.7
+# Budleigh & Raleigh|44.3
+Charlotte Fitzgerald|Ind|1174|40.9|E
+Henry Riddell|Con|1086|37.8|E
+Melanie Martin|Ind|1076|37.5|E
+Patsy Hayman|Con|1046|36.4
+Catriona Cunningham|LD|882|30.7
+Jed Falby|LD|878|30.6
+Penny Lewis|LD|865|30.1
+David Walsh|Con|848|29.5
+# Clyst Valley|35.9
+Mike Howe|Ind|361|53.3|E
+Will French|Con|182|26.9
+Adrian Lock|LD|134|19.8
+# Coly Valley|42.5
+Paul Arnott|LD|959|58.1|E
+Helen Parr|Con|845|51.2|E
+John Tristram|Con|567|34.3
+# Cranbrook|21.0
+Kim Bloxham|Ind|614|60.4|E
+Kevin Blakey|Ind|521|51.3|E
+Sam Hawkins|Ind|458|45.1|E
+Vincent Wilton|Ind|424|41.7
+Rebecca Lipscombe|LD|246|24.2
+Barry Rogers|Con|137|13.5
+Alexandra Croft|Con|123|12.1
+Lisa Goudie|Heritage|57|5.6
+# Dunkeswell & Otterhead|36.5
+Yehudi Levine|LD|758|46.4|E
+Colin Brown|Con|741|45.4|E
+Gary Burford|Ind|370|22.7
+Ollie Tucker|Lab|322|19.7
+Ian Morgan|Con|109|6.7
+# Exe Valley|35.5
+Jamie Kemp|LD|475|70.5|E
+Kevin Wraight|Con|199|29.5
+# Exmouth Brixington|28.4
+Maddy Chapman|Con|734|42.2|E
+Fred Caygill|Con|673|38.7|E
+Cherry Nicholas|Con|662|38.0|E
+Andrew Colman|LD|579|33.3
+Jamie Wickenden|Lab|559|32.1
+Aurora Bailey|Ind|518|29.8
+Ian Kirvan|Ind|471|27.1
+Malcolm Marrett|Grn|434|24.9
+# Exmouth Halsdon|33.2
+Tim Dumper|LD|1099|56.2|E
+Andrew Toye|LD|964|49.3|E
+Daniel Wilson|Lab|839|42.9|E
+Pauline Stott|Con|820|41.9
+Richard Parr|Con|638|32.6
+# Exmouth Littleham|34.5
+Anne Hall|LD|1144|49.4|E
+Nick Hookway|LD|1075|46.5|E
+Brian Bailey|Con|986|42.6|E
+Oliver Kerr|Con|952|41.1
+David Poor|LD|834|36.0
+Mike Rosser|Grn|784|33.9
+# Exmouth Town|27.8
+Joe Whibley|Ind|1043|66.3|E
+Olly Davey|Grn|988|62.8|E
+Eileen Wragg|LD|974|61.9|E
+Dominic Nancekievill|Con|338|21.5
+Sylvia Wills|Con|331|21.0
+# Exmouth Withycombe Raleigh|25.1
+Steve Gazzard|LD|521|58.5|E
+Matt Hall|LD|432|48.5|E
+Josh Donald|Con|242|27.2
+Andrew Woodward|Lab|236|26.5
+Brian Richards|Con|218|24.5
+# Feniton|31.7
+Alasdair Bruce|Con|359|51.6|E
+Jane Collins|Grn|351|49.4
+# Honiton St Michael's|26.7
+Jenny Brown|Con|708|47.9|E
+Violet Bonetta|Lab|598|40.5|E
+Roy Collins|Lib|534|36.2|E
+Brice Cornelius|Con|531|36.0
+Paul Carter|Con|508|34.4
+Joanne Fotheringham|Ind|477|32.3
+Nicholas Ingham|Ind|419|28.4
+# Honiton St Paul's|22.8
+Tony McCollum|Ind|642|58.6|E
+John Diviani-O'Leary|Con|460|42.0|E
+Andrew Pearsall|Con|454|41.4
+John Taylor|No description|329|30.0
+# Newbridges|41.0
+Iain Chubb|Con|423|49.7|E
+Veronica Dower|LD|335|39.4
+Clara Douglas|Lab|93|10.9
+# Newton Poppleford & Harpford|42.7
+Christopher Burhop|Ind|633|82.1|E
+Josh Harrison|Con|138|17.9
+# Ottery St Mary|36.0
+Vicky Johns|Ind|1565|70.8|E
+Peter Faithfull|Ind|944|42.7|E
+Bethany Collins|Lab|794|35.9|E
+Jamie Aylward|LD|771|34.9
+Graham Woolnough|LD|556|25.1
+Charlie Hobson|Con|429|19.4
+Mohammed Sarul Islam|Con|192|8.7
+Mohammed Zayan Islam|Con|153|6.9
+# Seaton|36.3
+Dan Ledger|Ind|1404|65.7|E
+Marcus Hartnell|Con|1167|54.6|E
+Derek Haggerty|Con|858|40.1|E
+Steve Hunt|LD|770|36.0
+Honey Barlow Marshall|Lab|494|23.1
+# Sidmouth Rural|42.3
+John Loudoun|Ind|586|73.0|E
+Christina Richards|Con|217|27.0
+# Sidmouth Sidford|37.5
+Marianne Rixson|LD|1256|53.0|E
+Stuart Hughes|Con|1216|51.3|E
+Mike Goodman|Con|1191|50.3|E
+Lisa Garner|LD|1119|47.2
+# Sidmouth Town|43.3
+Ian Barlow|Ind|994|60.6|E
+Charlotte Richards|Con|811|49.4|E
+Denise Bickley|Ind|785|47.8
+John Zarczynski|Con|406|24.7
+# Tale Vale|48.3
+Richard Jefferies|LD|627|59.8|E
+Philip Skinner|Con|421|40.2
+# Trinity|43.8
+Susan Westerman|LD|512|53.7|E
+Andy Turner|Con|441|46.3
+# West Hill & Aylesbeare|51.4
+Jess Bailey|Ind|956|84.2|E
+Alan Richardson|Con|285|25.1
+Iain Fairbarn|LD|54|4.8
+# Whimple & Rockbeare|40.0
+Todd Olive|LD|440|51.0|E
+Richard Lawrence|Con|422|49.0
+# Woodbury & Lympstone|41.0
+Geoff Jung|LD|929|53.9|E
+Ben Ingham|Con|724|42.0|E
+Cheryl McGauley|Con|622|36.1
+Alex Taylor|Grn|566|32.8
+Amanda Ford|Lab|286|16.6
+# Yarty|40.0
+Duncan MacKinder|LD|442|52.3|E
+Richard Norman|Con|328|38.8
+Duncan Staddon|Grn|75|8.9

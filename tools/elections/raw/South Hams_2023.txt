@@ -1,0 +1,105 @@
+# Allington & Strete|47.24
+Laurel Lawford|LD|628|55.7|E
+Richard Foss|Con|412|36.5
+Joseph Waters|Grn|88|7.8
+# Bickleigh & Cornwood|35.06
+Christopher Oram|LD|435|54.9|E
+Barrie Spencer|Con|357|45.1
+# Blackawton & Stoke Fleming|44.02
+Simon Rake|LD|527|56.7|E
+Helen Reeve|Con|402|43.3
+# Charterlands|42.71
+Bernard Taylor|Con|523|50.7|E
+Alan Kirk|LD|509|49.3
+# Dartington & Staverton|45.3
+Jacqi Hodgson|Grn|740|72.3|E
+Jeremy Luck|Con|154|15.1
+Catherine Pannell|LD|129|12.6
+# Dartmouth & East Dart|39.28
+Ben Cooper|Lab|1235|52.0|E
+Jonathan Hawkins|Con|1135|47.8|E
+Ged Yardy|LD|1121|47.2|E
+Hilary Bastone|Con|930|39.1
+Rosemary Rowe|Con|836|35.2
+Kim Sturgess|Ind|299|12.6
+# Ermington & Ugborough|40.05
+Alison DeWynter|LD|534|57.0|E
+Richard Hosking|Con|298|31.8
+Meirion Jones|Grn|105|11.2
+# Ivybridge East|29.9
+Victor Abbott|LD|755|54.9|E
+Matt Steele|LD|596|43.3|E
+Karen Pringle|Con|412|30.0
+Helen Hillman|Con|342|24.9
+David Trigger|Lab|218|15.9
+Hilary Jones|Grn|183|13.3
+Richard Hoyland|Grn|100|7.3
+# Ivybridge West|31.81
+Nadine Dommett|LD|882|57.2|E
+Pablo Munoz|LD|810|52.6|E
+Lance Austen|Con|438|28.4
+Stanley Murphy|Con|304|19.7
+Nick Hart-Williams|Grn|184|11.9
+Alistair Henderson|Grn|164|10.6
+Tony Rea|TUSC|149|9.7
+# Kingsbridge|34.38
+Denise O'Callaghan|LD|1011|67.0|E
+Susie Jackson|LD|907|60.1|E
+Helen Baker|Con|584|38.7
+Thomas Greaves|Con|331|21.9
+# Loddiswell & Aveton Gifford|38.33
+Lee Bonham|LD|487|58.2|E
+Paul Holmes|Con|260|31.1
+Paul Furlong|Lab|90|10.7
+# Marldon & Littlehempston|34.48
+Samantha Penfold|Con|355|44.6|E
+Keith Smith|LD|262|33.0
+David Bradbury|Grn|178|22.4
+# Newton & Yealmpton|41.31
+Dan Thomas|LD|1433|70.3|E
+Tom Eadie|LD|1225|60.1|E
+Tony Carlson|Con|580|28.4
+Peter Gold|Lab|259|12.7
+# Salcombe & Thurlestone|45.76
+Mark Long|Ind|1160|63.7|E
+Samantha Dennis|Con|618|34.0|E
+Jim Heaven|Con|513|28.2
+Nikki Turton|Ind|447|24.6
+Lewis Worrall|Grn|257|14.1
+Alan Kerr|LD|229|12.6
+# South Brent|47.26
+Guy Pannell|LD|1168|58.9|E
+David Hancock|LD|1013|51.1|E
+Peter Smerdon|Con|685|34.5
+Lister Bass|Con|533|26.9
+Steve Nayar|Grn|370|18.7
+# Stokenham|45.1
+Julian Brazil|LD|712|73.9|E
+Joshua Gardner|Con|193|20.0
+Lucy Fleming|Grn|58|6.0
+# Totnes|42.47
+John Birch|LD|1490|51.0|E
+Georgina Allen|Grn|1433|49.0|E
+Anna Presswell|Grn|971|33.2|E
+John Anderson|LD|948|32.4
+John Cummings|Grn|902|30.9
+John Lloyd|LD|799|27.3
+Jill Hannam|Lab|482|16.5
+Jo Sweett|Ind|393|13.4
+Richard O'Connor|Con|310|10.6
+Helena Penfold|Con|264|9.0
+Jamie Rogers|Con|251|8.6
+Jason Liosatos|Heritage|72|2.5
+Becca Collings|Heritage|56|1.9
+# Wembury & Brixton|36.16
+Julie Carson|Con|733|44.1|E
+Alison Nix|Con|718|43.2|E
+Steve Oliver|Lab|657|39.5
+Ed Parsons|Lab|580|34.9
+Brian Blake|LD|400|24.1
+# West Dart|52.72
+John McKay|LD|699|65.9|E
+Stuart Greaves|Con|362|34.1
+# Woolwell|33.48
+Nicky Hopwood|Con|526|70.3|E
+Claire Hutson|LD|222|29.7

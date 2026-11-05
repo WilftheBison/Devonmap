@@ -1,0 +1,87 @@
+# Bere Ferrers|43.94
+Isabel Angela Saxby|Lab|757|59.65|E
+Angela Blackman|Con|478|37.67|E
+Peter Edward Crozier|Con|453|35.70
+Graham Richard Reed|LD|399|31.44
+# Bridestowe|35.56
+Caroline Marie Mott|Con|507|56.02|E
+Terry Southcott|Con|463|51.16|E
+Patrick John Jeffery|Grn|401|44.31
+# Buckland Monachorum|41.99
+Ric Cheadle|Ind|873|68.85|E
+Alastair Clark Cunningham|Ind|498|39.28|E
+Philip Richard Saunders|Con|409|32.26
+Ashley-Ross Christopher West|LD|334|26.34
+# Burrator|31.97
+Nicola Viney|LD|510|56.23|E
+Christopher Paul West|LD|401|44.21|E
+Diana Elizabeth Moyse|Con|275|30.32
+Felix Davies|Con|221|24.37
+Dave Miller|Grn|166|18.30
+John Edward Churchley|Lab|101|11.14
+Sam North|Grn|76|8.38
+# Chagford|58.68
+Jane Elliott|Grn|485|65.28|E
+Nicky Heyworth|Con|258|34.72
+# Dartmoor|38.55
+Mark Christian Renders|Ind|404|74.27|E
+Holly Greenberry-Pullen|LD|140|25.73
+# Drewsteignton|42.63
+Steven William Guthrie|Grn|292|51.14|E
+Paul James Ridgers|Con|279|48.86
+# Exbourne|37.50
+Louise Sacha Watts|Con|613|50.54|E
+Mike Casbolt|Con|575|47.40|E
+Christian Martin|LD|541|44.60
+Judy Sara Marguerita Maciejowska|Grn|435|35.86
+# Hatherleigh|33.60
+Patrick John Derek Kimber|Con|579|68.85|E
+Samantha Jane Wakeham|Con|430|51.13|E
+Andrew Robert Pratt|Grn|289|34.36
+# Mary Tavy|44.63
+Robert John Oxborough|Ind|240|41.45|E
+Jonathan Stanley Gilpin|Con|127|21.93
+Dave Herbert|Ind|113|19.52
+Andrew Gordon Lynn Brown|LD|99|17.10
+# Milton Ford|
+Neil Jory|Con|||E
+# Okehampton North|32.29
+Tony Leech|Ind|695|50.44|E
+Kevin Ball|Con|548|39.77|E
+George Herbert Dexter|LD|428|31.06|E
+Lois Esther Samuel|Con|425|30.84
+Colin James Trier|Grn|370|26.85
+Peter Cecil Eastment|Con|312|22.64
+Deborah Judith Sanger|Ind|310|22.50
+Finley Lewis Reece Morris|Lab|267|19.38
+# Okehampton South|28.59
+Paul Richard Vachon|Ind|433|53.46|E
+Malcolm William Calder|Grn|417|51.48|E
+Julie Veronica Yelland|Con|368|45.43
+Clare Mary Gerardine Kemp|Con|194|23.95
+# South Tawton|45.78
+Lynn Christine Daniel|Grn|476|68.20|E
+Simon John Powell|Con|222|31.80
+# Tamarside|34.26
+Chris Edmonds|Con|313|64.01|E
+Matthew Paul Faith|Grn|141|28.83
+Lawrence Grose|Ref|35|7.16
+# Tavistock North|35.67
+Jeff Moody|Ind|822|57.08|E
+Pete Squire|LD|685|47.57|E
+Terry Vincent Wheeler|Grn|540|37.50|E
+Michael Arthur Fife Cook|Ind|505|35.07
+David Edward Turnbull|Con|414|28.75
+Judy Ann Hughes|Con|333|23.13
+John Nicholas Gray|Con|268|18.61
+Brian Anthony Arden Trew|Ref|95|6.60
+# Tavistock South East|42.44
+Adam Duncan Bridgewater|Ind|734|60.36|E
+Debo Sellis|Con|604|49.67|E
+Amy St. Clair Hookway|Grn|472|38.82
+Richard Ivor John Phillips|Con|378|31.09
+# Tavistock South West|29.07
+Anne Johnson|Ind|662|77.07|E
+Mandy Victoria Louise Ewings|Ind|608|70.78|E
+Andy Nelson|Con|157|18.28
+Candy Gynn-Martin|Con|122|14.20

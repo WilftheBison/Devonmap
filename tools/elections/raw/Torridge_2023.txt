@@ -1,0 +1,105 @@
+# Appledore|31.97
+Leonard Ford|Ind|599|64.5|E
+Peter Hames|Grn|588|63.4|E
+Nigel Johnson|UKIP|134|14.4
+# Bideford East|26.20
+Judith Gubb|Ind|459|43.3|E
+James Craigie|Ind|392|36.9|E
+Huw Thomas|Grn|387|36.5|E
+Jennifer Radford|Lab|316|29.8
+Jamie McKenzie|Ind|309|29.1
+Linda Hellyer|Con|299|28.2
+James Hellyer|Con|257|24.2
+Oliver Sherborne|Con|198|18.7
+# Bideford North|30.27
+Peter Christie|Grn|871|65.4|E
+Trevor Johns|LD|517|38.8|E
+Douglas Bushby|Ind|505|37.9|E
+Nicholas Radford|Lab|432|32.5
+Dermot McGeough|Con|431|32.4
+Gaston Dezart|UKIP|97|7.3
+# Bideford South|25.10
+David Brenton|Lab|247|39.2|E
+Simon Inch|Ind|200|31.7|E
+Jake McLean|Lab|199|31.6
+Simon Mathers|Grn|166|26.3
+Peter Lawrence|Ind|162|25.7
+Philip Green|Britain First|108|17.1
+Anne Townsend|Britain First|96|15.2
+# Bideford West|25.22
+Carl Hawkins|Ind|187|34.1|E
+Eithne Brenton|Lab|186|33.9|E
+Shirley Langford|Ind|178|32.4
+Anthony Inch|Ind|161|29.3
+Jason Murdoch|Con|128|23.3
+Morgan Taylor|Con|108|19.7
+# Broadheath|33.10
+Philip Hackett|Ind|547|50.3|E
+Stephen Gibson|Con|449|41.3|E
+Sherrie Green|LD|412|37.9
+Graeme Barriball|Con|380|34.9
+# Great Torrington|28.85
+Christopher Bright|LD|751|59.9|E
+Lauren Bright|LD|588|46.9|E
+Douglas Smith|LD|553|44.1|E
+Margaret Brown|Ind|327|26.1
+Roger Darch|Con|318|25.4
+Keith Funnell|Grn|261|20.8
+Penelope Hewitt|Lab|230|18.4
+Helen Wilton-Love|Con|214|17.1
+# Hartland|32.73
+Shirleyann Andrews|LD|763|49.5|E
+Anna Dart|Ind|755|49.0|E
+Stephen Harding|Con|640|41.5|E
+Richard Boughton|Con|567|36.8
+Robin Julian|Ind|439|28.5
+# Holsworthy|36.14
+Lyndon Piper|LD|541|61.5|E
+Peter Shepherd|Ind|460|52.3|E
+Emma Hosie|LD|255|29.0
+Diana Stevens|Con|166|18.9
+Melanie Dymond|Con|142|16.2
+# Milton & Tamarside|32.36
+Kenneth James|Ind|659|61.0|E
+Christopher Hepple|Ind|524|48.5|E
+Tracey Beresford|Grn|374|34.6
+Tony Barrett|Lab|225|20.8
+# Monkleigh & Putford|40.91
+Philip Pennington|Ind|567|44.1|E
+Robert Hicks|Ind|537|41.7|E
+Rosemary Gent|Grn|355|27.6
+Susan Collins|Con|339|26.3
+James Lowe|Lab|312|24.2
+Jeffrey Wilton-Love|Con|218|16.9
+# Northam|37.18
+Christopher Leather|Ind|674|45.0|E
+Jane Whittaker|Con|530|35.4|E
+Wendy Lo-Vel|Grn|513|34.2|E
+Joanne Manley|Ind|485|32.4
+Samantha Newman-McKie|LD|471|31.4
+Carrie Woodhouse|Con|334|22.3
+John Himan|Ind|310|20.7
+Hugh Brading|Ind|268|17.9
+# Shebbear & Langtree|43.92
+Cheryl Cottle-Hunkin|LD|892|66.2|E
+Christopher Wheatley|LD|700|52.0|E
+David Hurley|Con|540|40.1
+David Jupp|Con|348|25.8
+# Two Rivers & Three Moors|36.96
+Rosemary Lock|Con|609|50.2|E
+Thomas Elliott|Con|513|42.3|E
+Roger Allen|LD|476|39.2
+Claire Davey-Potts|LD|452|37.3
+Rachel Clarke|Ind|220|18.1
+# Westward Ho!|35.99
+Claire Hodson|Ind|494|46.0|E
+Louis Bach|Ind|334|31.1|E
+Albert Bruins|LD|277|25.8
+Derek Sargent|Ind|243|22.6
+Anmol Singh|Ind|241|22.4
+Kenneth Hind|Con|183|17.0
+Patricia Ferguson|Con|175|16.3
+# Winkleigh|40.55
+Simon Newton|Con|343|48.6|E
+Stephen Middleton|LD|237|33.6
+Angela Findlay|Lab|126|17.8

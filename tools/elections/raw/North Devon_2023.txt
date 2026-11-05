@@ -1,0 +1,149 @@
+# Barnstaple Central|25.71
+Syed Jusef|LD|273|53.53|E
+Reginald Howe|Con|92|18.04
+Howard Porter|Grn|86|16.86
+Roy Tomlinson|Lab|28|5.49
+Bobby Burden-Brewer|Ind|16|3.14
+Gerard Sables|Communist|15|2.94
+# Barnstaple with Pilton|27.04
+Ian Roome|LD|1037|64.09|E
+Mel Lovering|LD|845|52.22|E
+Jo Orange|LD|766|47.34|E
+Robbie Mack|Grn|344|21.26
+Lou Goodger|Grn|333|20.58
+L'Anne Knight|Grn|328|20.27
+Francesca McKeever|Con|300|18.54
+Finola O'Neill|Lab|206|12.73
+# Barnstaple with Westacott|24.14
+Peter Leaver|LD|712|52.74|E
+David Clayton|LD|705|52.22|E
+Katrina Stevenson|LD|690|51.11|E
+Lisa MacKenzie|Con|401|29.70
+Steven White|Grn|263|19.48
+John Carter|Ind|206|15.26
+Val Monk|Ind|205|15.19
+Helen Marini|Lab|196|14.52
+# Bickington|26.41
+Joy Cann|LD|810|56.09|E
+Will Topps|LD|778|53.88|E
+Helen Walker|LD|741|51.32|E
+Gary Beglin|Con|460|31.86
+Chris Hopkins|Con|441|30.54
+Christine Basil|Grn|361|25.00
+# Bishop's Nympton|38.10
+Robin Milton|Ind|495|68.66|E
+Nicholas Withers|Grn|131|18.17
+Ashraf Shah|LD|95|13.18
+# Bratton Fleming|40.49
+Malcolm Prowse|Ind|485|62.02|E
+Ian Godfrey|Grn|112|14.32
+Dominic Chugg|Con|102|13.04
+Marian Mason|Lab|81|10.36
+# Braunton East|39.85
+Liz Spear|LD|664|43.51|E
+Graham Bell|LD|642|42.07|E
+David Relph|Grn|483|31.65
+Cas Lay|Grn|390|25.56
+Adrian Bryant|Ind|272|17.82
+Nicholas Agnew|Lab|174|11.40
+# Braunton West & Georgeham|41.49
+Simon Maddocks|Ind|659|42.27|E
+Pru Maskell|Con|534|34.25|E
+Tristan Clarkson|LD|371|23.80
+Julian Cox|LD|342|21.94
+Mark Cann|Lab|290|18.60
+Jasmine Chesters|Ind|260|16.68
+Brett Parker|Grn|244|15.65
+# Chittlehampton|38.78
+Susan Whitehead|Con|371|47.63|E
+Jamie Burn|LD|255|32.73
+Neil Basil|Grn|109|13.99
+Cecily Blyther|Lab|52|6.68
+# Chulmleigh|42.73
+Kevin Davies|LD|498|63.36|E
+Judith Lee|Con|232|29.52
+Harry Ellis|Lab|54|6.87
+# Combe Martin|35.05
+Brian Lethaby|Ind|382|52.04|E
+Lawrence Irving|Con|239|32.56
+Robert Cornish|Grn|113|15.40
+# Fremington|38.69
+Frank Biederman|Ind|1223|72.54|E
+Neil Denton|Ind|705|41.82|E
+Jim Bell|Ind|473|28.06
+Bowser Harris|Ind|233|13.82
+Jack Juby|Con|207|12.28
+Doug McLynn|Lab|147|8.72
+Keith York|LD|128|7.59
+# Heanton Punchardon|25.67
+Ricky Knight|Grn|275|59.40|E
+Dennis Jenkins|LD|113|24.41
+Valerie Cann|Lab|75|16.20
+# Ilfracombe East|27.00
+June Williams|LD|718|52.07|E
+Paul Crabb|Con|674|48.88|E
+Daniel Turton|Con|673|48.80|E
+Teresa Elliott|Lab|645|46.77
+Linda Mack|Grn|572|41.48
+# Ilfracombe West|30.96
+Sara Wilson|Grn|524|48.43|E
+Jonathan Quinn|Con|432|39.93|E
+Mark Fay|Con|365|33.73
+Toby Ebert|Lab|337|31.15
+Dave Baxter|LD|315|29.11
+# Instow|38.53
+Lucinda Renshaw|Con|217|30.27|E
+Becky Coombs|Ind|188|26.22
+Joanne Bell|Ind|114|15.90
+Emily Herbert|Grn|103|14.37
+Brendon O'Brien|Lab|66|9.21
+Nicholas Arthur|Ind|29|4.04
+# Landkey|32.87
+Glyn Lane|Ind|498|41.26|E
+Mark Haworth-Booth|Grn|454|37.61|E
+Victoria Nel|LD|443|36.70
+Robert Janeiro|LD|238|19.72
+Lucie Redwood|Grn|196|16.24
+Tamsin Higgs|Lab|75|6.21
+# Lynton & Lynmouth|35.92
+John Patrinos|Ind|363|56.28|E
+Arthur Atherton|Con|201|31.16
+Damian Owen|LD|81|12.56
+# Marwood|
+Julie Hunt|LD|||E
+# Mortehoe|31.70
+Malcolm Wilkinson|LD|309|56.49|E
+Sue Kingdom|Con|130|23.77
+Shona Davis|Grn|58|10.60
+Oliver Bell|Lab|50|9.14
+# Newport|32.76
+Caroline Leaver|LD|798|61.62|E
+Louisa York|LD|654|50.50|E
+David Hoare|Con|352|27.18
+Matt Chamings|Grn|245|18.92
+Rosie Haworth-Booth|Grn|150|11.58
+Alison Stringer|Lab|140|10.81
+# North Molton|38.71
+Liz Bulled|Con|407|59.33|E
+Gabi Marchewka|LD|145|21.14
+Chris Barraclough|Grn|134|19.53
+# Roundswell|36.35
+David Knight|LD|656|57.44|E
+Christopher Norman|LD|590|51.66|E
+Stephen Burridge|Con|323|28.28
+Simon Randall|Con|270|23.64
+Alan Rennles|Ind|239|20.93
+Ian Crawford|Lab|98|8.58
+# South Molton|30.98
+David Worden|LD|916|65.52|E
+Peter Bishop|LD|600|42.92|E
+Matthew Bushell|Ind|573|40.99|E
+Paul Henderson|Ind|438|31.33
+Vanessa Burnham|Con|337|24.11
+Steven Hinchliffe|Lab|289|20.67
+Natasha Vukic|Con|281|20.10
+Gill Saunders|Grn|257|18.38
+Marc Cornelius|Ind|245|17.53
+# Witheridge|35.47
+Peter Jones|Ind|430|63.89|E
+Woody Fox|Grn|243|36.11

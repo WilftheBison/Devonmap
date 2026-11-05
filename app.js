@@ -72,6 +72,110 @@ async function loadRuc() {
 }
 const rucMixHtml = (rec) => Object.entries(rec.mix).filter(([, v]) => v >= 0.5)
   .map(([k, v]) => `${escapeHtml(rucClasses[k] || k)}: ${Math.round(v)}%`).join("<br>");
+/* ---------- politics: election results and council control (data/elections.json) ---------- */
+let E = null;          // elections.json
+let censusCounts = null; // ward code -> exact 2021 Census counts (for constituency totals)
+let households = null;   // ward code -> households (2021 Census)
+const POLITICS = "__politics__";
+const politicsOn = () => activeColourColumn === POLITICS;
+async function loadElections() {
+  try {
+    const [e, c, h] = await Promise.all([
+      fetch("data/elections.json").then((r) => (r.ok ? r.json() : null)),
+      fetch("data/ward-census-2021-detail.json").then((r) => (r.ok ? r.json() : null)),
+      fetch("data/ward-households.json").then((r) => (r.ok ? r.json() : null)),
+    ]);
+    E = e; censusCounts = c; households = h ? h.households : null;
+  } catch (err) { /* optional */ }
+}
+const elecKey = (name) => normalizeName(name).replace(/&/g, "and").replace(/[.’]/g, "").replace(/\s+/g, " ");
+const elecWard = (name) => E && E.wards[elecKey(name)];
+const partyName = (p) => (E && E.parties[p] ? E.parties[p][0] : p);
+const partyColour = (p) => (E && E.parties[p] ? E.parties[p][1] : "#bbbbbb");
+const partyDot = (p) => `<span class="party-dot" style="background:${partyColour(p)}"></span>`;
+const fmtN = (v) => (v === null || v === undefined ? "" : Number(v).toLocaleString());
+
+/** A results table: candidate, party, votes, %. `compact` drops the party name column (dot only). */
+function resultTable(res, compact) {
+  if (!res) return "";
+  const multi = res.seats > 1;
+  const rows = res.cands.map((c) => `<tr class="${c.e ? "won" : ""}">
+      <td>${partyDot(c.p)}${escapeHtml(c.n)}${c.e ? ' <span class="won-mark" title="Elected">&#10003;</span>' : ""}${compact ? `<span class="cand-party">${escapeHtml(partyName(c.p))}</span>` : ""}</td>
+      ${compact ? "" : `<td>${escapeHtml(partyName(c.p))}</td>`}
+      <td class="num">${res.unopposed ? "" : fmtN(c.v)}</td>
+      <td class="num">${c.pc === null || c.pc === undefined ? "" : c.pc.toFixed(1) + "%"}</td></tr>`).join("");
+  const head = `<tr><th>Candidate</th>${compact ? "" : "<th>Party</th>"}<th class="num">Votes</th><th class="num">%</th></tr>`;
+  const foot = res.unopposed ? `<div class="elec-foot">Elected unopposed.</div>`
+    : `<div class="elec-foot">${res.turnout ? `Turnout ${res.turnout}%` : ""}${multi ? `${res.turnout ? " · " : ""}${res.seats} seats: % is the share of ballot papers, so shares add up to more than 100` : ""}</div>`;
+  return `<table class="elec-table">${head}${rows}</table>${foot}${res.note ? `<div class="elec-foot">${escapeHtml(res.note)}</div>` : ""}`;
+}
+function heldText(w) {
+  return Object.entries(w.held).sort((a, b) => b[1] - a[1]).map(([p, n]) => `${partyDot(p)}${escapeHtml(partyName(p))} ${n}`).join(" &nbsp;");
+}
+
+/** Exact census totals for a set of wards (same measures as tools/build_census_layers.py). */
+function censusTotals(codes) {
+  if (!censusCounts) return null;
+  const s = (d, ks) => ks.reduce((t, k) => t + (d[String(k)] || 0), 0);
+  let res = 0, a50 = 0, ns = 0, ab = 0, rm = 0, hh = 0;
+  for (const code of codes) {
+    const c = censusCounts[code]; if (!c) continue;
+    res += s(c.resident_age_4a, [1, 2, 3, 4]); a50 += s(c.resident_age_4b, [3, 4]);
+    ns += s(c.ns_sec_10a, [1, 2, 3, 4, 5, 6, 7, 8, 9]); ab += s(c.ns_sec_10a, [1, 2]); rm += s(c.ns_sec_10a, [6, 7]);
+    hh += Object.values(c.hh_tenure_5a).reduce((t, v) => t + v, 0);
+  }
+  const p = (a, b) => (b ? Math.round((1000 * a) / b) / 10 : null);
+  return { residents: res, households: hh, a50: p(a50, res), ab: p(ab, ns), rm: p(rm, ns) };
+}
+
+/** Constituency popup: the ward-popup information classes, totalled over the constituency's Devon wards. */
+function constituencyPopup(feature) {
+  const name = feature.properties.name;
+  const c = E && E.constituencies[name];
+  const wardRecs = Object.values(E ? E.wards : {}).filter((w) => w.constituency === name);
+  const tops = wardRecs.map((w) => topTenData && topTenData[normalizeName(w.name)]).filter(Boolean);
+  const codes = wardRecs.map((w) => w.code);
+  const ct = censusTotals(codes);
+  // rural-urban mix weighted by number of addresses
+  const mix = {}; let nAddr = 0;
+  for (const w of wardRecs) { const r = rucRec(w.name); if (!r) continue; nAddr += r.n; for (const [k, v] of Object.entries(r.mix)) mix[k] = (mix[k] || 0) + (v * r.n) / 100; }
+  const mixRec = nAddr ? { mix: Object.fromEntries(Object.entries(mix).map(([k, v]) => [k, (100 * v) / nAddr]).sort((a, b) => b[1] - a[1])) } : null;
+  const dists = [...new Set(wardRecs.map((w) => w.district))].sort();
+  const seats = wardRecs.reduce((t, w) => t + (w.seats || 0), 0);
+  const best = tops.flatMap((t) => t.both.filter((b) => b.constituency === name && b.crank <= 5).map((b) => ({ ward: t.ward, ...b })))
+    .sort((a, b) => a.crank - b.crank);
+  let rows = `<tr><td>Constituency</td><td>${escapeHtml(name)}</td></tr>`;
+  if (c) rows += `<tr><td>MP</td><td>${partyDot(c.party)}${escapeHtml(c.mp)} (${escapeHtml(partyName(c.party))}), majority ${fmtN(c.majority)}</td></tr>`;
+  rows += `<tr><td>Council areas</td><td>${dists.map(escapeHtml).join(", ")}</td></tr>`;
+  if (c) rows += `<tr><td colspan="2" class="elec-cell"><div class="elec-head">General election, ${c.last.date}</div>${resultTable(c.last, true)}</td></tr>`;
+  if (best.length) rows += `<tr><td>Top wards (both measures)</td><td>${best.map((b) => `#${b.crank} ${escapeHtml(b.ward)}`).join("<br>")}</td></tr>`;
+  if (ct) rows += `<tr><td>% routine/manual</td><td>${fmtPct(ct.rm)}</td></tr>
+     <tr><td>% AB-equivalent</td><td>${fmtPct(ct.ab)}</td></tr>
+     <tr><td>% aged 50+</td><td>${fmtPct(ct.a50)}</td></tr>
+     <tr><td>Residents</td><td>${fmtN(ct.residents)}</td></tr>
+     <tr><td>Households</td><td>${fmtN(ct.households)}</td></tr>`;
+  if (mixRec) rows += `<tr><td>Rural-urban (2011)</td><td>${rucMixHtml(mixRec)}</td></tr>`;
+  rows += `<tr><td>Wards / councillors</td><td>${wardRecs.length} wards, ${seats} district councillors</td></tr>`;
+  const somerset = name === "Tiverton and Minehead" ? " The Somerset part of the seat (Minehead and around) is not included." : "";
+  return `<p class="popup-title">${escapeHtml(name)}</p><table class="popup-table">${rows}</table>
+    <p class="popup-note">Census figures, households and councillors are totals for the Devon wards whose centre lies in this constituency (2021 Census).${somerset}</p>
+    <button class="text-button" onclick="openConstituencyDetail('${name.replace(/'/g, "\\'")}')">View full constituency page &rarr;</button>`;
+}
+
+/** District popup: council control. */
+function districtPopup(feature) {
+  const name = feature.properties.name;
+  const k = E && E.councils[name];
+  if (!k) return midPopup(feature);
+  const seats = Object.entries(k.seats).sort((a, b) => b[1] - a[1])
+    .map(([p, n]) => `<tr><td>${p === "Vacant" ? "Vacant" : partyDot(p) + escapeHtml(partyName(p))}</td><td class="num">${n}</td></tr>`).join("");
+  const ctl = k.control === "NOC" ? "No overall control" : `${escapeHtml(partyName(k.control))} majority`;
+  return `<p class="popup-title">${escapeHtml(name)} council</p>
+    <p style="margin:0 0 6px;">${partyDot(k.control)}<b>${ctl}</b><br><span class="dim">Leader: ${escapeHtml(k.leader)}</span></p>
+    <table class="elec-table">${seats}<tr><td><b>Total</b></td><td class="num"><b>${k.total}</b></td></tr></table>
+    <div class="elec-foot">Seats as of ${escapeHtml(k.asOf)}, including by-elections and changes of party.</div>`;
+}
+
 const topFiveOn = () => !!TOP_OPTIONS[activeColourColumn];
 function qualifies(rec, opt) {
   if (!rec) return false;
@@ -211,9 +315,10 @@ function wardPopup(feature) {
   let rows = `<tr><td>Ward</td><td>${escapeHtml(name)}</td></tr>
               <tr><td>${escapeHtml(parentLabel)}</td><td>${escapeHtml(parentValue)}</td></tr>`;
 
-  const rr = rucRec(name);
-  if (rr) {
-    rows += `<tr><td>Rural-urban (2011)</td><td>${rucMixHtml(rr)}</td></tr>`;
+  const ew = elecWard(name);
+  if (ew) {
+    rows += `<tr><td>Held by</td><td>${heldText(ew)}</td></tr>
+             <tr><td colspan="2" class="elec-cell"><div class="elec-head">Last election, ${escapeHtml(ew.last.date)}</div>${resultTable(ew.last, true)}</td></tr>`;
   }
   const tt = topTenData && topTenData[normalizeName(name)];
   if (tt) {
@@ -279,12 +384,31 @@ async function ensureModeLoaded(mode) {
   return c.available;
 }
 
+/** District outlines (council control when Politics is on); constituencies are filled so a touch
+    anywhere inside opens the constituency box, and coloured by the 2024 winner when Politics is on. */
+function midStyle(feature) {
+  const name = feature.properties.name;
+  if (currentMode === "constituency") {
+    const c = E && E.constituencies[name];
+    if (politicsOn() && c) return { color: "#1b1f24", weight: 2.5, fill: true, fillColor: partyColour(c.party), fillOpacity: 0.55 };
+    return { color: COLORS.mid, weight: WEIGHTS.mid, fill: true, fillColor: "#000", fillOpacity: 0 };
+  }
+  const k = E && E.councils[name];
+  if (politicsOn() && k) {
+    return k.control === "NOC"
+      ? { color: "#111418", weight: 5, dashArray: "10 7", fill: false }
+      : { color: partyColour(k.control), weight: 6, dashArray: null, fill: false };
+  }
+  return { color: COLORS.mid, weight: WEIGHTS.mid, dashArray: null, fill: false };
+}
+
 function buildMidLayer(mode) {
   const geo = cache[mode].midGeo;
   return L.geoJSON(geo, {
-    style: { color: COLORS.mid, weight: WEIGHTS.mid, fill: false },
+    style: midStyle,
     onEachFeature: (feature, layer) => {
-      layer.bindPopup(midPopup(feature));
+      if (mode === "constituency") layer.bindPopup(() => constituencyPopup(feature), { maxWidth: 380, maxHeight: 460 });
+      else layer.bindPopup(() => districtPopup(feature), { maxWidth: 320 });
       layer.bindTooltip(feature.properties.name, {
         permanent: true, direction: "center", className: "mid-label",
       });
@@ -294,11 +418,13 @@ function buildMidLayer(mode) {
 
 function buildWardLayer(mode) {
   const geo = cache[mode].wardGeo;
+  // ward boxes only in District Council mode; in constituency mode a touch goes to the constituency
   return L.geoJSON(geo, {
     style: wardStyle,
+    interactive: mode === "district",
     onEachFeature: (feature, layer) => {
       layer.feature = feature;
-      layer.bindPopup(() => wardPopup(feature));
+      if (mode === "district") layer.bindPopup(() => wardPopup(feature), { maxWidth: 380, maxHeight: 460 });
       bindWardLabel(layer);
     },
   });
@@ -334,11 +460,12 @@ async function switchMode(mode) {
 
   midLayer = buildMidLayer(mode);
   wardLayer = buildWardLayer(mode);
+  const wardOn = wardWasOn || (politicsOn() && mode === "district");   // party colours by ward need the wards layer
   if (midWasOn) midLayer.addTo(map);
-  if (wardWasOn) wardLayer.addTo(map);
+  if (wardOn) wardLayer.addTo(map);
 
   document.getElementById("toggle-mid").checked = midWasOn;
-  document.getElementById("toggle-wards").checked = wardWasOn;
+  document.getElementById("toggle-wards").checked = wardOn;
   document.getElementById("ward-count").textContent =
     `${cache[mode].wardGeo.features.length}`;
 
@@ -346,6 +473,7 @@ async function switchMode(mode) {
 
   // re-apply/refresh whatever's pinned against the new ward layer
   wardLayer.setStyle(wardStyle);
+  updateLegend();
   updateLayerOrder();
   updateWardLabelVisibility();
   populateWardPicker();
@@ -387,51 +515,101 @@ function findWardFeature(name) {
   return wardLayer.toGeoJSON().features.find((f) => normalizeName(f.properties.name) === key) || null;
 }
 
+function electionSection(title, res, wardLabel) {
+  return `<div class="elec-block"><h3>${escapeHtml(title)}${res && res.date ? `, ${escapeHtml(res.date)}` : ""}${wardLabel ? ` <span class="dim">(2019 ward: ${escapeHtml(wardLabel)})</span>` : ""}</h3>${resultTable(res, false)}</div>`;
+}
+
 function openWardDetail(name) {
   const feature = findWardFeature(name);
   if (!feature) return;
+  const wname = feature.properties.name;
+  const ew = elecWard(wname);
 
-  const parentLabel = MODES[currentMode].midParentLabel;
-  const parentValue = feature.properties[MODES[currentMode].wardParentProp];
-
-  document.getElementById("ward-detail-name").textContent = feature.properties.name;
-  document.getElementById("ward-detail-parent").textContent = `${parentLabel}: ${parentValue}`;
+  document.getElementById("ward-detail-name").textContent = wname;
+  const parent = ew ? `District: ${ew.district} · Constituency: ${ew.constituency}`
+    : `${MODES[currentMode].midParentLabel}: ${feature.properties[MODES[currentMode].wardParentProp]}`;
+  document.getElementById("ward-detail-parent").innerHTML = escapeHtml(parent) +
+    ` &nbsp;<button class="text-button" onclick="openPostcodeMap('${wname.replace(/'/g, "\\'")}')">Postcode map &#8599;</button>`;
 
   const dataEl = document.getElementById("ward-detail-data");
   let rows = "";
+  const tt = topTenData && topTenData[normalizeName(wname)];
+  if (tt) {
+    rows += `<tr><td>Working-class share</td><td>${tt.share.length ? rankList(tt.share) : "not in a top ten"}</td></tr>
+             <tr><td>Cheapest seat</td><td>${tt.seat.length ? rankList(tt.seat) : "not in a top ten"}</td></tr>`
+          + (tt.both.length ? `<tr><td>Both measures</td><td>${tt.both.map((b) => `#${b.crank} in ${escapeHtml(b.constituency)} (class #${b.share}, seat #${b.seat})`).join("<br>")}</td></tr>` : "")
+          + `<tr><td>Councillors (seats)</td><td>${tt.seats}</td></tr>
+             <tr><td>Residents per seat</td><td>${fmtN(tt.rps)}</td></tr>`;
+  }
   if (pinnedData) {
-    const rec = pinnedData[normalizeName(feature.properties.name)];
+    const rec = pinnedData[normalizeName(wname)];
     if (rec) {
       for (const col of pinnedColumns) {
+        if (col === "district" && ew) continue;   // already in the page header
         if (rec[col] !== undefined && rec[col] !== "") {
           rows += `<tr><td>${escapeHtml(friendlyLabel(col))}</td><td>${escapeHtml(rec[col])}</td></tr>`;
         }
       }
     }
   }
-  dataEl.innerHTML = rows || `<tr><td colspan="2" style="color:var(--text-dim);">No data pinned for this ward.</td></tr>`;
+  const code = (ew && ew.code) || (tt && tt.code);
+  if (households && code && households[code]) rows += `<tr><td>Households (2021)</td><td>${fmtN(households[code])}</td></tr>`;
+  const rr = rucRec(wname);
+  if (rr) rows += `<tr><td>Rural-urban (2011)</td><td>${rucMixHtml(rr)}</td></tr>`;
+  dataEl.innerHTML = rows || `<tr><td colspan="2" style="color:var(--text-dim);">No data for this ward.</td></tr>`;
 
-  const pcEl = document.getElementById("ward-detail-postcodes");
-  const rec = postcodeData ? postcodeData[normalizeName(feature.properties.name)] : null;
-  const mapButton = `<button class="primary-button" style="margin-bottom:14px;" onclick="openPostcodeMap('${feature.properties.name.replace(/'/g, "\\'")}')">Open postcode map &#8599;</button>`;
-  if (rec && rec.length) {
-    pcEl.innerHTML =
-      mapButton +
-      `<p class="postcode-pending">${rec.length} postcode${rec.length === 1 ? "" : "s"}.</p>
-       <div class="postcode-grid">` +
-      rec.map((p) => `<div class="postcode-chip">${escapeHtml(p)}</div>`).join("") +
-      `</div>`;
+  const elEl = document.getElementById("ward-detail-elections");
+  if (ew) {
+    let h = `<p class="dim" style="margin:0 0 10px;">Councillors as elected: ${heldText(ew)}${ew.heldNote ? ` &middot; ${escapeHtml(ew.heldNote)}` : ""}</p>`;
+    h += electionSection("Last election", ew.last);
+    if (ew.prevNote) h += `<p class="dim" style="margin:14px 0 0;">${escapeHtml(ew.prevNote)}</p>`;
+    h += ew.prev.map((p) => electionSection("Previous election", p, p.ward)).join("");
+    if (!ew.prev.length && !ew.prevNote) h += `<p class="dim">No previous result on these boundaries.</p>`;
+    elEl.innerHTML = h;
   } else {
-    pcEl.innerHTML =
-      `<p class="postcode-pending">Postcode data hasn't been loaded into this map yet -
-       add <code>data/postcodes-by-ward.json</code> (ward name &rarr; array of postcodes)
-       and this fills in automatically. See the README.</p>`;
+    elEl.innerHTML = `<p class="dim">No election results loaded for this ward.</p>`;
   }
+  document.getElementById("ward-detail-elections-section").classList.remove("hidden");
+  document.getElementById("ward-detail-data-title").textContent = "Data";
 
   document.getElementById("ward-detail").classList.remove("hidden");
   window.scrollTo(0, 0);
 }
 window.openWardDetail = openWardDetail;
+
+/** Full page for a constituency: the popup's figures, the 2024 result and the notional 2019 result, and its wards. */
+function openConstituencyDetail(name) {
+  const c = E && E.constituencies[name];
+  const feature = { properties: { name } };
+  document.getElementById("ward-detail-name").textContent = name;
+  document.getElementById("ward-detail-parent").textContent = c ? `MP: ${c.mp} (${partyName(c.party)})` : "Constituency";
+  document.getElementById("ward-detail-data-title").textContent = "Constituency figures";
+  const tmp = document.createElement("div");
+  tmp.innerHTML = constituencyPopup(feature);
+  const table = tmp.querySelector(".popup-table");
+  [...table.querySelectorAll("td.elec-cell")].forEach((td) => td.parentElement.remove());   // results go in their own section
+  document.getElementById("ward-detail-data").innerHTML = table.innerHTML +
+    `<tr><td colspan="2" class="dim" style="white-space:normal">${escapeHtml(tmp.querySelector(".popup-note").textContent)}</td></tr>`;
+  let h = "";
+  if (c) {
+    h += electionSection("General election", c.last);
+    const p = c.prev;
+    const shares = p.shares.map((s) => `<tr><td>${partyDot(s.p)}${escapeHtml(partyName(s.p))}</td><td class="num">${s.v ? fmtN(s.v) : ""}</td><td class="num">${s.pc.toFixed(1)}%</td></tr>`).join("");
+    h += `<div class="elec-block"><h3>Previous election, ${escapeHtml(p.date)}${p.notional ? ' <span class="dim">(notional result on the 2024 boundaries)</span>' : ""}</h3>
+      <table class="elec-table"><tr><th>Party</th><th class="num">Votes</th><th class="num">%</th></tr>${shares}</table>
+      <div class="elec-foot">${p.turnout ? `Turnout ${p.turnout}%` : ""}${p.majority ? ` · majority ${fmtN(p.majority)}` : ""}${p.notional ? " · Estimated by Rallings &amp; Thrasher: the 2019 election was fought on the old boundaries, so there are no candidate figures for this seat." : ""}</div></div>`;
+  }
+  const wards = Object.values(E ? E.wards : {}).filter((w) => w.constituency === name).sort((a, b) => a.name.localeCompare(b.name));
+  if (wards.length) {
+    h += `<div class="elec-block"><h3>District wards (${wards.length})</h3><table class="elec-table"><tr><th>Ward</th><th>District</th><th>Councillors</th></tr>` +
+      wards.map((w) => `<tr><td>${escapeHtml(w.name)}</td><td>${escapeHtml(w.district)}</td><td>${heldText(w)}</td></tr>`).join("") + `</table></div>`;
+  }
+  document.getElementById("ward-detail-elections").innerHTML = h;
+  document.getElementById("ward-detail-elections-section").classList.remove("hidden");
+  document.getElementById("ward-detail").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+window.openConstituencyDetail = openConstituencyDetail;
 
 function closeWardDetail() {
   document.getElementById("ward-detail").classList.add("hidden");
@@ -467,8 +645,7 @@ async function init() {
     const available = await ensureModeLoaded("district");
     if (!available) throw new Error("district boundary data missing");
 
-    await loadTopTen();
-    await loadRuc();
+    await Promise.all([loadTopTen(), loadRuc(), loadElections()]);
     midLayer = buildMidLayer("district").addTo(map);
     wardLayer = buildWardLayer("district");
     // wards start off, so 168+ shapes aren't dumped on screen immediately
@@ -501,7 +678,16 @@ async function init() {
 }
 
 function wardStyle(feature) {
-  const base = { color: COLORS.ward, weight: WEIGHTS.ward };
+  const base = { color: COLORS.ward, weight: WEIGHTS.ward, dashArray: null };
+  if (politicsOn()) {
+    if (currentMode !== "district") return { ...base, color: "#2b2f36", weight: 0.8, fill: false };
+    const w = elecWard(feature.properties.name);
+    if (!w) return { ...base, fillColor: "#4a4f57", fillOpacity: 0.35, fill: true };
+    // seats split between parties: dashed white outline
+    return w.split
+      ? { color: "#ffffff", weight: 1.6, dashArray: "4 3", fillColor: partyColour(w.party), fillOpacity: 0.62, fill: true }
+      : { color: "#2b2f36", weight: 1, fillColor: partyColour(w.party), fillOpacity: 0.62, fill: true };
+  }
   if (rucOn()) {
     const rec = rucRec(feature.properties.name);
     if (!rec) return { ...base, fillColor: "#4a4f57", fillOpacity: 0.35, fill: true };
@@ -614,6 +800,7 @@ function refreshDataControls() {
 
   colourSelect.innerHTML =
     '<option value="">None (outline only)</option>' +
+    (E ? `<option value="${POLITICS}">Politics</option>` : "") +
     (topTenData ? Object.entries(TOP_OPTIONS).map(([k, o]) => `<option value="${k}">${o.label}</option>`).join("") : "") +
     (rucData ? Object.entries(RUC_OPTIONS).map(([k, o]) => `<option value="${k}">${o.label}</option>`).join("") : "") +
     numericColumns.map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(friendlyLabel(c))}</option>`).join("");
@@ -627,12 +814,19 @@ colourSelect.addEventListener("change", () => {
   activeColourColumn = colourSelect.value || null;
   document.getElementById("map").classList.toggle("topfive-on", topFiveOn());
   refreshWardLabels();
-  if ((topFiveOn() || rucOn()) && wardLayer && !map.hasLayer(wardLayer)) {   // the shading lives on the wards layer
+  const wardShading = topFiveOn() || rucOn() || (politicsOn() && currentMode === "district");
+  if (wardShading && wardLayer && !map.hasLayer(wardLayer)) {   // the shading lives on the wards layer
     wardLayer.addTo(map);
     document.getElementById("toggle-wards").checked = true;
     updateLayerOrder();
   }
+  if (politicsOn() && midLayer && !map.hasLayer(midLayer)) {     // council control / constituency colours live on the middle layer
+    midLayer.addTo(map);
+    document.getElementById("toggle-mid").checked = true;
+    updateLayerOrder();
+  }
   if (wardLayer) wardLayer.setStyle(wardStyle);
+  if (midLayer) midLayer.setStyle(midStyle);
   updateLegend();
 });
 
@@ -648,10 +842,8 @@ document.getElementById("clear-data").addEventListener("click", () => {
   legendEl.classList.add("hidden");
   fileDropLabel.textContent = "Choose CSV file\u2026";
   fileInput.value = "";
-  if (wardLayer) {
-    wardLayer.setStyle(wardStyle);
-    wardLayer.eachLayer((l) => l.setPopupContent(wardPopup(l.feature)));
-  }
+  if (wardLayer) wardLayer.setStyle(wardStyle);
+  if (midLayer) midLayer.setStyle(midStyle);
   showStatus("Pinned data cleared.", false);
 });
 
@@ -688,6 +880,29 @@ function hexToRgb(hex) {
 function updateLegend() {
   if (!activeColourColumn) {
     legendEl.classList.add("hidden");
+    return;
+  }
+  if (politicsOn()) {
+    const sw = (p, extra = "") => `<span style="flex:none;width:14px;height:14px;background:${partyColour(p)};border-radius:2px;display:inline-block;${extra}"></span>`;
+    const row = (p, label, extra) => `<div style="display:flex;align-items:center;gap:8px;margin:2px 0;">${sw(p, extra)}<span>${label}</span></div>`;
+    let body, note;
+    if (currentMode === "district") {
+      const counts = {};
+      Object.values(E.wards).forEach((w) => (counts[w.party] = (counts[w.party] || 0) + 1));
+      body = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([p, n]) => row(p, `${escapeHtml(partyName(p))} (${n} ward${n === 1 ? "" : "s"})`)).join("") +
+        row("NOC", "Split ward (seats shared between parties): dashed white outline", "background:transparent;border:2px dashed #fff;") +
+        `<div style="margin-top:8px;font-weight:600;">Council control (district outline)</div>` +
+        Object.entries(E.councils).map(([d, k]) => row(k.control, `${escapeHtml(d)}: ${k.control === "NOC" ? "no overall control, " + escapeHtml(k.leader) : escapeHtml(partyName(k.control)) + " majority"}`,
+          k.control === "NOC" ? "background:transparent;border:2px dashed #c9d1d9;" : "")).join("");
+      note = "Ward colour: the party holding most of the ward's seats as elected at the last full election (May 2023; Exeter: the 2023, 2024 and 2026 winners). Later by-elections and changes of party aren't in the ward colours but are in the council seat totals. Tap a ward for its last result, or a district outline for council seats.";
+    } else {
+      const counts = {};
+      Object.values(E.constituencies).forEach((c) => (counts[c.party] = (counts[c.party] || 0) + 1));
+      body = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([p, n]) => row(p, `${escapeHtml(partyName(p))} (${n} seat${n === 1 ? "" : "s"})`)).join("");
+      note = "Constituency colour: the party that won at the general election of 4 July 2024. Tap anywhere in a constituency for its result and figures.";
+    }
+    legendEl.innerHTML = `${body}<p style="margin:8px 0 0;color:var(--text-dim);font-size:12px;">${note}</p>`;
+    legendEl.classList.remove("hidden");
     return;
   }
   if (rucOn()) {

@@ -1,0 +1,181 @@
+# Ambrook|45.62
+Richard Andrew Daws|Ind|990|47.1|E
+Mary Elizabeth Colclough|Ind|848|40.3|E
+Margaret Irene Crompton|LD|638|30.3
+Tessa Carol Amies|LD|564|26.8
+Dennis Esmond Smith|Con|394|18.7
+Richard Michael Butterworth|Con|335|15.9
+# Ashburton & Buckfastleigh|44.43
+Frederick John Nutley|LD|1420|46.4|E
+Huw William Cox|LD|996|32.5|E
+Sarah Parker-Khan|Con|984|32.2|E
+Jack Anthony Major|LD|960|31.4
+Andrew Timothy Stokes|Lab|795|26.0
+Charles Ernest Dennis|Con|656|21.4
+Shane Nigel Fleming|Con|563|18.4
+Anne Mary Goulborn|Lab|530|17.3
+Philip Christopher Vogel|Ind|497|16.2
+Patrick John Howard|Lab|407|13.3
+Sylvia Lilian Phillips|Ind|351|11.5
+Zoé Lynn Ellis|Ind|177|5.8
+James Russell Birch Dennis|Ind|132|4.3
+# Bishopsteignton|40.55
+Andrew Kier MacGregor|LD|405|45.6|E
+Nicholas Timothy Golder|Con|376|42.3
+Llewellyn Williams|UKIP|107|12.0
+# Bovey|42.63
+Sally Angela Morgan|LD|1083|40.8|E
+Avril Joan Kerswell|Con|1070|40.3|E
+George John Gribble|Con|1033|38.9|E
+Eoghan Eamon Kelly|Ind|1018|38.4
+Martyn John Evans|Con|981|37.0
+Lisa Collette Robillard Webb|Lab|641|24.2
+Susan Mary Honnor|Lab|476|17.9
+Ian Hugh Wellens|Lab|404|15.2
+# Bradley|30.93
+Michael John Hocking|Ind|590|37.0|E
+Philip Andrew Bullivant|Con|574|36.0|E
+Richard David Jenks|LD|567|35.6
+Brian Christopher Hayes|LD|533|33.4
+Elizabeth Gorman Roberts|Con|376|23.6
+Jamie David Cook|Lab|145|9.1
+Mark Alastair Langabeer|Lab|117|7.3
+# Buckland & Milber|36.83
+Gordon Nicholas Hook|LD|1519|64.0|E
+Colin Neil Parker|LD|1162|49.0|E
+Christopher Richard Jenks|LD|1023|43.1|E
+Steven James Harvey|UKIP|416|17.5
+Christopher Julian Coyle-Moore|Con|362|15.3
+Stephen Jamie Witts|UKIP|353|14.9
+Paul Reginald Furneaux Winsor|Con|346|14.6
+Jane Haden|Lab|284|12.0
+Jonathan James Hodgson|Con|250|10.5
+James William Osben|Lab|230|9.7
+Eloise Rokirilov|Ind|202|8.5
+Rheanne Marie Osben|Lab|196|8.3
+# Bushell|32.09
+Jacqueline Ann Hook|LD|639|44.8|E
+Robert Henry Hayes|LD|444|31.1|E
+Paul Kirk Field|Ind|409|28.7
+Julie Ann Jones|Ind|319|22.4
+Ryan William Hall|Lab|245|17.2
+Anthony Reginald Ballinger|Con|219|15.4
+Simon Michael Walker|Con|183|12.8
+Pauline Angela Wynter|Lab|178|12.5
+# Chudleigh|42.93
+Richard Michael Keeling|LD|918|46.6|E
+Lorraine Margaret Evans|LD|698|35.4|E
+Georgina Sherwood|Con|658|33.4
+Emily Joyce Simcock|Grn|442|22.4
+Christopher James Yeo|Con|422|21.4
+Janette Ann Parker|Lab|233|11.8
+Joseph James Blurton|Lab|208|10.6
+# College|39.21
+Janet Bradford|Ind|743|46.9|E
+Liam David Parker|Ind|596|37.6|E
+Michael John Pilkington|LD|388|24.5
+Michael Douglas Joyce|LD|338|21.3
+David Howe|Ind|241|15.2
+Oliver Giddings|Lab|168|10.6
+John Trevor Thomas Phillips|Con|159|10.0
+Nicholas Paul Yabsley|Con|146|9.2
+Paul David Wynter|Lab|133|8.4
+John Steven Gynn|UKIP|102|6.4
+# Dawlish North East|35.27
+John Martin Charles Wrigley|LD|1406|59.8|E
+Linda Petherick|LD|1173|49.9|E
+Linda Jean Goodman-Bradbury|LD|982|41.8|E
+Lisa Eugene Mayne|Con|596|25.4
+Christina Gabriel Humphries|Grn|529|22.5
+Kevin Peter Parsons|Con|485|20.6
+Noel Nickless|Con|445|18.9
+Judith Ellen Wood|UKIP|409|17.4
+# Dawlish South West|36.86
+John Robert Petherick|LD|722|41.3|E
+Gary William Taylor|LD|702|40.2|E
+Rosalind Mary Prowse|Con|561|32.1
+Humphrey Hawkey Clemens|Con|518|29.7
+John Patrick Crawford Watson|Grn|405|23.2
+Douglas Reay Waring Wood|UKIP|277|15.9
+# Haytor|49.10
+Adrian Patch|Ind|376|37.5|E
+Robert Howard Steemson|Ind|321|32.0
+Jeremy Owen Christophers|Con|222|22.1
+Philip Cunningham|Lab|57|5.7
+Jessica Mai Hodge|Ind|27|2.7
+# Ipplepen|48.45
+John Peter Alistair Dewhirst|LD|786|80.0|E
+Lloyd Roland Fursdon|Con|197|20.0
+# Kenn Valley|40.15
+Charles John Sinclair Nuttall|LD|1258|49.1|E
+Nicholas Andrew Swain|LD|1194|46.6|E
+Alison Grace Foden|LD|1133|44.2|E
+Kevin Andrew Lake|Con|1058|41.3
+John Robert Goodey|Con|1006|39.3
+Adrian Lewis Wood|Con|890|34.7
+Sarah Elizabeth Krys|Lab|288|11.2
+Anthony Krys|Lab|232|9.1
+# Kenton & Starcross|46.65
+Alan Michael Connett|LD|848|77.7|E
+Megan Kathryn Debenham|Grn|149|13.7
+Lucille Mary Michelle Baker|Con|93|8.5
+# Kerswell-with-Combe|36.98
+Michael John Haines|Ind|917|52.2|E
+Sheila Mary Cook|LD|704|40.1|E
+Andrew Martin Thirkell Hartley|Con|570|32.5
+Cameron Charles Whitford|LD|533|30.4
+Fiona Grace Muddeman|Con|251|14.3
+# Kingsteignton East|28.67
+Beryl Austen|Ind|663|46.7|E
+Ronald Peart|Con|520|36.6|E
+Marie Chadwick|LD|491|34.6
+Jennifer Mary Osborne|Grn|314|22.1
+Robert James Perry|Con|252|17.8
+David John Corney-Walker|LD|183|12.9
+# Kingsteignton West|27.50
+William Herbert Percy Thorne|Con|445|36.4|E
+David William Rollason|LD|443|36.3|E
+Antony Darryl David Dempster|Ind|422|34.6
+Philip Chadwick|LD|367|30.1
+Jacqueline Mary Hooper|UKIP|265|21.7
+Sam Morfey|Con|203|16.6
+# Moretonhampstead|47.12
+Michael Harrold Jeffery|Con|537|48.1|E
+John Farrand-Rogers|LD|422|37.8
+Brian McAuley|Lab|157|14.1
+# Shaldon & Stokeinteignhead|50.17
+Christopher Stuart Clarance|Con|663|65.5|E
+Julie Mary Gregory|LD|284|28.1
+Colin John Baigent|Lab|65|6.4
+# Teign Valley|42.69
+Stephen John Kinross Purser|Con|841|49.9|E
+Terence Charles Mark Tume|Con|667|39.6|E
+Briony Falch|LD|589|34.9
+Mary Anne McFarlane|Grn|472|28.0
+Karen Tracy Chaplin|LD|361|21.4
+Michael Edwin Megee|Lab|249|14.8
+# Teignmouth Central|37.88
+Jacqueline Orme|Ind|634|39.1|E
+Alison Margaret Eden|LD|589|36.3|E
+Peter Malcolm Williams|LD|552|34.1
+Keith Ronald Underhill|Con|422|26.0
+Lillian Georgina Jean Chasteau|Lab|278|17.1
+David Anthony Gunn|UKIP|237|14.6
+Noah Steven Nelson Chasteau|Lab|236|14.6
+# Teignmouth East|43.07
+Robert Julius Phipps|Con|705|42.2|E
+Ella Sylvia Russell|Con|625|37.4|E
+Catriona Thomas|LD|467|27.9
+Brian Leslie Dennis Wright|LD|466|27.9
+Christopher Charles Whitlock|UKIP|246|14.7
+Marilyn Anne Warrener|Lab|227|13.6
+Donald Bruce Mattock|Lab|211|12.6
+# Teignmouth West|33.63
+David Nicholas Cox|LD|649|49.7|E
+Nina Susan Jeffries|LD|394|30.2|E
+David Andrew Matthews|Con|291|22.3
+Jacqueline Mary Jackson|Lab|270|20.7
+Jeffrey Lee Pocock|Lab|238|18.2
+Colin Joseph Authers|Ind|206|15.8
+June Green|Con|198|15.2
+Geraldine Williams|UKIP|174|13.3

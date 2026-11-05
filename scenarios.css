@@ -58,9 +58,13 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, "Segoe UI", Ro
 .sc-right-head { padding: 14px 16px 8px; border-bottom: 1px solid var(--border); }
 .sc-right-head h2 { margin: 0; font-size: 15px; color: var(--text-bright); }
 
-#sc-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-#sc-table th { position: sticky; top: 0; background: var(--bg-raised); text-align: left; padding: 6px 8px; color: var(--text-dim); font-weight: 600; font-size: 11px; text-transform: uppercase; }
-#sc-table td { padding: 5px 8px; border-bottom: 1px solid #22282f; }
+#sc-table { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: fixed; }
+/* fixed columns: the Homes column comes out of the Ward column, so the table stays the same width */
+#sc-table th.c-rank { width: 24px; } #sc-table th.c-score { width: 44px; } #sc-table th.c-change { width: 54px; }
+#sc-table th.c-homes { width: 52px; } #sc-table th.c-seats { width: 44px; }
+#sc-table td:nth-child(2) { overflow-wrap: break-word; }
+#sc-table th { position: sticky; top: 0; background: var(--bg-raised); text-align: left; padding: 6px 4px; color: var(--text-dim); font-weight: 600; font-size: 10.5px; text-transform: uppercase; }
+#sc-table td { padding: 5px 4px; border-bottom: 1px solid #22282f; }
 #sc-table .num { text-align: right; font-variant-numeric: tabular-nums; }
 #sc-table tbody tr { cursor: pointer; }
 #sc-table tbody tr:hover, #sc-table tbody tr.sel { background: #1f2a33; }

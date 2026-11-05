@@ -1,0 +1,85 @@
+# Alphington|47.5
+Lucy Findlay|Lab|976|31.7|E
+Jayden Palmer|Ref|856|27.8
+Greg Wotton|Grn|624|20.2
+Kayleigh Luscombe|Con|442|14.3
+JJ Pickin|LD|185|5.9
+# Duryard and St James|39.0
+Kevin Mitchell|LD|983|40.3|E
+Mithat Ishakoglu|Grn|751|30.8
+David Hodge|Ref|327|13.4
+Jonathan Hawke|Lab|261|10.7
+Sebastian Stanwell-Wise|Con|117|4.8
+# Exwick|41.8
+Paul Knott|Lab|1054|34.5|E
+Lee Gillett|Ref|931|30.5
+Kalkidan Legesse|Grn|709|23.2
+David Luscombe|Con|205|6.7
+Jamie Horner|LD|149|4.9
+# Heavitree|53.7|Two seats: the usual one plus a by-election held the same day
+Stella Smith|Grn|1889|53.1|E
+Helen Terry|Grn|1868|52.5|E
+Tina Beer|Ref|697|19.6
+Lisa Norris|Ref|657|18.5
+Rachel Sutton|Lab|523|14.7
+Dave Mutton|Lab|499|14.0
+Katherine New|Con|273|7.7
+Philip Brock|LD|243|6.8
+Nigel Williams|LD|201|5.6
+Colin Trudgeon|Con|173|4.9
+Jordan Newbery|Ind|94|2.6
+# Mincinglake and Whipton|43.5
+Anthony Payne|Ref|952|34.1|E
+Martin Ayres|Grn|812|29.1
+Steve Casemore|Lab|658|23.6
+David Thompson|Con|190|6.8
+Michael Payne|LD|178|6.4
+# Newtown and St Leonard's|46.1
+Bernadette Chelvanayagam|Grn|1430|47.3|E
+Matthew Vizard|Lab|839|27.7
+Jo Westlake|Ref|389|9.6
+Ruth Smith|Con|220|7.3
+Jonny Pye|LD|146|4.8
+# Pennsylvania|48.4
+Gill Baker|Grn|1325|38.6|E
+Will Aczel|LD|628|18.3
+Michael Battershill|Ref|585|17.0
+Paula Black|Lab|584|17.0
+Rob Hannaford|Con|303|8.8
+Myles Hatcher|TUSC|10|0.3
+# Pinhoe|42.3
+Duncan Wood|Lab|1160|33.8|E
+Ashton Messer|Ref|966|28.2
+Ian Baldwin|Con|538|15.7
+Mark Allen|Grn|518|15.1
+Christine Campion|LD|245|7.1
+# Priory|43.8
+Nicholas Williams|Ref|827|28.9|E
+Marina Asvachin|Lab|815|28.5
+Jack Vickers|Grn|660|23.0
+Rob Newby|Con|363|12.7
+Philip Thomas|LD|199|6.9
+# St David's|30.9
+Brian Rappert|Grn|1618|57.1|E
+Rose Lelliott|Lab|446|15.7
+Susan Clow|Ref|444|15.7
+Yasmine Al-Saket|Con|168|5.9
+Charles Curnock|LD|159|5.6
+# St Loyes|46.0
+Paul Richards|LD|817|25.6|E
+Christopher Owen|Ref|812|25.5
+Joan Collacott|Con|808|25.3
+Chloe Whipple|Grn|410|12.9
+Laila Jhaveri|Lab|342|10.7
+# St Thomas|49.8
+Jack Reed|Grn|1354|37.0|E
+Vanessa Newcombe|LD|865|23.7
+Robert-James Cockburn|Ref|711|19.5
+Laura Wright|Lab|571|15.6
+Caroline Stone|Con|154|4.2
+# Topsham|47.3
+James Cookson|Lab|1189|30.1|E
+Cynthia Thompson|Con|956|24.2
+Sue Davies|Ref|860|21.8
+Ann Keen|Grn|699|17.7
+Tim Gainsford|LD|247|6.2
