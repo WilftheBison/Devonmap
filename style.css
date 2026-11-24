@@ -509,21 +509,52 @@ html.ward-light {
 }
 html.ward-light .elec-table td { border-bottom-color: #e5e7eb; }
 html.ward-light .elec-table .won-mark { color: #15803d; }
-html.ward-light .ward-detail-top, html.ward-light .ward-detail-parent .text-button,
-html.ward-light #ward-detail-map .leaflet-control-zoom { visibility: hidden; }
-html.ward-light .ward-detail-top { height: 0; margin: 0; overflow: hidden; }
+html.ward-light .ward-detail-parent .text-button, html.ward-light #ward-detail-map .leaflet-control-zoom { display: none; }
+
+/* One A4 landscape sheet, laid out like the Voter Tribes page: data on the left, the map in the
+   middle, elections on the right. The sheet is 1062 x 733 CSS px (A4 landscape less 8 mm margins),
+   so the browser prints it 1:1; app.js shrinks the text until both side columns fit. */
+html.ward-printing #ward-detail { background: #fff; }
+html.ward-printing .ward-detail-inner {
+  --wdfs: 12px;
+  width: 1062px; height: 733px; max-width: none; margin: 0; padding: 0; overflow: hidden;
+  display: grid; column-gap: 16px;
+  grid-template-columns: 255px minmax(0, 1fr) 320px;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas: "name name name" "parent parent parent" "data map elec" "foot foot foot";
+  font-size: var(--wdfs);
+}
+html.ward-printing .ward-detail-top { display: none; }
+html.ward-printing #ward-detail-name { grid-area: name; font-size: 24px; margin: 0 0 2px; }
+html.ward-printing .ward-detail-parent { grid-area: parent; margin: 0 0 10px; font-size: 13px; }
+html.ward-printing #ward-detail-data-section { grid-area: data; }
+html.ward-printing #ward-detail-map-section { grid-area: map; display: flex; flex-direction: column; }
+html.ward-printing #ward-detail-elections-section { grid-area: elec; }
+html.ward-printing #ward-detail-print-date { grid-area: foot; display: block; margin: 6px 0 0; text-align: right; }
+html.ward-printing .ward-detail-section { margin: 0; min-height: 0; overflow: hidden; }
+html.ward-printing #ward-detail-map { flex: 1; height: auto; min-height: 0; width: 100%; }
+html.ward-printing .wd-map-note { font-size: 10px; }
+html.ward-printing .ward-detail-section h2 { font-size: 0.85em; margin: 0 0 0.5em; padding-bottom: 0.35em; }
+html.ward-printing #ward-detail-data { font-size: 1em; }
+html.ward-printing #ward-detail-data td { padding: 0.32em 0.6em 0.32em 0; vertical-align: top; }
+html.ward-printing #ward-detail-data td:first-child { width: 42%; }
+html.ward-printing #ward-detail .elec-table { font-size: 0.95em; }
+html.ward-printing .elec-table th { font-size: 0.8em; }
+html.ward-printing .elec-table td { padding: 0.2em 0.4em 0.2em 0; }
+html.ward-printing .elec-table .cand-party { font-size: 0.8em; margin-left: 1.2em; }
+html.ward-printing .elec-foot { font-size: 0.8em; }
+html.ward-printing .elec-block { margin-bottom: 1em; }
+html.ward-printing .elec-block h3 { font-size: 1.05em; margin: 0 0 0.3em; }
+html.ward-printing #ward-detail-elections > p { font-size: 0.9em; margin: 0 0 0.6em !important; }
+html.ward-printing .party-dot { width: 0.75em; height: 0.75em; margin-right: 0.4em; }
 
 @media print {
-  @page { size: A4 portrait; margin: 12mm; }
+  @page { size: A4 landscape; margin: 8mm; }
   html.ward-printing, html.ward-printing body { height: auto; background: #fff; }
   html.ward-printing #app { display: block; height: auto; width: auto; overflow: visible; }
   html.ward-printing #sidebar, html.ward-printing #map { display: none !important; }
-  html.ward-printing #ward-detail { position: static; overflow: visible; background: #fff; }
-  html.ward-printing .ward-detail-inner { max-width: none; width: 672px; margin: 0 auto; padding: 0; }
-  html.ward-printing .ward-detail-top { display: none; }
-  html.ward-printing #ward-detail-map { break-inside: avoid; }
-  html.ward-printing .elec-block, html.ward-printing #ward-detail-data tr { break-inside: avoid; }
-  html.ward-printing .ward-detail-section h2 { break-after: avoid; }
+  html.ward-printing #ward-detail { position: static; overflow: visible; }
+  html.ward-printing .ward-detail-inner { break-inside: avoid; }
 }
 /* overlay shown once the PDF is ready (iPad) */
 #wd-pdf-ready { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 5000; }

@@ -613,8 +613,9 @@ function fitWardMap() {
 }
 
 /* ---------- A4 print of the full ward page ----------
-   Computers use the browser's print. On the iPad the home-screen app can't print, so the page
-   is made into an A4 PDF and handed to the share sheet (Print, or Save to Files). */
+   One A4 landscape sheet: data, map, elections side by side. Computers use the browser's print.
+   On the iPad the home-screen app can't print, so the sheet is made into a PDF and handed to the
+   share sheet (Print, or Save to Files). */
 function wdIsIOS() {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
@@ -629,26 +630,46 @@ function wdSetPrintDate() {
   document.getElementById("ward-detail-print-date").textContent =
     `Printed ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} · Devon map, wilfthebison.github.io/Devonmap`;
 }
-let wdPrintStarted = 0;
+// Lay the page out as one A4 landscape sheet: shrink the text until the data and election
+// columns fit, then fit the map to its middle column.
+function wdLayoutSheet() {
+  const inner = document.querySelector(".ward-detail-inner");
+  const cols = [document.getElementById("ward-detail-data-section"), document.getElementById("ward-detail-elections-section")];
+  const fits = () => cols.every((c) => c.scrollHeight <= c.clientHeight + 1);
+  const prev = [...document.querySelectorAll("#ward-detail-elections .elec-block")].slice(1);
+  prev.forEach((n) => { n.style.display = ""; });
+  let fs = 12.5;
+  inner.style.setProperty("--wdfs", fs + "px");
+  while (!fits() && fs > 7) { fs -= 0.25; inner.style.setProperty("--wdfs", fs + "px"); }
+  if (!fits() && prev.length) {           // very long results: drop the previous election rather than cut it off
+    prev.forEach((n) => { n.style.display = "none"; });
+    fs = 12.5; inner.style.setProperty("--wdfs", fs + "px");
+    while (!fits() && fs > 7) { fs -= 0.25; inner.style.setProperty("--wdfs", fs + "px"); }
+  }
+  fitWardMap();
+}
+function wdStartSheet() {
+  wdSetPrintDate();
+  const root = document.documentElement;
+  root.classList.add("ward-printing", "ward-light");
+  document.getElementById("ward-detail").scrollTop = 0;
+  wdLayoutSheet();
+}
 function wdEndPrint() {
-  document.documentElement.classList.remove("ward-printing", "ward-light");
+  const root = document.documentElement;
+  root.classList.remove("ward-printing", "ward-light");
+  const inner = document.querySelector(".ward-detail-inner");
+  inner.style.removeProperty("--wdfs");
+  document.querySelectorAll("#ward-detail-elections .elec-block").forEach((n) => { n.style.display = ""; });
   fitWardMap();
 }
 function wardPrint() {
   if (wdIsIOS()) { wardPdf(); return; }
-  wdSetPrintDate();
-  document.documentElement.classList.add("ward-printing", "ward-light");
-  document.getElementById("ward-detail").scrollTop = 0;
-  // the printed map is 672px wide; size and fit it to that before printing
-  const m = document.getElementById("ward-detail-map");
-  m.style.width = "672px"; fitWardMap();
-  wdPrintStarted = Date.now();
-  setTimeout(() => { window.print(); }, 400);   // give the map tiles a moment to load
+  wdStartSheet();
+  setTimeout(() => { window.print(); }, 700);   // give the map tiles a moment to load
 }
 window.addEventListener("afterprint", () => {
-  if (!document.documentElement.classList.contains("ward-printing")) return;
-  document.getElementById("ward-detail-map").style.width = "";
-  wdEndPrint();
+  if (document.documentElement.classList.contains("ward-printing")) wdEndPrint();
 });
 function wdMapComposite(scale, origin) {
   const el = document.getElementById("ward-detail-map"), r = el.getBoundingClientRect();
@@ -685,21 +706,17 @@ function wdShowPdfReady(file, url, errMsg) {
 async function wardPdf() {
   const btn = document.getElementById("ward-detail-print");
   btn.disabled = true; btn.textContent = "Making PDF…";
-  const root = document.documentElement;
   try {
     await Promise.all([wdLoadScript("vendor/html2canvas.min.js"), wdLoadScript("vendor/jspdf.umd.min.js")]);
-    wdSetPrintDate();
-    root.classList.add("ward-printing", "ward-light");
-    await new Promise((r) => setTimeout(r, 150));
+    wdStartSheet();
+    await new Promise((r) => setTimeout(r, 900));   // map tiles
     const SC = 2, inner = document.querySelector(".ward-detail-inner");
     const o = inner.getBoundingClientRect();
-    const W = Math.ceil(o.width), H = Math.ceil(inner.scrollHeight);
-    // places a page may end without cutting through a line of a table or a heading
-    const breaks = [...inner.querySelectorAll("tr, .elec-block, .ward-detail-section, h3, p, #ward-detail-map-section")]
-      .map((n) => Math.round(n.getBoundingClientRect().bottom - o.top)).filter((v) => v > 0).sort((a, b) => a - b);
+    const W = Math.round(o.width), H = Math.round(o.height);
     const mapImg = wdMapComposite(SC, o);
     const shot = await window.html2canvas(inner, {
-      useCORS: true, backgroundColor: "#ffffff", scale: SC, width: W, height: H, windowWidth: window.innerWidth, logging: false,
+      useCORS: true, backgroundColor: "#ffffff", scale: SC, width: W, height: H,
+      windowWidth: Math.max(window.innerWidth, W + 40), logging: false,
       ignoreElements: (el) => el.classList && el.classList.contains("leaflet-map-pane"),
       onclone: (doc) => {
         const d = doc.getElementById("ward-detail"); d.style.position = "static"; d.style.overflow = "visible";
@@ -712,22 +729,11 @@ async function wardPdf() {
     g.drawImage(mapImg.canvas, mapImg.x * SC, mapImg.y * SC, mapImg.w * SC, mapImg.h * SC);
     wdEndPrint();
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-    const pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight(), M = 12;
-    const s = (pw - 2 * M) / W;                // mm per CSS px
-    const pageH = (ph - 2 * M) / s;            // CSS px per page
-    let top = 0, first = true;
-    while (top < H - 2) {
-      let end = Math.min(top + pageH, H);
-      if (end < H) { const ok = breaks.filter((b) => b > top + pageH * 0.5 && b <= top + pageH); if (ok.length) end = ok[ok.length - 1] + 4; }
-      const c = document.createElement("canvas");
-      c.width = shot.width; c.height = Math.round((end - top) * SC);
-      const cg = c.getContext("2d"); cg.fillStyle = "#fff"; cg.fillRect(0, 0, c.width, c.height);
-      cg.drawImage(shot, 0, Math.round(top * SC), shot.width, c.height, 0, 0, c.width, c.height);
-      if (!first) pdf.addPage();
-      pdf.addImage(c.toDataURL("image/jpeg", 0.92), "JPEG", M, M, W * s, (end - top) * s);
-      first = false; top = end;
-    }
+    const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+    const pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight(), M = 8;
+    const s = Math.min((pw - 2 * M) / W, (ph - 2 * M) / H);
+    const w = W * s, h = H * s;
+    pdf.addImage(shot.toDataURL("image/jpeg", 0.92), "JPEG", (pw - w) / 2, (ph - h) / 2, w, h);
     const name = document.getElementById("ward-detail-name").textContent.replace(/[\\/:*?"<>|]/g, "-");
     const blob = pdf.output("blob");
     const file = new File([blob], `${name} ward A4.pdf`, { type: "application/pdf" });
