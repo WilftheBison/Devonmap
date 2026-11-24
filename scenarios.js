@@ -212,8 +212,10 @@ function update(fit) {
     if (!r) {
       layer.setStyle({ fillColor: "#888", fillOpacity: 0.08, color: "#666", weight: 0.6, opacity: 0.5 });
     } else {
-      layer.setStyle({ fillColor: rampColour((r.score - lo) / span), fillOpacity: 0.72, color: isTarget ? "#111" : "#444",
-        weight: isTarget ? 3 : (k === selected ? 3 : 0.8), opacity: 1, dashArray: k === selected ? "4 3" : null });
+      // every ward the same thin outline (targets are marked with a star in the ranking); the selected ward in blue
+      layer.setStyle({ fillColor: rampColour((r.score - lo) / span), fillOpacity: 0.72, color: k === selected ? "#1d4ed8" : "#444",
+        weight: k === selected ? 4 : 0.8, opacity: 1, dashArray: null });
+      if (k === selected) layer.bringToFront();
     }
     const hh = hhOf(w);
     layer.setTooltipContent((r ? `<b>${esc(layer.feature.properties.name)}</b><br>#${r.rank} &middot; score ${r.score.toFixed(2)}` : `<b>${esc(layer.feature.properties.name)}</b>`) +
