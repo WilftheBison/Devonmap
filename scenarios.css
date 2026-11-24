@@ -167,3 +167,9 @@ html.print-light #sc-print-date { display: block; position: absolute; right: 16p
 #sc-pdf-ready .box button, #sc-pdf-ready .box a { display: block; width: 100%; margin-top: 8px; padding: 10px; border-radius: 8px; font-size: 15px; cursor: pointer; text-decoration: none; box-sizing: border-box; }
 #sc-pdf-ready .go { background: var(--accent); color: #fff; border: none; }
 #sc-pdf-ready .cancel { background: none; color: var(--text-dim); border: 1px solid var(--border); }
+
+/* label beside the selected ward, with an arrow into the ward (scenarios.js placeCallout) */
+.sc-callout { background: #fff; color: #374151; border: 1.5px solid #111; border-radius: 5px; padding: 6px 9px;
+  font-size: 11.5px; line-height: 1.35; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.35); width: auto !important; height: auto !important; }
+.sc-callout b, .sc-callout span { display: block; }
+.sc-callout b { color: #111; font-size: 13px; }

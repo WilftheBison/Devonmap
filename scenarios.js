@@ -30,6 +30,71 @@ const layersByWard = {};
 const map = L.map("sc-map", { zoomControl: true, preferCanvas: true }).setView([50.75, -3.8], 9);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, crossOrigin: true, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
 
+/* ---------- callout for the selected ward ----------
+   A label beside the selected ward (not on top of it), with an arrow pointing into the ward.
+   It goes on whichever side of the ward has most room in the map's view, and is re-placed
+   whenever the map is zoomed or moved. Hover labels are only used on devices with a mouse:
+   on the iPad a tap would otherwise drop a label right over the ward. */
+const HOVER = window.matchMedia("(hover: hover)").matches;
+map.createPane("callout");
+map.getPane("callout").style.zIndex = 650;
+map.getPane("callout").style.pointerEvents = "none";
+let callout = null, calloutLines = [], calloutRank = null;
+const calloutGfx = L.layerGroup().addTo(map);
+function calloutText(k) {
+  const w = T.wards[k], r = calloutRank, hh = hhOf(w);
+  const lines = [{ t: w.name + (w.target ? " \u2605" : ""), b: true }];
+  if (r) lines.push({ t: `#${r.rank} in ${areaLabel()} \u00b7 score ${r.score.toFixed(2)}` });
+  else lines.push({ t: "Outside the selected area" });
+  lines.push({ t: `${w.district}${hh ? ` \u00b7 ${fmtHH(hh)} households` : ""}` });
+  return lines;
+}
+function placeCallout() {
+  calloutGfx.clearLayers();
+  const layer = selected && layersByWard[selected];
+  if (!layer || !T.wards[selected]) { if (callout) { map.removeLayer(callout); callout = null; } return; }
+  calloutLines = calloutText(selected);
+  const html = calloutLines.map((l) => l.b ? `<b>${esc(l.t)}</b>` : `<span>${esc(l.t)}</span>`).join("");
+  const icon = L.divIcon({ className: "sc-callout", html, iconSize: null, iconAnchor: [0, 0] });
+  if (!callout) callout = L.marker(map.getCenter(), { pane: "callout", interactive: false, keyboard: false, icon }).addTo(map);
+  else callout.setIcon(icon);
+  const el = callout.getElement(), cw = el.offsetWidth, ch = el.offsetHeight;
+  const size = map.getSize(), M = 10, G = 44;
+  const bb = layer.getBounds();
+  const p1 = map.latLngToContainerPoint(bb.getNorthWest()), p2 = map.latLngToContainerPoint(bb.getSouthEast());
+  const vis = { l: Math.max(p1.x, 0), t: Math.max(p1.y, 0), r: Math.min(p2.x, size.x), b: Math.min(p2.y, size.y) };
+  if (vis.l >= vis.r || vis.t >= vis.b) { callout.setLatLng(map.containerPointToLatLng([-9999, -9999])); return; } // ward out of view
+  let a = map.latLngToContainerPoint(layer.getCenter());
+  if (a.x < vis.l || a.x > vis.r || a.y < vis.t || a.y > vis.b) a = L.point((vis.l + vis.r) / 2, (vis.t + vis.b) / 2);
+  const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+  const cy = clamp(a.y - ch / 2, M, size.y - ch - M), cx = clamp(a.x - cw / 2, M, size.x - cw - M);
+  const cands = [
+    { x: vis.r + G, y: cy, room: size.x - vis.r - G - cw - M },        // right of the ward
+    { x: vis.l - G - cw, y: cy, room: vis.l - G - cw - M },            // left
+    { x: cx, y: vis.t - G - ch, room: vis.t - G - ch - M },            // above
+    { x: cx, y: vis.b + G, room: size.y - vis.b - G - ch - M },        // below
+  ].filter((c) => c.room >= 0).sort((p, q) => q.room - p.room);
+  let pos = cands[0];
+  if (!pos) {   // the ward fills the view: use the corner furthest from the ward's centre
+    pos = [[M, M], [size.x - cw - M, M], [M, size.y - ch - M], [size.x - cw - M, size.y - ch - M]]
+      .map(([x, y]) => ({ x, y, d: Math.hypot(x + cw / 2 - a.x, y + ch / 2 - a.y) })).sort((p, q) => q.d - p.d)[0];
+  }
+  callout.setLatLng(map.containerPointToLatLng([pos.x, pos.y]));
+  // arrow from the edge of the label to the ward's centre
+  const p = L.point(clamp(a.x, pos.x, pos.x + cw), clamp(a.y, pos.y, pos.y + ch));
+  const len = Math.hypot(a.x - p.x, a.y - p.y);
+  if (len < 16) return;
+  const dx = (a.x - p.x) / len, dy = (a.y - p.y) / len, H = 12, Wd = 6;
+  const ll = (x, y) => map.containerPointToLatLng([x, y]);
+  const shaftEnd = ll(a.x - dx * (H - 2), a.y - dy * (H - 2));
+  const opts = { interactive: false, pane: "callout" };
+  L.polyline([ll(p.x, p.y), shaftEnd], { ...opts, color: "#fff", weight: 6, opacity: 0.9 }).addTo(calloutGfx);
+  L.polyline([ll(p.x, p.y), shaftEnd], { ...opts, color: "#111", weight: 2.5 }).addTo(calloutGfx);
+  L.polygon([ll(a.x, a.y), ll(a.x - dx * H - dy * Wd, a.y - dy * H + dx * Wd), ll(a.x - dx * H + dy * Wd, a.y - dy * H - dx * Wd)],
+    { ...opts, color: "#fff", weight: 1.5, fillColor: "#111", fillOpacity: 1 }).addTo(calloutGfx);
+}
+map.on("zoomend moveend resize", () => placeCallout());
+
 /* ---------- scoring ---------- */
 function wardScore(w, a, turnout) {
   let num = 0, den = 0;
@@ -158,6 +223,8 @@ function update(fit) {
   renderTable(list);
   renderLegend(lo, hi);
   if (selected) renderDetail(selected, byKey[selected]);
+  calloutRank = selected ? byKey[selected] || null : null;
+  placeCallout();
   document.getElementById("sc-turnout").checked = useTurnout;
   writeHash();
   if (fit) fitArea();
@@ -210,6 +277,7 @@ function renderLegend(lo, hi) {
 
 function selectWard(k, zoom) {
   selected = k;
+  if (layersByWard[k]) layersByWard[k].closeTooltip();
   update();
   if (zoom && layersByWard[k]) map.fitBounds(layersByWard[k].getBounds(), { maxZoom: 12, padding: [30, 30] });
   // show the ward's detail panel (just below the "Ranking" heading), not its table row
@@ -311,6 +379,29 @@ function mapComposite(scale) {
     if (b.right < r.left || b.left > r.right || b.bottom < r.top || b.top > r.bottom) return;
     try { g.drawImage(n, b.left - r.left, b.top - r.top, b.width, b.height); } catch (e) { /* tile not readable: skip */ }
   });
+  el.querySelectorAll(".leaflet-callout-pane canvas").forEach((n) => {
+    const b = n.getBoundingClientRect();
+    try { g.drawImage(n, b.left - r.left, b.top - r.top, b.width, b.height); } catch (e) { /* skip */ }
+  });
+  const ce = callout && callout.getElement();
+  if (ce) {   // the callout label is HTML, which the snapshot skips: draw it by hand
+    const b = ce.getBoundingClientRect(), x = b.left - r.left, y = b.top - r.top;
+    if (x > -b.width && y > -b.height && x < r.width && y < r.height) {
+      const cs = getComputedStyle(ce), fam = cs.fontFamily;
+      g.fillStyle = "#ffffff"; g.strokeStyle = "#111111"; g.lineWidth = 1.5;
+      g.beginPath(); if (g.roundRect) g.roundRect(x, y, b.width, b.height, 5); else g.rect(x, y, b.width, b.height); g.fill(); g.stroke();
+      g.fillStyle = "#111111"; g.textBaseline = "top";
+      const pl = parseFloat(cs.paddingLeft), pt = parseFloat(cs.paddingTop);
+      let ty = y + pt;
+      [...ce.children].forEach((line, i) => {
+        const lcs = getComputedStyle(line);
+        g.font = `${lcs.fontWeight} ${lcs.fontSize} ${fam}`;
+        g.fillStyle = i === 0 ? "#111111" : "#374151";
+        g.fillText(line.textContent, x + pl, ty + 1);
+        ty += line.getBoundingClientRect().height;
+      });
+    }
+  }
   return { canvas: c, rect: r };
 }
 async function pdfPrint() {
@@ -412,7 +503,7 @@ function setupPrint() {
     onEachFeature: (f, layer) => {
       const k = norm(f.properties.name);
       layersByWard[k] = layer;
-      layer.bindTooltip(esc(f.properties.name), { sticky: true });
+      if (HOVER) layer.bindTooltip(esc(f.properties.name), { sticky: true, direction: "top", offset: [0, -14] });
       layer.on("click", () => selectWard(k, false));
     },
   }).addTo(map);
