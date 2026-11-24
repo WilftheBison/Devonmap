@@ -493,68 +493,71 @@ html, body {
 .dim { color: var(--text-dim); font-weight: 400; }
 .leaflet-popup-content { margin: 12px 14px; }
 
-/* ---------- full ward page: map of the ward, and A4 print ---------- */
-.ward-detail-top { display: flex; justify-content: space-between; align-items: baseline; }
+/* ---------- full ward page ----------
+   A ward's page is one A4 landscape sheet (1062 x 733 CSS px: A4 less 8 mm margins), the same on
+   screen and on paper: name and figures across the top, last election on the left, the ward map
+   in the middle, previous election on the right. On screen the sheet is scaled to fit the window;
+   printing shows it at 1:1. app.js shrinks the text until both election columns fit.
+   Constituency pages keep the ordinary scrolling layout. */
+.ward-detail-top { display: flex; justify-content: space-between; align-items: baseline; max-width: 720px; margin: 0 auto; padding: 24px 24px 0; }
+.ward-detail-top .back-button { margin-bottom: 0; }
 .wd-print-btn { font-size: 13px; }
-#ward-detail-map { width: 100%; height: 560px; border: 1px solid var(--border); border-radius: 6px; background: #ddd; }
-#ward-detail-map-section { margin-bottom: 24px; }
-.wd-map-note { font-size: 11px; color: var(--text-dim); margin: 6px 0 0; }
-#ward-detail-print-date { display: none; font-size: 11px; color: var(--text-dim); margin-top: 24px; }
-html.ward-printing #ward-detail-print-date { display: block; }
+#ward-detail:not(.sheet) .wd-sheet-only, #ward-detail:not(.sheet) .wd-print-btn { display: none; }
+#ward-detail.sheet .wd-const-only { display: none; }
+#ward-detail:not(.sheet) .ward-detail-inner { padding-top: 20px; }
 
-/* light colours, for the browser's print and for the iPad PDF snapshot */
-html.ward-light {
+#ward-detail.sheet { background: #3b4048; overflow: hidden; }
+#ward-detail.sheet .ward-detail-top { max-width: none; padding: 10px 18px; background: var(--bg-sidebar); border-bottom: 1px solid var(--border); }
+#ward-detail.sheet .ward-detail-inner {
   --bg-sidebar: #ffffff; --bg-sidebar-raised: #f3f4f6; --border: #d1d5db;
   --text: #1f2937; --text-dim: #4b5563; --text-bright: #111827; --accent: #0f766e;
-}
-html.ward-light .elec-table td { border-bottom-color: #e5e7eb; }
-html.ward-light .elec-table .won-mark { color: #15803d; }
-html.ward-light .ward-detail-parent .text-button, html.ward-light #ward-detail-map .leaflet-control-zoom { display: none; }
-
-/* One A4 landscape sheet, laid out like the Voter Tribes page: data on the left, the map in the
-   middle, elections on the right. The sheet is 1062 x 733 CSS px (A4 landscape less 8 mm margins),
-   so the browser prints it 1:1; app.js shrinks the text until both side columns fit. */
-html.ward-printing #ward-detail { background: #fff; }
-html.ward-printing .ward-detail-inner {
   --wdfs: 12px;
+  position: absolute; left: var(--wdleft, 0px); top: var(--wdtop, 50px);
+  transform: scale(var(--wdscale, 1)); transform-origin: 0 0;
   width: 1062px; height: 733px; max-width: none; margin: 0; padding: 0; overflow: hidden;
+  background: #fff; color: var(--text); box-shadow: 0 0 0 14px #fff, 0 6px 30px rgba(0,0,0,0.45);
   display: grid; column-gap: 16px;
-  grid-template-columns: 255px minmax(0, 1fr) 320px;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
-  grid-template-areas: "name name name" "parent parent parent" "data map elec" "foot foot foot";
+  grid-template-columns: 300px minmax(0, 1fr) 300px;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  grid-template-areas: "name name name" "parent parent parent" "summary summary summary" "last map prev" "foot foot foot";
   font-size: var(--wdfs);
 }
-html.ward-printing .ward-detail-top { display: none; }
-html.ward-printing #ward-detail-name { grid-area: name; font-size: 24px; margin: 0 0 2px; }
-html.ward-printing .ward-detail-parent { grid-area: parent; margin: 0 0 10px; font-size: 13px; }
-html.ward-printing #ward-detail-data-section { grid-area: data; }
-html.ward-printing #ward-detail-map-section { grid-area: map; display: flex; flex-direction: column; }
-html.ward-printing #ward-detail-elections-section { grid-area: elec; }
-html.ward-printing #ward-detail-print-date { grid-area: foot; display: block; margin: 6px 0 0; text-align: right; }
-html.ward-printing .ward-detail-section { margin: 0; min-height: 0; overflow: hidden; }
-html.ward-printing #ward-detail-map { flex: 1; height: auto; min-height: 0; width: 100%; }
-html.ward-printing .wd-map-note { font-size: 10px; }
-html.ward-printing .ward-detail-section h2 { font-size: 0.85em; margin: 0 0 0.5em; padding-bottom: 0.35em; }
-html.ward-printing #ward-detail-data { font-size: 1em; }
-html.ward-printing #ward-detail-data td { padding: 0.32em 0.6em 0.32em 0; vertical-align: top; }
-html.ward-printing #ward-detail-data td:first-child { width: 42%; }
-html.ward-printing #ward-detail .elec-table { font-size: 0.95em; }
-html.ward-printing .elec-table th { font-size: 0.8em; }
-html.ward-printing .elec-table td { padding: 0.2em 0.4em 0.2em 0; }
-html.ward-printing .elec-table .cand-party { font-size: 0.8em; margin-left: 1.2em; }
-html.ward-printing .elec-foot { font-size: 0.8em; }
-html.ward-printing .elec-block { margin-bottom: 1em; }
-html.ward-printing .elec-block h3 { font-size: 1.05em; margin: 0 0 0.3em; }
-html.ward-printing #ward-detail-elections > p { font-size: 0.9em; margin: 0 0 0.6em !important; }
-html.ward-printing .party-dot { width: 0.75em; height: 0.75em; margin-right: 0.4em; }
+#ward-detail.sheet #ward-detail-name { grid-area: name; font-size: 24px; margin: 0 0 2px; color: var(--text-bright); }
+#ward-detail.sheet .ward-detail-parent { grid-area: parent; margin: 0 0 4px; font-size: 13px; }
+#ward-detail.sheet #ward-detail-summary { grid-area: summary; margin: 0 0 10px; font-size: 11.5px; line-height: 1.45; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+#ward-detail.sheet #wd-last { grid-area: last; }
+#ward-detail.sheet #ward-detail-map-section { grid-area: map; display: flex; flex-direction: column; }
+#ward-detail.sheet #wd-prev { grid-area: prev; }
+#ward-detail.sheet #ward-detail-print-date { grid-area: foot; margin: 6px 0 0; text-align: right; font-size: 10px; color: var(--text-dim); }
+#ward-detail.sheet .ward-detail-section { margin: 0; min-height: 0; overflow: hidden; }
+#ward-detail-map { width: 100%; border: 1px solid var(--border); border-radius: 4px; background: #ddd; flex: 1; min-height: 0; }
+.wd-map-note { font-size: 10px; color: var(--text-dim); margin: 4px 0 0; }
+#ward-detail.sheet .ward-detail-section h2 { font-size: 0.9em; margin: 0 0 0.5em; padding-bottom: 0.35em; color: var(--text-dim); }
+#ward-detail.sheet .wd-held { font-size: 0.9em; color: var(--text-dim); margin: 0 0 0.6em; }
+#ward-detail.sheet .elec-table { font-size: 0.95em; }
+#ward-detail.sheet .elec-table th { font-size: 0.8em; }
+#ward-detail.sheet .elec-table td { padding: 0.2em 0.4em 0.2em 0; border-bottom-color: #e5e7eb; }
+#ward-detail.sheet .elec-table .won-mark { color: #15803d; }
+#ward-detail.sheet .elec-table .cand-party { font-size: 0.8em; margin-left: 1.2em; }
+#ward-detail.sheet .elec-foot { font-size: 0.8em; }
+#ward-detail.sheet .elec-block { margin-bottom: 1em; }
+#ward-detail.sheet .elec-block h3 { font-size: 1.05em; margin: 0 0 0.3em; }
+#ward-detail.sheet .wd-note { font-size: 0.85em; margin: 0 0 0.6em; }
+#ward-detail.sheet .party-dot { width: 0.75em; height: 0.75em; margin-right: 0.4em; }
+
+/* while printing or making the iPad PDF: the sheet at full size, without screen-only controls */
+html.ward-printing #ward-detail.sheet .ward-detail-inner { transform: none; left: 0; top: 0; box-shadow: none; }
+html.ward-printing #ward-detail.sheet .ward-detail-top,
+html.ward-printing #ward-detail .ward-detail-parent .text-button,
+html.ward-printing #ward-detail-map .leaflet-control-zoom { display: none; }
 
 @media print {
   @page { size: A4 landscape; margin: 8mm; }
   html.ward-printing, html.ward-printing body { height: auto; background: #fff; }
   html.ward-printing #app { display: block; height: auto; width: auto; overflow: visible; }
   html.ward-printing #sidebar, html.ward-printing #map { display: none !important; }
-  html.ward-printing #ward-detail { position: static; overflow: visible; }
-  html.ward-printing .ward-detail-inner { break-inside: avoid; }
+  html.ward-printing #ward-detail { position: static; overflow: visible; background: #fff; }
+  html.ward-printing #ward-detail.sheet .ward-detail-inner { position: relative; break-inside: avoid; }
 }
 /* overlay shown once the PDF is ready (iPad) */
 #wd-pdf-ready { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 5000; }

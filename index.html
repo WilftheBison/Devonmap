@@ -107,29 +107,40 @@
   <main id="map"></main>
 
   <div id="ward-detail" class="hidden">
+    <div class="ward-detail-top">
+      <button id="ward-detail-back" class="text-button back-button">&larr; Back to map</button>
+      <button id="ward-detail-print" class="text-button wd-print-btn" title="Print this page on one A4 sheet, landscape">Print (A4)</button>
+    </div>
     <div class="ward-detail-inner">
-      <div class="ward-detail-top">
-        <button id="ward-detail-back" class="text-button back-button">&larr; Back to map</button>
-        <button id="ward-detail-print" class="text-button wd-print-btn" title="Print this page on one A4 sheet, landscape">Print (A4)</button>
-      </div>
       <h1 id="ward-detail-name"></h1>
       <p id="ward-detail-parent" class="ward-detail-parent"></p>
+      <p id="ward-detail-summary" class="wd-sheet-only"></p>
 
-      <section class="ward-detail-section" id="ward-detail-map-section">
+      <section class="ward-detail-section wd-col wd-sheet-only" id="wd-last">
+        <h2 id="wd-last-title">Last election</h2>
+        <div id="wd-last-body"></div>
+      </section>
+
+      <section class="ward-detail-section wd-sheet-only" id="ward-detail-map-section">
         <div id="ward-detail-map"></div>
         <p class="wd-map-note">Ward boundary in red; neighbouring wards in grey. Base map &copy; OpenStreetMap contributors.</p>
       </section>
 
-      <section class="ward-detail-section" id="ward-detail-data-section">
+      <section class="ward-detail-section wd-col wd-sheet-only" id="wd-prev">
+        <h2 id="wd-prev-title">Previous election</h2>
+        <div id="wd-prev-body"></div>
+      </section>
+
+      <section class="ward-detail-section wd-const-only" id="ward-detail-data-section">
         <h2 id="ward-detail-data-title">Data</h2>
         <table id="ward-detail-data" class="popup-table"></table>
       </section>
 
-      <section class="ward-detail-section hidden" id="ward-detail-elections-section">
+      <section class="ward-detail-section wd-const-only" id="ward-detail-elections-section">
         <h2>Elections</h2>
         <div id="ward-detail-elections"></div>
       </section>
-      <p id="ward-detail-print-date"></p>
+      <p id="ward-detail-print-date" class="wd-sheet-only"></p>
     </div>
   </div>
 
@@ -137,6 +148,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-<script src="app.js?v=14"></script>
+<script src="app.js?v=15"></script>
 </body>
 </html>

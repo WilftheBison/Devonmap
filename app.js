@@ -519,65 +519,70 @@ function electionSection(title, res, wardLabel) {
   return `<div class="elec-block"><h3>${escapeHtml(title)}${res && res.date ? `, ${escapeHtml(res.date)}` : ""}${wardLabel ? ` <span class="dim">(2019 ward: ${escapeHtml(wardLabel)})</span>` : ""}</h3>${resultTable(res, false)}</div>`;
 }
 
+/** Plain-text list of the ward's figures, for the line under the ward's name. */
+function wardSummaryText(wname, ew) {
+  const parts = [];
+  const rec = pinnedData && pinnedData[normalizeName(wname)];
+  const tt = topTenData && topTenData[normalizeName(wname)];
+  const code = (ew && ew.code) || (tt && tt.code);
+  const has = (c) => rec && rec[c] !== undefined && rec[c] !== "";
+  if (has("total_residents")) parts.push(`${fmtN(rec.total_residents)} residents (2021)`);
+  if (households && code && households[code]) parts.push(`${fmtN(households[code])} households`);
+  if (has("pct_aged_50_plus")) parts.push(`${rec.pct_aged_50_plus}% aged 50+`);
+  if (has("pct_AB_equivalent")) parts.push(`${rec.pct_AB_equivalent}% AB-equivalent`);
+  if (has("pct_routine_manual")) parts.push(`${rec.pct_routine_manual}% routine/manual`);
+  if (rec) for (const col of pinnedColumns) {
+    if (["ward", "district", "total_residents", "pct_aged_50_plus", "pct_AB_equivalent", "pct_routine_manual"].includes(col) || !has(col)) continue;
+    parts.push(`${friendlyLabel(col)}: ${rec[col]}`);
+  }
+  if (tt) {
+    parts.push(`${tt.seats} councillor${tt.seats == 1 ? "" : "s"} (${fmtN(tt.rps)} residents per seat)`);
+    const rl = (l) => l.map((r) => `#${r.rank} in ${r.constituency}`).join(" and ");
+    if (tt.share.length) parts.push(`working-class share ${rl(tt.share)}`);
+    if (tt.seat.length) parts.push(`cheapest seat ${rl(tt.seat)}`);
+  }
+  const rr = rucRec(wname);
+  if (rr) parts.push("rural-urban (2011): " + Object.entries(rr.mix).filter(([, v]) => v >= 0.5)
+    .map(([k, v]) => `${rucClasses[k] || k} ${Math.round(v)}%`).join(" / "));
+  return parts.join(", ");
+}
+
+function wdElectionBlock(res, wardLabel) {
+  return `<div class="elec-block"><h3>${res && res.date ? escapeHtml(res.date) : ""}${wardLabel ? ` <span class="dim">(2019 ward: ${escapeHtml(wardLabel)})</span>` : ""}</h3>${resultTable(res, false)}</div>`;
+}
+
 function openWardDetail(name) {
   const feature = findWardFeature(name);
   if (!feature) return;
   const wname = feature.properties.name;
   const ew = elecWard(wname);
+  const box = document.getElementById("ward-detail");
+  box.classList.add("sheet");
 
   document.getElementById("ward-detail-name").textContent = wname;
   const parent = ew ? `District: ${ew.district} · Constituency: ${ew.constituency}`
     : `${MODES[currentMode].midParentLabel}: ${feature.properties[MODES[currentMode].wardParentProp]}`;
   document.getElementById("ward-detail-parent").innerHTML = escapeHtml(parent) +
     ` &nbsp;<button class="text-button" onclick="openPostcodeMap('${wname.replace(/'/g, "\\'")}')">Postcode map &#8599;</button>`;
+  document.getElementById("ward-detail-summary").textContent = wardSummaryText(wname, ew);
 
-  const dataEl = document.getElementById("ward-detail-data");
-  let rows = "";
-  const tt = topTenData && topTenData[normalizeName(wname)];
-  if (tt) {
-    rows += `<tr><td>Working-class share</td><td>${tt.share.length ? rankList(tt.share) : "not in a top ten"}</td></tr>
-             <tr><td>Cheapest seat</td><td>${tt.seat.length ? rankList(tt.seat) : "not in a top ten"}</td></tr>`
-          + (tt.both.length ? `<tr><td>Both measures</td><td>${tt.both.map((b) => `#${b.crank} in ${escapeHtml(b.constituency)} (class #${b.share}, seat #${b.seat})`).join("<br>")}</td></tr>` : "")
-          + `<tr><td>Councillors (seats)</td><td>${tt.seats}</td></tr>
-             <tr><td>Residents per seat</td><td>${fmtN(tt.rps)}</td></tr>`;
-  }
-  if (pinnedData) {
-    const rec = pinnedData[normalizeName(wname)];
-    if (rec) {
-      for (const col of pinnedColumns) {
-        if (col === "district" && ew) continue;   // already in the page header
-        if (rec[col] !== undefined && rec[col] !== "") {
-          rows += `<tr><td>${escapeHtml(friendlyLabel(col))}</td><td>${escapeHtml(rec[col])}</td></tr>`;
-        }
-      }
-    }
-  }
-  const code = (ew && ew.code) || (tt && tt.code);
-  if (households && code && households[code]) rows += `<tr><td>Households (2021)</td><td>${fmtN(households[code])}</td></tr>`;
-  const rr = rucRec(wname);
-  if (rr) rows += `<tr><td>Rural-urban (2011)</td><td>${rucMixHtml(rr)}</td></tr>`;
-  dataEl.innerHTML = rows || `<tr><td colspan="2" style="color:var(--text-dim);">No data for this ward.</td></tr>`;
-
-  const elEl = document.getElementById("ward-detail-elections");
+  const last = document.getElementById("wd-last-body"), prev = document.getElementById("wd-prev-body");
   if (ew) {
-    let h = `<p class="dim" style="margin:0 0 10px;">Councillors as elected: ${heldText(ew)}${ew.heldNote ? ` &middot; ${escapeHtml(ew.heldNote)}` : ""}</p>`;
-    h += electionSection("Last election", ew.last);
-    if (ew.prevNote) h += `<p class="dim" style="margin:14px 0 0;">${escapeHtml(ew.prevNote)}</p>`;
-    h += ew.prev.map((p) => electionSection("Previous election", p, p.ward)).join("");
-    if (!ew.prev.length && !ew.prevNote) h += `<p class="dim">No previous result on these boundaries.</p>`;
-    elEl.innerHTML = h;
+    last.innerHTML = `<p class="wd-held">Councillors as elected: ${heldText(ew)}${ew.heldNote ? ` &middot; ${escapeHtml(ew.heldNote)}` : ""}</p>` + wdElectionBlock(ew.last);
+    let h = ew.prevNote ? `<p class="dim wd-note">${escapeHtml(ew.prevNote)}</p>` : "";
+    h += ew.prev.map((p) => wdElectionBlock(p, p.ward)).join("");
+    if (!ew.prev.length && !ew.prevNote) h += `<p class="dim wd-note">No previous result on these boundaries.</p>`;
+    prev.innerHTML = h;
   } else {
-    elEl.innerHTML = `<p class="dim">No election results loaded for this ward.</p>`;
+    last.innerHTML = `<p class="dim wd-note">No election results loaded for this ward.</p>`;
+    prev.innerHTML = "";
   }
-  document.getElementById("ward-detail-elections-section").classList.remove("hidden");
-  document.getElementById("ward-detail-data-title").textContent = "Data";
-
-  document.getElementById("ward-detail-map-section").classList.remove("hidden");
-  document.getElementById("ward-detail-print").classList.remove("hidden");
-  document.getElementById("ward-detail").classList.remove("hidden");
-  document.getElementById("ward-detail").scrollTop = 0;
-  window.scrollTo(0, 0);
+  wdSetPrintDate();
+  box.classList.remove("hidden");
+  wdPlaceSheet();
   showWardMap(feature);
+  wdFitText();
+  fitWardMap();
 }
 window.openWardDetail = openWardDetail;
 
@@ -589,7 +594,7 @@ function showWardMap(feature) {
   if (!wdMap) {
     wdMap = L.map("ward-detail-map", {
       preferCanvas: true, zoomSnap: 0.25, zoomDelta: 0.5, scrollWheelZoom: false,
-      dragging: !L.Browser.mobile, tap: false, attributionControl: false,
+      tap: false, attributionControl: false,
     });
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, crossOrigin: true }).addTo(wdMap);
   }
@@ -613,9 +618,9 @@ function fitWardMap() {
 }
 
 /* ---------- A4 print of the full ward page ----------
-   One A4 landscape sheet: data, map, elections side by side. Computers use the browser's print.
-   On the iPad the home-screen app can't print, so the sheet is made into a PDF and handed to the
-   share sheet (Print, or Save to Files). */
+   The page is already an A4 landscape sheet; printing shows it at full size. Computers use the
+   browser's print. On the iPad the home-screen app can't print, so the sheet is made into a PDF
+   and handed to the share sheet (Print, or Save to Files). */
 function wdIsIOS() {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
@@ -630,43 +635,47 @@ function wdSetPrintDate() {
   document.getElementById("ward-detail-print-date").textContent =
     `Printed ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} · Devon map, wilfthebison.github.io/Devonmap`;
 }
-// Lay the page out as one A4 landscape sheet: shrink the text until the data and election
-// columns fit, then fit the map to its middle column.
-function wdLayoutSheet() {
+// Scale the sheet to fit the window, centred under the top bar.
+function wdPlaceSheet() {
+  const box = document.getElementById("ward-detail");
+  if (!box.classList.contains("sheet") || box.classList.contains("hidden")) return;
+  const inner = box.querySelector(".ward-detail-inner");
+  const topH = box.querySelector(".ward-detail-top").offsetHeight;
+  const pad = 22, W = 1062, H = 733;
+  const sc = Math.min((window.innerWidth - 2 * pad) / W, (window.innerHeight - topH - 2 * pad) / H);
+  inner.style.setProperty("--wdscale", sc);
+  inner.style.setProperty("--wdleft", Math.max(pad, (window.innerWidth - W * sc) / 2) + "px");
+  inner.style.setProperty("--wdtop", topH + pad + "px");
+}
+window.addEventListener("resize", () => { if (!document.documentElement.classList.contains("ward-printing")) wdPlaceSheet(); });
+
+// Shrink the text until both election columns fit; very long results lose all but the
+// most recent previous election rather than being cut off.
+function wdFitText() {
   const inner = document.querySelector(".ward-detail-inner");
-  const cols = [document.getElementById("ward-detail-data-section"), document.getElementById("ward-detail-elections-section")];
+  const cols = [document.getElementById("wd-last"), document.getElementById("wd-prev")];
   const fits = () => cols.every((c) => c.scrollHeight <= c.clientHeight + 1);
-  const prev = [...document.querySelectorAll("#ward-detail-elections .elec-block")].slice(1);
-  prev.forEach((n) => { n.style.display = ""; });
-  let fs = 12.5;
-  inner.style.setProperty("--wdfs", fs + "px");
-  while (!fits() && fs > 7) { fs -= 0.25; inner.style.setProperty("--wdfs", fs + "px"); }
-  if (!fits() && prev.length) {           // very long results: drop the previous election rather than cut it off
-    prev.forEach((n) => { n.style.display = "none"; });
-    fs = 12.5; inner.style.setProperty("--wdfs", fs + "px");
+  const extra = [...document.querySelectorAll("#wd-prev-body .elec-block")].slice(1);
+  const run = () => {
+    let fs = 12.5;
+    inner.style.setProperty("--wdfs", fs + "px");
     while (!fits() && fs > 7) { fs -= 0.25; inner.style.setProperty("--wdfs", fs + "px"); }
-  }
-  fitWardMap();
+  };
+  run();
+  if (!fits() && extra.length) { extra.forEach((n) => { n.style.display = "none"; }); run(); }
 }
 function wdStartSheet() {
   wdSetPrintDate();
-  const root = document.documentElement;
-  root.classList.add("ward-printing", "ward-light");
-  document.getElementById("ward-detail").scrollTop = 0;
-  wdLayoutSheet();
+  document.documentElement.classList.add("ward-printing");
 }
 function wdEndPrint() {
-  const root = document.documentElement;
-  root.classList.remove("ward-printing", "ward-light");
-  const inner = document.querySelector(".ward-detail-inner");
-  inner.style.removeProperty("--wdfs");
-  document.querySelectorAll("#ward-detail-elections .elec-block").forEach((n) => { n.style.display = ""; });
-  fitWardMap();
+  document.documentElement.classList.remove("ward-printing");
+  wdPlaceSheet();
 }
 function wardPrint() {
   if (wdIsIOS()) { wardPdf(); return; }
   wdStartSheet();
-  setTimeout(() => { window.print(); }, 700);   // give the map tiles a moment to load
+  setTimeout(() => { window.print(); }, 300);
 }
 window.addEventListener("afterprint", () => {
   if (document.documentElement.classList.contains("ward-printing")) wdEndPrint();
@@ -709,7 +718,7 @@ async function wardPdf() {
   try {
     await Promise.all([wdLoadScript("vendor/html2canvas.min.js"), wdLoadScript("vendor/jspdf.umd.min.js")]);
     wdStartSheet();
-    await new Promise((r) => setTimeout(r, 900));   // map tiles
+    await new Promise((r) => setTimeout(r, 300));
     const SC = 2, inner = document.querySelector(".ward-detail-inner");
     const o = inner.getBoundingClientRect();
     const W = Math.round(o.width), H = Math.round(o.height);
@@ -751,6 +760,7 @@ document.getElementById("ward-detail-print").addEventListener("click", wardPrint
 function openConstituencyDetail(name) {
   const c = E && E.constituencies[name];
   const feature = { properties: { name } };
+  document.getElementById("ward-detail").classList.remove("sheet");
   document.getElementById("ward-detail-name").textContent = name;
   document.getElementById("ward-detail-parent").textContent = c ? `MP: ${c.mp} (${partyName(c.party)})` : "Constituency";
   document.getElementById("ward-detail-data-title").textContent = "Constituency figures";
@@ -776,8 +786,6 @@ function openConstituencyDetail(name) {
   }
   document.getElementById("ward-detail-elections").innerHTML = h;
   document.getElementById("ward-detail-elections-section").classList.remove("hidden");
-  document.getElementById("ward-detail-map-section").classList.add("hidden");
-  document.getElementById("ward-detail-print").classList.add("hidden");
   document.getElementById("ward-detail").classList.remove("hidden");
   window.scrollTo(0, 0);
 }
