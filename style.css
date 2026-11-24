@@ -492,3 +492,44 @@ html, body {
 .popup-note { font-size: 11px; color: var(--text-dim); margin: 6px 0 4px; max-width: 340px; }
 .dim { color: var(--text-dim); font-weight: 400; }
 .leaflet-popup-content { margin: 12px 14px; }
+
+/* ---------- full ward page: map of the ward, and A4 print ---------- */
+.ward-detail-top { display: flex; justify-content: space-between; align-items: baseline; }
+.wd-print-btn { font-size: 13px; }
+#ward-detail-map { width: 100%; height: 560px; border: 1px solid var(--border); border-radius: 6px; background: #ddd; }
+#ward-detail-map-section { margin-bottom: 24px; }
+.wd-map-note { font-size: 11px; color: var(--text-dim); margin: 6px 0 0; }
+#ward-detail-print-date { display: none; font-size: 11px; color: var(--text-dim); margin-top: 24px; }
+html.ward-printing #ward-detail-print-date { display: block; }
+
+/* light colours, for the browser's print and for the iPad PDF snapshot */
+html.ward-light {
+  --bg-sidebar: #ffffff; --bg-sidebar-raised: #f3f4f6; --border: #d1d5db;
+  --text: #1f2937; --text-dim: #4b5563; --text-bright: #111827; --accent: #0f766e;
+}
+html.ward-light .elec-table td { border-bottom-color: #e5e7eb; }
+html.ward-light .elec-table .won-mark { color: #15803d; }
+html.ward-light .ward-detail-top, html.ward-light .ward-detail-parent .text-button,
+html.ward-light #ward-detail-map .leaflet-control-zoom { visibility: hidden; }
+html.ward-light .ward-detail-top { height: 0; margin: 0; overflow: hidden; }
+
+@media print {
+  @page { size: A4 portrait; margin: 12mm; }
+  html.ward-printing, html.ward-printing body { height: auto; background: #fff; }
+  html.ward-printing #app { display: block; height: auto; width: auto; overflow: visible; }
+  html.ward-printing #sidebar, html.ward-printing #map { display: none !important; }
+  html.ward-printing #ward-detail { position: static; overflow: visible; background: #fff; }
+  html.ward-printing .ward-detail-inner { max-width: none; width: 672px; margin: 0 auto; padding: 0; }
+  html.ward-printing .ward-detail-top { display: none; }
+  html.ward-printing #ward-detail-map { break-inside: avoid; }
+  html.ward-printing .elec-block, html.ward-printing #ward-detail-data tr { break-inside: avoid; }
+  html.ward-printing .ward-detail-section h2 { break-after: avoid; }
+}
+/* overlay shown once the PDF is ready (iPad) */
+#wd-pdf-ready { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 5000; }
+#wd-pdf-ready .box { background: var(--bg-sidebar-raised); color: var(--text-bright); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; max-width: 320px; text-align: center; font-size: 14px; }
+#wd-pdf-ready .box p { margin: 0 0 12px; color: var(--text); }
+#wd-pdf-ready .box button, #wd-pdf-ready .box a { display: block; width: 100%; margin-top: 8px; padding: 10px; border-radius: 8px; font-size: 15px; cursor: pointer; text-decoration: none; box-sizing: border-box; }
+#wd-pdf-ready .go { background: var(--accent); color: #fff; border: none; }
+#wd-pdf-ready .cancel { background: none; color: var(--text-dim); border: 1px solid var(--border); }
+@media (max-width: 720px) { #ward-detail-map { height: 420px; } }

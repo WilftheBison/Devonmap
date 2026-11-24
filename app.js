@@ -572,10 +572,174 @@ function openWardDetail(name) {
   document.getElementById("ward-detail-elections-section").classList.remove("hidden");
   document.getElementById("ward-detail-data-title").textContent = "Data";
 
+  document.getElementById("ward-detail-map-section").classList.remove("hidden");
+  document.getElementById("ward-detail-print").classList.remove("hidden");
   document.getElementById("ward-detail").classList.remove("hidden");
+  document.getElementById("ward-detail").scrollTop = 0;
   window.scrollTo(0, 0);
+  showWardMap(feature);
 }
 window.openWardDetail = openWardDetail;
+
+/* ---------- map of the ward on the full ward page ----------
+   Plain base map, no colour overlay: the ward's boundary in red, zoomed to fit,
+   with the neighbouring wards' boundaries in grey for context. */
+let wdMap = null, wdLayer = null, wdBounds = null;
+function showWardMap(feature) {
+  if (!wdMap) {
+    wdMap = L.map("ward-detail-map", {
+      preferCanvas: true, zoomSnap: 0.25, zoomDelta: 0.5, scrollWheelZoom: false,
+      dragging: !L.Browser.mobile, tap: false, attributionControl: false,
+    });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, crossOrigin: true }).addTo(wdMap);
+  }
+  if (wdLayer) wdMap.removeLayer(wdLayer);
+  const key = normalizeName(feature.properties.name);
+  const all = cache.district.wardGeo ? cache.district.wardGeo.features : [feature];
+  const target = L.geoJSON(feature);
+  wdBounds = target.getBounds();
+  const near = wdBounds.pad(0.6);
+  const others = all.filter((f) => normalizeName(f.properties.name) !== key && near.intersects(L.geoJSON(f).getBounds()));
+  wdLayer = L.layerGroup([
+    L.geoJSON({ type: "FeatureCollection", features: others }, { interactive: false, style: { color: "#555", weight: 1.5, dashArray: "5 4", fill: false } }),
+    L.geoJSON(feature, { interactive: false, style: { color: "#d00000", weight: 4, opacity: 0.9, fill: false } }),
+  ]).addTo(wdMap);
+  fitWardMap();
+}
+function fitWardMap() {
+  if (!wdMap || !wdBounds) return;
+  wdMap.invalidateSize(false);
+  wdMap.fitBounds(wdBounds, { padding: [24, 24], animate: false });
+}
+
+/* ---------- A4 print of the full ward page ----------
+   Computers use the browser's print. On the iPad the home-screen app can't print, so the page
+   is made into an A4 PDF and handed to the share sheet (Print, or Save to Files). */
+function wdIsIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+function wdLoadScript(src) {
+  return new Promise((res, rej) => {
+    if (document.querySelector(`script[src="${src}"]`)) return res();
+    const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load " + src));
+    document.head.appendChild(s);
+  });
+}
+function wdSetPrintDate() {
+  document.getElementById("ward-detail-print-date").textContent =
+    `Printed ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} · Devon map, wilfthebison.github.io/Devonmap`;
+}
+let wdPrintStarted = 0;
+function wdEndPrint() {
+  document.documentElement.classList.remove("ward-printing", "ward-light");
+  fitWardMap();
+}
+function wardPrint() {
+  if (wdIsIOS()) { wardPdf(); return; }
+  wdSetPrintDate();
+  document.documentElement.classList.add("ward-printing", "ward-light");
+  document.getElementById("ward-detail").scrollTop = 0;
+  // the printed map is 672px wide; size and fit it to that before printing
+  const m = document.getElementById("ward-detail-map");
+  m.style.width = "672px"; fitWardMap();
+  wdPrintStarted = Date.now();
+  setTimeout(() => { window.print(); }, 400);   // give the map tiles a moment to load
+}
+window.addEventListener("afterprint", () => {
+  if (!document.documentElement.classList.contains("ward-printing")) return;
+  document.getElementById("ward-detail-map").style.width = "";
+  wdEndPrint();
+});
+function wdMapComposite(scale, origin) {
+  const el = document.getElementById("ward-detail-map"), r = el.getBoundingClientRect();
+  const c = document.createElement("canvas");
+  c.width = Math.round(r.width * scale); c.height = Math.round(r.height * scale);
+  const g = c.getContext("2d");
+  g.scale(scale, scale);
+  g.fillStyle = "#dddddd"; g.fillRect(0, 0, r.width, r.height);
+  el.querySelectorAll(".leaflet-tile-pane img.leaflet-tile-loaded, .leaflet-overlay-pane canvas").forEach((n) => {
+    const b = n.getBoundingClientRect();
+    if (b.right < r.left || b.left > r.right || b.bottom < r.top || b.top > r.bottom) return;
+    try { g.drawImage(n, b.left - r.left, b.top - r.top, b.width, b.height); } catch (e) { /* tile not readable: skip */ }
+  });
+  return { canvas: c, x: r.left - origin.left, y: r.top - origin.top, w: r.width, h: r.height };
+}
+function wdShowPdfReady(file, url, errMsg) {
+  const old = document.getElementById("wd-pdf-ready"); if (old) old.remove();
+  const ov = document.createElement("div"); ov.id = "wd-pdf-ready";
+  const canShare = file && navigator.canShare && navigator.canShare({ files: [file] });
+  ov.innerHTML = errMsg
+    ? `<div class="box"><p>${escapeHtml(errMsg)}</p><button class="cancel">Close</button></div>`
+    : `<div class="box"><p>Your A4 ward page is ready.</p>
+       ${canShare ? `<button class="go">Print or save&hellip;</button>` : `<a class="go" href="${url}" target="_blank" rel="noopener">Open PDF</a>`}
+       <button class="cancel">Close</button></div>`;
+  document.body.appendChild(ov);
+  const close = () => { ov.remove(); if (url) setTimeout(() => URL.revokeObjectURL(url), 60000); };
+  ov.querySelector(".cancel").addEventListener("click", close);
+  const go = ov.querySelector("button.go");
+  if (go) go.addEventListener("click", async () => {
+    try { await navigator.share({ files: [file], title: file.name }); close(); }
+    catch (e) { if (e && e.name === "AbortError") return; window.open(url, "_blank"); }
+  });
+}
+async function wardPdf() {
+  const btn = document.getElementById("ward-detail-print");
+  btn.disabled = true; btn.textContent = "Making PDF…";
+  const root = document.documentElement;
+  try {
+    await Promise.all([wdLoadScript("vendor/html2canvas.min.js"), wdLoadScript("vendor/jspdf.umd.min.js")]);
+    wdSetPrintDate();
+    root.classList.add("ward-printing", "ward-light");
+    await new Promise((r) => setTimeout(r, 150));
+    const SC = 2, inner = document.querySelector(".ward-detail-inner");
+    const o = inner.getBoundingClientRect();
+    const W = Math.ceil(o.width), H = Math.ceil(inner.scrollHeight);
+    // places a page may end without cutting through a line of a table or a heading
+    const breaks = [...inner.querySelectorAll("tr, .elec-block, .ward-detail-section, h3, p, #ward-detail-map-section")]
+      .map((n) => Math.round(n.getBoundingClientRect().bottom - o.top)).filter((v) => v > 0).sort((a, b) => a - b);
+    const mapImg = wdMapComposite(SC, o);
+    const shot = await window.html2canvas(inner, {
+      useCORS: true, backgroundColor: "#ffffff", scale: SC, width: W, height: H, windowWidth: window.innerWidth, logging: false,
+      ignoreElements: (el) => el.classList && el.classList.contains("leaflet-map-pane"),
+      onclone: (doc) => {
+        const d = doc.getElementById("ward-detail"); d.style.position = "static"; d.style.overflow = "visible";
+        doc.getElementById("sidebar").style.display = "none"; doc.getElementById("map").style.display = "none";
+        const a = doc.getElementById("app"); a.style.display = "block"; a.style.height = "auto"; a.style.overflow = "visible";
+      },
+    });
+    const g = shot.getContext("2d");
+    g.setTransform(1, 0, 0, 1, 0, 0);   // html2canvas leaves its scale on the context
+    g.drawImage(mapImg.canvas, mapImg.x * SC, mapImg.y * SC, mapImg.w * SC, mapImg.h * SC);
+    wdEndPrint();
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight(), M = 12;
+    const s = (pw - 2 * M) / W;                // mm per CSS px
+    const pageH = (ph - 2 * M) / s;            // CSS px per page
+    let top = 0, first = true;
+    while (top < H - 2) {
+      let end = Math.min(top + pageH, H);
+      if (end < H) { const ok = breaks.filter((b) => b > top + pageH * 0.5 && b <= top + pageH); if (ok.length) end = ok[ok.length - 1] + 4; }
+      const c = document.createElement("canvas");
+      c.width = shot.width; c.height = Math.round((end - top) * SC);
+      const cg = c.getContext("2d"); cg.fillStyle = "#fff"; cg.fillRect(0, 0, c.width, c.height);
+      cg.drawImage(shot, 0, Math.round(top * SC), shot.width, c.height, 0, 0, c.width, c.height);
+      if (!first) pdf.addPage();
+      pdf.addImage(c.toDataURL("image/jpeg", 0.92), "JPEG", M, M, W * s, (end - top) * s);
+      first = false; top = end;
+    }
+    const name = document.getElementById("ward-detail-name").textContent.replace(/[\\/:*?"<>|]/g, "-");
+    const blob = pdf.output("blob");
+    const file = new File([blob], `${name} ward A4.pdf`, { type: "application/pdf" });
+    wdShowPdfReady(file, URL.createObjectURL(blob));
+  } catch (e) {
+    wdEndPrint();
+    wdShowPdfReady(null, null, "Sorry, the PDF couldn't be made (" + (e && e.message ? e.message : e) + "). Check you're online and try again.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Print (A4)";
+  }
+}
+document.getElementById("ward-detail-print").addEventListener("click", wardPrint);
 
 /** Full page for a constituency: the popup's figures, the 2024 result and the notional 2019 result, and its wards. */
 function openConstituencyDetail(name) {
@@ -606,6 +770,8 @@ function openConstituencyDetail(name) {
   }
   document.getElementById("ward-detail-elections").innerHTML = h;
   document.getElementById("ward-detail-elections-section").classList.remove("hidden");
+  document.getElementById("ward-detail-map-section").classList.add("hidden");
+  document.getElementById("ward-detail-print").classList.add("hidden");
   document.getElementById("ward-detail").classList.remove("hidden");
   window.scrollTo(0, 0);
 }
